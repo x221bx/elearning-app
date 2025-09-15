@@ -1,4 +1,4 @@
-![Edudu – E-Learning for Kids](Cov<img width="1440" height="1130" alt="Cover" src="https://github.com/user-attachments/assets/70dda61a-6e6d-43b1-b85f-fcb89a9e787a" />
+![Edudu – E-Learning for Kids](<img width="1440" height="1130" alt="Cover" src="https://github.com/user-attachments/assets/70dda61a-6e6d-43b1-b85f-fcb89a9e787a" />
 # Edudu — E-Learning Platform
 
 A modern React application for kids’ e-learning that connects students with teachers and courses, with a clean MUI design, robust routing, and reusable components.
