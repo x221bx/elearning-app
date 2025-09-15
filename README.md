@@ -1,12 +1,23 @@
-# React + Vite
+![Edudu – E-Learning for Kids](Cover.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Edudu — E-Learning Platform
 
-Currently, two official plugins are available:
+A modern React application for kids’ e-learning that connects students with teachers and courses, with a clean MUI design, robust routing, and reusable components.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Teachers directory** with clickable cards → navigates to **/teachers/:id**.
+- **Teacher Detail** page with a two-column layout (sticky profile left; About/Certification/Courses right).
+- **Reusable yellow pagination** (2 courses per page on the detail view).
+- **Fallback languages** to **Arabic, English** if a teacher has none set.
+- **Auth pages**, wishlist/cart stubs, and an admin area for courses.
+- **Consistent layout & styling** via MUI theme and shared components.
 
-## Expanding the ESLint configuration
+## Tech Stack
+- React 18, Vite
+- React Router v6
+- MUI (Material UI)
+- Redux Toolkit
+- Context + custom hooks
+- Modular APIs in `src/api/*`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Project Structure (key)
