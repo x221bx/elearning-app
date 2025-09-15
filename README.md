@@ -1,4 +1,5 @@
-![Edudu – E-Learning for Kids](Cover.png)
+![Edudu – E-Learning for Kids](Cov<img width="1440" height="1130" alt="Cover" src="https://github.com/user-attachments/assets/70dda61a-6e6d-43b1-b85f-fcb89a9e787a" />
+er.png)
 
 # Edudu — E-Learning Platform
 
