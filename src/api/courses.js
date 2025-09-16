@@ -1,304 +1,1951 @@
-
-
 export const courses = [
   {
-    id: "c1", title: "Introduction to Math", image: "https://i.ibb.co/pLwV0g1/course1.png", teacherId: "t1", price: 50, category: "Math", rating: 4.8, lessonsCount: 15,
-    description: "A fun and interactive course for kids to learn fundamental math concepts like addition, subtraction, and basic geometry through games and puzzles.",
-    whatYoullLearn: ["Understand numbers and counting.", "Master basic arithmetic.", "Explore shapes and patterns.", "Solve simple word problems."],
-    courseOutline: [{ title: "Module 1: Number Fun", lessons: ["Counting to 100", "Adding with pictures", "Subtracting objects"] }, { title: "Module 2: Shape Adventures", lessons: ["Identifying 2D shapes", "Drawing shapes", "Introduction to 3D shapes"] }],
+    id: "c1",
+    title: "Number Ninjas",
+    category: "Math",
+    image: "https://picsum.photos/seed/course1/600/400",
+    price: 30,
+    rating: 4.1,
+    teacherId: "t1",
+    lessonsCount: 22,
+    description: "Interactive math made playful with games, puzzles, and real-life examples.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c2", title: "English for Beginners", image: "https://i.ibb.co/V3Q2bX8/course2.png", teacherId: "t2", price: 65, category: "English", rating: 4.9, lessonsCount: 20,
-    description: "This course helps young learners build a strong foundation in English. We'll focus on phonics, sight words, and simple sentence structures.",
-    whatYoullLearn: ["Learn the alphabet and their sounds.", "Read and write simple words.", "Build basic sentences.", "Expand vocabulary through stories."],
-    courseOutline: [{ title: "Module 1: The ABCs", lessons: ["Letters and sounds", "Vowels and consonants", "Short vowel words"] }, { title: "Module 2: Word Building", lessons: ["Sight words", "CVC words", "Reading simple books"] }],
+    id: "c2",
+    title: "Geometry Adventures",
+    category: "Math",
+    image: "https://picsum.photos/seed/course2/600/400",
+    price: 75,
+    rating: 4.3,
+    teacherId: "t1",
+    lessonsCount: 15,
+    description: "Interactive math made playful with games, puzzles, and real-life examples.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c3", title: "Kids Coding Fun", image: "https://i.ibb.co/8Y4f21F/course3.png", teacherId: "t3", price: 90, category: "Programming", rating: 4.7, lessonsCount: 18,
-    description: "An exciting introduction to coding for kids. They will learn computational thinking and problem-solving by creating their own games and animations.",
-    whatYoullLearn: ["Understand basic programming concepts.", "Create simple animated stories.", "Build your own mini-game.", "Develop logical thinking skills."],
-    courseOutline: [{ title: "Module 1: Coding Blocks", lessons: ["Introduction to block coding", "Sequences and loops", "Conditional statements"] }, { title: "Module 2: Game Development", lessons: ["Designing characters", "Adding movement", "Creating game levels"] }],
+    id: "c3",
+    title: "Math Puzzles & Logic",
+    category: "Math",
+    image: "https://picsum.photos/seed/course3/600/400",
+    price: 120,
+    rating: 4.2,
+    teacherId: "t1",
+    lessonsCount: 12,
+    description: "Interactive math made playful with games, puzzles, and real-life examples.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c4", title: "Creative Writing for Kids", image: "https://i.ibb.co/R9m4HqR/course7.png", teacherId: "t12", price: 45, category: "Writing", rating: 4.7, lessonsCount: 10,
-    description: "This course sparks imagination and helps kids write their own stories. We'll focus on building characters, creating plots, and using descriptive language.",
-    whatYoullLearn: ["Brainstorming story ideas.", "Developing characters and settings.", "Writing a simple plot.", "Using descriptive words."],
-    courseOutline: [{ title: "Module 1: The Story Arc", lessons: ["Introduction to story elements", "Creating a main character", "Setting the scene"] }, { title: "Module 2: Writing Your Story", lessons: ["Drafting the first chapter", "Editing and revising", "Sharing your story"] }],
+    id: "c4",
+    title: "Phonics Power",
+    category: "English",
+    image: "https://picsum.photos/seed/course4/600/400",
+    price: 50,
+    rating: 4.2,
+    teacherId: "t2",
+    lessonsCount: 25,
+    description: "Build reading, phonics, and writing confidence through stories and activities.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c5", title: "World History Adventures", image: "https://i.ibb.co/Wf2Y1fJ/course8.png", teacherId: "t7", price: 80, category: "History", rating: 4.8, lessonsCount: 15,
-    description: "A fun journey through history! This course uses interactive maps, animated stories, and historical facts to explore ancient civilizations and key events.",
-    whatYoullLearn: ["Discover ancient Egypt and its pyramids.", "Learn about the Roman Empire.", "Explore the world of knights and castles.", "Understand the timeline of human history."],
-    courseOutline: [{ title: "Module 1: Ancient Egypt", lessons: ["Life on the Nile", "The pharaohs and pyramids", "Egyptian gods and goddesses"] }, { title: "Module 2: The Roman Empire", lessons: ["The city of Rome", "Roman soldiers and generals", "Roman myths and legends"] }],
+    id: "c5",
+    title: "Story Builders",
+    category: "English",
+    image: "https://picsum.photos/seed/course5/600/400",
+    price: 45,
+    rating: 3.8,
+    teacherId: "t2",
+    lessonsCount: 20,
+    description: "Build reading, phonics, and writing confidence through stories and activities.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c6", title: "Spanish for Kids", image: "https://i.ibb.co/3W6qW21/course9.png", teacherId: "t8", price: 70, category: "Languages", rating: 4.7, lessonsCount: 12,
-    description: "An exciting introduction to the Spanish language. We'll learn basic vocabulary, phrases, and songs, and explore the cultures of Spanish-speaking countries.",
-    whatYoullLearn: ["Say hello and introduce yourself.", "Learn numbers and colors in Spanish.", "Sing simple Spanish songs.", "Discover new Spanish foods and traditions."],
-    courseOutline: [{ title: "Module 1: Basic Phrases", lessons: ["Greetings and farewells", "Asking 'how are you'", "Introductions"] }, { title: "Module 2: Vocabulary Fun", lessons: ["Numbers 1-10", "Colors and shapes", "Animals in Spanish"] }],
+    id: "c6",
+    title: "Grammar & Giggles",
+    category: "English",
+    image: "https://picsum.photos/seed/course6/600/400",
+    price: 160,
+    rating: 4.9,
+    teacherId: "t2",
+    lessonsCount: 25,
+    description: "Build reading, phonics, and writing confidence through stories and activities.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c7", title: "Robotics for Beginners", image: "https://i.ibb.co/8Y4f21F/course3.png", teacherId: "t9", price: 110, category: "Programming", rating: 4.9, lessonsCount: 22,
-    description: "Get started with robotics! This course teaches kids to build and program their own simple robots using easy-to-use kits and software.",
-    whatYoullLearn: ["Build a basic robot.", "Program robot movements.", "Use sensors and motors.", "Troubleshoot simple robotic problems."],
-    courseOutline: [{ title: "Module 1: Building a Bot", lessons: ["Robot parts and functions", "Assembling a robot kit", "Powering up the robot"] }, { title: "Module 2: Programming the Robot", lessons: ["Introduction to block-based programming", "Making the robot move", "Using a light sensor"] }],
+    id: "c7",
+    title: "Code Explorers",
+    category: "Programming",
+    image: "https://picsum.photos/seed/course7/600/400",
+    price: 50,
+    rating: 4.5,
+    teacherId: "t3",
+    lessonsCount: 25,
+    description: "Learn coding with kid-friendly tools by making games and mini-projects.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c8", title: "Digital Art & Design", image: "https://i.ibb.co/gV2T6hP/course5.png", teacherId: "t10", price: 80, category: "Art", rating: 5.0, lessonsCount: 15,
-    description: "Learn to create amazing digital art using simple software. This course covers graphic design basics, digital painting, and character design.",
-    whatYoullLearn: ["Use a digital drawing app.", "Create your own digital paintings.", "Design and color a character.", "Learn about digital art tools and layers."],
-    courseOutline: [{ title: "Module 1: Tools of the Trade", lessons: ["Introduction to digital art software", "Understanding layers", "Using brushes"] }, { title: "Module 2: Digital Painting", lessons: ["Coloring techniques", "Shading and highlights", "Creating a digital portrait"] }],
+    id: "c8",
+    title: "Game Makers",
+    category: "Programming",
+    image: "https://picsum.photos/seed/course8/600/400",
+    price: 85,
+    rating: 4.4,
+    teacherId: "t3",
+    lessonsCount: 25,
+    description: "Learn coding with kid-friendly tools by making games and mini-projects.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c9", title: "Fitness for Kids", image: "https://i.ibb.co/R9m4HqR/course7.png", teacherId: "t11", price: 60, category: "Health", rating: 4.5, lessonsCount: 10,
-    description: "A fun course that promotes an active and healthy lifestyle. Kids will learn about different sports, stretching, and simple exercises through games and challenges.",
-    whatYoullLearn: ["Learn basic warm-up exercises.", "Understand the importance of stretching.", "Practice coordination and balance.", "Discover new ways to be active."],
-    courseOutline: [{ title: "Module 1: Fun Warm-ups", lessons: ["Stretching exercises", "Jumping jacks and squats", "Running games"] }, { title: "Module 2: Sports Basics", lessons: ["Introduction to soccer", "Basketball dribbling", "Team sports"] }],
+    id: "c9",
+    title: "Algorithm Basics",
+    category: "Programming",
+    image: "https://picsum.photos/seed/course9/600/400",
+    price: 30,
+    rating: 4.4,
+    teacherId: "t3",
+    lessonsCount: 15,
+    description: "Learn coding with kid-friendly tools by making games and mini-projects.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c10", title: "Baking for Beginners", image: "https://i.ibb.co/hLqJt5S/teacher10.png", teacherId: "t14", price: 75, category: "Culinary", rating: 4.9, lessonsCount: 12,
-    description: "A delicious course that teaches kids how to bake simple, tasty treats. We'll cover kitchen safety, measuring ingredients, and decorating cookies and cupcakes.",
-    whatYoullLearn: ["Measure ingredients accurately.", "Knead dough for cookies.", "Bake cupcakes from scratch.", "Decorate with frosting and sprinkles."],
-    courseOutline: [{ title: "Module 1: Kitchen Safety & Tools", lessons: ["Understanding kitchen tools", "Measuring liquids and solids", "Oven safety"] }, { title: "Module 2: Baking Time", lessons: ["Making chocolate chip cookies", "Baking cupcakes", "Decorating cakes"] }],
+    id: "c10",
+    title: "Mini Scientists",
+    category: "Science",
+    image: "https://picsum.photos/seed/course10/600/400",
+    price: 25,
+    rating: 3.9,
+    teacherId: "t4",
+    lessonsCount: 22,
+    description: "Explore science with safe experiments and hands-on discoveries.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c11", title: "Math Puzzles & Games", image: "https://i.ibb.co/pLwV0g1/course1.png", teacherId: "t1", price: 55, category: "Math", rating: 4.9, lessonsCount: 18,
-    description: "A course designed to make math fun and engaging through a series of puzzles, riddles, and logic games. It challenges students to think critically and solve problems.",
-    whatYoullLearn: ["Develop logical thinking skills.", "Solve math riddles.", "Play math-based board games.", "Improve problem-solving abilities."],
-    courseOutline: [{ title: "Module 1: Logic Puzzles", lessons: ["Sudoku for kids", "Logic grids", "Number sequences"] }, { title: "Module 2: Math Games", lessons: ["Card games with numbers", "Dice games", "Online math challenges"] }],
+    id: "c11",
+    title: "Kitchen Chemistry",
+    category: "Science",
+    image: "https://picsum.photos/seed/course11/600/400",
+    price: 25,
+    rating: 4.2,
+    teacherId: "t4",
+    lessonsCount: 22,
+    description: "Explore science with safe experiments and hands-on discoveries.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c12", title: "Advanced English", image: "https://i.ibb.co/V3Q2bX8/course2.png", teacherId: "t2", price: 85, category: "English", rating: 4.8, lessonsCount: 25,
-    description: "For kids who have mastered the basics. This course focuses on complex sentence structures, advanced vocabulary, and creative writing techniques.",
-    whatYoullLearn: ["Master complex sentence building.", "Expand vocabulary with new words.", "Write short stories and poems.", "Improve reading comprehension."],
-    courseOutline: [{ title: "Module 1: Grammar and Sentences", lessons: ["Parts of speech review", "Complex sentences", "Punctuation"] }, { title: "Module 2: Creative Writing", lessons: ["Developing a plot", "Character building", "Writing a short story"] }],
+    id: "c12",
+    title: "Forces & Motion",
+    category: "Science",
+    image: "https://picsum.photos/seed/course12/600/400",
+    price: 30,
+    rating: 4.3,
+    teacherId: "t4",
+    lessonsCount: 20,
+    description: "Explore science with safe experiments and hands-on discoveries.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c13", title: "Introduction to 3D Printing", image: "https://i.ibb.co/8Y4f21F/course3.png", teacherId: "t3", price: 120, category: "Technology", rating: 4.7, lessonsCount: 15,
-    description: "This course introduces kids to the world of 3D printing. Students will learn to design simple 3D models using beginner-friendly software and watch their creations come to life.",
-    whatYoullLearn: ["Understand the basics of 3D printing.", "Design simple 3D models.", "Prepare a model for printing.", "Learn about different 3D printing materials."],
-    courseOutline: [{ title: "Module 1: Designing", lessons: ["Introduction to modeling software", "Creating simple shapes", "Combining objects"] }, { title: "Module 2: Printing", lessons: ["Slicing the model", "Preparing the 3D printer", "First print!"] }],
+    id: "c13",
+    title: "Color Lab",
+    category: "Art",
+    image: "https://picsum.photos/seed/course13/600/400",
+    price: 120,
+    rating: 4.3,
+    teacherId: "t5",
+    lessonsCount: 22,
+    description: "Express creativity with drawing, color theory, and mixed media projects.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c14", title: "Drawing & Painting Techniques", image: "https://i.ibb.co/gV2T6hP/course5.png", teacherId: "t4", price: 70, category: "Art", rating: 4.9, lessonsCount: 20,
-    description: "A comprehensive art course that delves into various drawing and painting techniques. Kids will experiment with different styles and improve their artistic skills.",
-    whatYoullLearn: ["Master shading and light.", "Learn perspective drawing.", "Experiment with watercolors and acrylics.", "Create realistic portraits."],
-    courseOutline: [{ title: "Module 1: Drawing Skills", lessons: ["Still life drawing", "Shading and texture", "Drawing portraits"] }, { title: "Module 2: Painting Fun", lessons: ["Watercolor techniques", "Acrylic painting", "Creating a landscape"] }],
+    id: "c14",
+    title: "Sketch & Shade",
+    category: "Art",
+    image: "https://picsum.photos/seed/course14/600/400",
+    price: 60,
+    rating: 4.8,
+    teacherId: "t5",
+    lessonsCount: 12,
+    description: "Express creativity with drawing, color theory, and mixed media projects.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c15", title: "Physics for Kids", image: "https://i.ibb.co/Wf2Y1fJ/course8.png", teacherId: "t15", price: 85, category: "Science", rating: 4.6, lessonsCount: 12,
-    description: "An exciting course that explores the fundamental laws of physics through fun, simple, and safe experiments. Kids will learn about gravity, motion, and energy.",
-    whatYoullLearn: ["Understand gravity and motion.", "Explore different types of energy.", "Build simple machines.", "Conduct hands-on physics experiments."],
-    courseOutline: [{ title: "Module 1: Motion and Forces", lessons: ["What is force", "Gravity experiments", "Building a ramp"] }, { title: "Module 2: Energy", lessons: ["Potential and kinetic energy", "Simple machines", "The power of wind"] }],
+    id: "c15",
+    title: "Watercolor Magic",
+    category: "Art",
+    image: "https://picsum.photos/seed/course15/600/400",
+    price: 55,
+    rating: 4.2,
+    teacherId: "t5",
+    lessonsCount: 18,
+    description: "Express creativity with drawing, color theory, and mixed media projects.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c16", title: "Classical Music Appreciation", image: "https://i.ibb.co/MpnH2j5/course6.png", teacherId: "t6", price: 65, category: "Music", rating: 4.8, lessonsCount: 15,
-    description: "A course to introduce children to the world of classical music. They'll learn about famous composers, instruments, and musical periods in a fun and engaging way.",
-    whatYoullLearn: ["Identify classical instruments.", "Learn about composers like Mozart and Beethoven.", "Recognize different musical periods.", "Understand the structure of a symphony."],
-    courseOutline: [{ title: "Module 1: Famous Composers", lessons: ["Meet Mozart", "The life of Beethoven", "The story of Bach"] }, { title: "Module 2: Instruments", lessons: ["The string family", "The wind family", "The percussion family"] }],
+    id: "c16",
+    title: "Simple Machines",
+    category: "Science",
+    image: "https://picsum.photos/seed/course16/600/400",
+    price: 85,
+    rating: 4.0,
+    teacherId: "t6",
+    lessonsCount: 18,
+    description: "Understand motion, forces, and energy with simple demos.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c17", title: "Ancient Rome", image: "https://i.ibb.co/Wf2Y1fJ/course8.png", teacherId: "t7", price: 75, category: "History", rating: 4.7, lessonsCount: 10,
-    description: "Take a trip back in time to the Roman Empire. This course covers Roman life, emperors, gladiators, and the famous Colosseum.",
-    whatYoullLearn: ["Learn about Roman daily life.", "Discover famous emperors.", "Understand the role of gladiators.", "Explore Roman architecture."],
-    courseOutline: [{ title: "Module 1: Life in Rome", lessons: ["The Roman Forum", "Homes and families", "Roman food"] }, { title: "Module 2: Roman Power", lessons: ["The Roman army", "The Colosseum and its games", "The fall of the Empire"] }],
+    id: "c17",
+    title: "Motion & Energy",
+    category: "Science",
+    image: "https://picsum.photos/seed/course17/600/400",
+    price: 45,
+    rating: 4.3,
+    teacherId: "t6",
+    lessonsCount: 12,
+    description: "Understand motion, forces, and energy with simple demos.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c18", title: "French for Beginners", image: "https://i.ibb.co/hLqJt5S/teacher10.png", teacherId: "t8", price: 70, category: "Languages", rating: 4.6, lessonsCount: 12,
-    description: "A fun and interactive introduction to the French language. We'll learn basic greetings, common phrases, and simple vocabulary through songs and games.",
-    whatYoullLearn: ["Say hello and goodbye.", "Introduce yourself in French.", "Learn numbers 1-20.", "Sing simple French songs."],
-    courseOutline: [{ title: "Module 1: Greetings", lessons: ["Hello and goodbye", "Formal and informal greetings", "Asking 'how are you'"] }, { title: "Module 2: Basic Vocabulary", lessons: ["Numbers 1-20", "Colors", "Animals"] }],
+    id: "c18",
+    title: "Light & Sound",
+    category: "Science",
+    image: "https://picsum.photos/seed/course18/600/400",
+    price: 90,
+    rating: 4.3,
+    teacherId: "t6",
+    lessonsCount: 12,
+    description: "Understand motion, forces, and energy with simple demos.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c19", title: "Robotics for Advanced", image: "https://i.ibb.co/hLqJt5S/teacher10.png", teacherId: "t9", price: 150, category: "Programming", rating: 5.0, lessonsCount: 30,
-    description: "For kids with some experience in coding and robotics. This course dives into more complex programming and robotics projects, including building and programming a robot arm.",
-    whatYoullLearn: ["Program complex robot movements.", "Use advanced sensors.", "Troubleshoot and debug code.", "Build a simple robot arm."],
-    courseOutline: [{ title: "Module 1: Advanced Programming", lessons: ["Conditional loops", "Functions and variables", "Using multiple sensors"] }, { title: "Module 2: Complex Robots", lessons: ["Building a robot arm", "Programming the arm to pick up objects", "Final project"] }],
+    id: "c19",
+    title: "Camera Basics",
+    category: "Photography",
+    image: "https://picsum.photos/seed/course19/600/400",
+    price: 95,
+    rating: 4.9,
+    teacherId: "t7",
+    lessonsCount: 18,
+    description: "Tell visual stories\u2014composition, lighting, and basic editing.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c20", title: "Fantasy Art", image: "https://i.ibb.co/pLwV0g1/course1.png", teacherId: "t10", price: 95, category: "Art", rating: 4.8, lessonsCount: 20,
-    description: "Unleash your imagination and learn to create magical fantasy worlds. This course covers drawing mythical creatures, enchanting landscapes, and heroic characters.",
-    whatYoullLearn: ["Draw fantasy creatures.", "Create magical landscapes.", "Design unique characters.", "Use color to create mood and atmosphere."],
-    courseOutline: [{ title: "Module 1: Creatures", lessons: ["Drawing dragons and griffins", "Designing a mythical beast", "Anatomy for fantasy creatures"] }, { title: "Module 2: Worlds", lessons: ["Creating magical forests", "Drawing castles and ancient ruins", "Fantasy illustration"] }],
+    id: "c20",
+    title: "Story in Pictures",
+    category: "Photography",
+    image: "https://picsum.photos/seed/course20/600/400",
+    price: 150,
+    rating: 4.6,
+    teacherId: "t7",
+    lessonsCount: 20,
+    description: "Tell visual stories\u2014composition, lighting, and basic editing.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c21", title: "Yoga for Kids", image: "https://i.ibb.co/V3Q2bX8/course2.png", teacherId: "t11", price: 50, category: "Health", rating: 4.6, lessonsCount: 10,
-    description: "A gentle and fun introduction to yoga for kids. This course teaches basic poses, breathing exercises, and mindfulness to help children stay calm and focused.",
-    whatYoullLearn: ["Learn basic yoga poses.", "Practice breathing exercises.", "Improve flexibility and balance.", "Develop a sense of mindfulness."],
-    courseOutline: [{ title: "Module 1: Basic Poses", lessons: ["Cat-cow stretch", "Tree pose", "Warrior pose"] }, { title: "Module 2: Breathing and Mindfulness", lessons: ["Belly breathing", "Guided meditation", "Listening to your body"] }],
+    id: "c21",
+    title: "Edit Like a Pro",
+    category: "Photography",
+    image: "https://picsum.photos/seed/course21/600/400",
+    price: 80,
+    rating: 3.8,
+    teacherId: "t7",
+    lessonsCount: 22,
+    description: "Tell visual stories\u2014composition, lighting, and basic editing.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c22", title: "Healthy Cooking", image: "https://i.ibb.co/3sX8c0p/teacher2.png", teacherId: "t14", price: 80, category: "Culinary", rating: 5.0, lessonsCount: 15,
-    description: "Learn to cook healthy and delicious meals. This course focuses on nutritious recipes, meal planning, and making smart food choices.",
-    whatYoullLearn: ["Prepare simple, healthy meals.", "Understand food groups.", "Learn to read a recipe.", "Cook a full meal from scratch."],
-    courseOutline: [{ title: "Module 1: Healthy Habits", lessons: ["Food groups", "Reading nutrition labels", "Meal planning basics"] }, { title: "Module 2: Cooking Time", lessons: ["Making a healthy salad", "Cooking a vegetable stir-fry", "A simple soup recipe"] }],
+    id: "c22",
+    title: "Spanish Starter",
+    category: "Languages",
+    image: "https://picsum.photos/seed/course22/600/400",
+    price: 120,
+    rating: 4.5,
+    teacherId: "t8",
+    lessonsCount: 20,
+    description: "Speak and play in new languages with songs and simple conversations.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c23", title: "Creative Storytelling", image: "https://i.ibb.co/hLqJt5S/teacher10.png", teacherId: "t12", price: 65, category: "Writing", rating: 4.8, lessonsCount: 12,
-    description: "A course designed to help kids become master storytellers. We will work on creating unique characters, building compelling worlds, and writing engaging dialogue.",
-    whatYoullLearn: ["Craft a strong character.", "Build a detailed world.", "Write dialogue that sounds real.", "Tell a story with a beginning, middle, and end."],
-    courseOutline: [{ title: "Module 1: Characters and Worlds", lessons: ["Character development", "Creating a fantasy map", "Writing from a character's perspective"] }, { title: "Module 2: Dialogue and Plot", lessons: ["Writing engaging dialogue", "Plot twists and suspense", "Finishing your story"] }],
+    id: "c23",
+    title: "French Fun",
+    category: "Languages",
+    image: "https://picsum.photos/seed/course23/600/400",
+    price: 75,
+    rating: 5.0,
+    teacherId: "t8",
+    lessonsCount: 18,
+    description: "Speak and play in new languages with songs and simple conversations.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c24", title: "Photography for Kids", image: "https://i.ibb.co/pLwV0g1/course1.png", teacherId: "t13", price: 85, category: "Art", rating: 4.8, lessonsCount: 10,
-    description: "Learn how to use a camera and take amazing photos. This course covers the basics of composition, lighting, and telling a story through pictures.",
-    whatYoullLearn: ["Hold a camera correctly.", "Understand basic lighting.", "Take a portrait photo.", "Edit photos for a better look."],
-    courseOutline: [{ title: "Module 1: Camera Basics", lessons: ["Camera parts", "Holding the camera steady", "Taking a good picture"] }, { title: "Module 2: Photo Story", lessons: ["Telling a story with photos", "Lighting tricks", "Basic editing"] }],
+    id: "c24",
+    title: "German Groove",
+    category: "Languages",
+    image: "https://picsum.photos/seed/course24/600/400",
+    price: 60,
+    rating: 3.8,
+    teacherId: "t8",
+    lessonsCount: 22,
+    description: "Speak and play in new languages with songs and simple conversations.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c25", title: "Math for the Real World", image: "https://i.ibb.co/pLwV0g1/course1.png", teacherId: "t1", price: 60, category: "Math", rating: 4.7, lessonsCount: 15,
-    description: "This course shows kids how math is used every day. We'll solve real-world problems related to money, time, and measurements.",
-    whatYoullLearn: ["Understand money management.", "Tell time and plan a schedule.", "Calculate measurements for recipes.", "Solve word problems with real-world scenarios."],
-    courseOutline: [{ title: "Module 1: Money Matters", lessons: ["Counting money", "Making change", "Saving money"] }, { title: "Module 2: Time and Measurement", lessons: ["Telling time on a clock", "Reading a calendar", "Measuring ingredients"] }],
+    id: "c25",
+    title: "Build a Bot",
+    category: "Programming",
+    image: "https://picsum.photos/seed/course25/600/400",
+    price: 50,
+    rating: 4.5,
+    teacherId: "t9",
+    lessonsCount: 12,
+    description: "Build and program simple robots using sensors and motors.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c26", title: "Public Speaking for Kids", image: "https://i.ibb.co/V3Q2bX8/course2.png", teacherId: "t2", price: 70, category: "Communication", rating: 4.9, lessonsCount: 12,
-    description: "Build confidence and learn to speak clearly in front of others. This course teaches public speaking basics, including body language, voice projection, and how to organize a speech.",
-    whatYoullLearn: ["Overcome public speaking fear.", "Organize a speech.", "Use body language effectively.", "Project your voice clearly."],
-    courseOutline: [{ title: "Module 1: Building Confidence", lessons: ["Deep breathing exercises", "Finding your voice", "Speaking to a mirror"] }, { title: "Module 2: Your First Speech", lessons: ["Choosing a topic", "Writing a simple speech", "Giving a presentation"] }],
+    id: "c26",
+    title: "Sensors & Motors",
+    category: "Programming",
+    image: "https://picsum.photos/seed/course26/600/400",
+    price: 75,
+    rating: 4.4,
+    teacherId: "t9",
+    lessonsCount: 15,
+    description: "Build and program simple robots using sensors and motors.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c27", title: "Game Design for Beginners", image: "https://i.ibb.co/8Y4f21F/course3.png", teacherId: "t3", price: 95, category: "Programming", rating: 4.8, lessonsCount: 20,
-    description: "This course teaches kids how to design their own video games using a simple and intuitive platform. We'll cover everything from character design to coding game mechanics.",
-    whatYoullLearn: ["Understand game design principles.", "Create game characters and levels.", "Code game rules and mechanics.", "Share your finished game with friends."],
-    courseOutline: [{ title: "Module 1: Game Design", lessons: ["What is a game", "Designing a character", "Creating a game world"] }, { title: "Module 2: Coding the Game", lessons: ["Adding movement", "Scoring and life points", "Finishing the game"] }],
+    id: "c27",
+    title: "Robot Challenges",
+    category: "Programming",
+    image: "https://picsum.photos/seed/course27/600/400",
+    price: 45,
+    rating: 4.5,
+    teacherId: "t9",
+    lessonsCount: 15,
+    description: "Build and program simple robots using sensors and motors.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c28", title: "Fantasy Drawing", image: "https://i.ibb.co/gV2T6hP/course5.png", teacherId: "t4", price: 85, category: "Art", rating: 5.0, lessonsCount: 18,
-    description: "A course to bring your imagination to life on paper. Learn to draw dragons, fairies, and other mythical creatures using a variety of drawing techniques.",
-    whatYoullLearn: ["Draw fantasy creatures.", "Create magical backgrounds.", "Shading and texture techniques.", "Use different drawing tools."],
-    courseOutline: [{ title: "Module 1: Creatures", lessons: ["Drawing dragons", "Designing fairies", "Sketching mythical beasts"] }, { title: "Module 2: Worlds", lessons: ["Drawing a magical forest", "Creating a fantasy castle", "Adding details and color"] }],
+    id: "c28",
+    title: "Drawing on Tablet",
+    category: "Art",
+    image: "https://picsum.photos/seed/course28/600/400",
+    price: 60,
+    rating: 3.8,
+    teacherId: "t10",
+    lessonsCount: 15,
+    description: "Create digital drawings, characters, and simple animations.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c29", title: "Astronomy for Kids", image: "https://i.ibb.co/9hX1T3s/course4.png", teacherId: "t5", price: 70, category: "Science", rating: 4.7, lessonsCount: 15,
-    description: "Explore the stars and planets! This course introduces kids to the basics of astronomy, including the solar system, constellations, and the Milky Way.",
-    whatYoullLearn: ["Identify planets in our solar system.", "Learn about stars and constellations.", "Understand day and night.", "Look at the moon and its phases."],
-    courseOutline: [{ title: "Module 1: Our Solar System", lessons: ["The Sun and its planets", "The moon and its phases", "Asteroids and comets"] }, { title: "Module 2: The Night Sky", lessons: ["Identifying constellations", "Finding the North Star", "The Milky Way"] }],
+    id: "c29",
+    title: "Character Design",
+    category: "Art",
+    image: "https://picsum.photos/seed/course29/600/400",
+    price: 60,
+    rating: 4.4,
+    teacherId: "t10",
+    lessonsCount: 18,
+    description: "Create digital drawings, characters, and simple animations.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c30", title: "Piano for Kids", image: "https://i.ibb.co/MpnH2j5/course6.png", teacherId: "t6", price: 90, category: "Music", rating: 4.9, lessonsCount: 20,
-    description: "Learn to play the piano! This course covers the basics of playing, from finger placement to reading simple sheet music and playing your first song.",
-    whatYoullLearn: ["Understand the piano keys.", "Learn to read simple sheet music.", "Play your first simple song.", "Practice good posture."],
-    courseOutline: [{ title: "Module 1: The Piano", lessons: ["Keyboard layout", "Finding middle C", "Finger exercises"] }, { title: "Module 2: Playing a Song", lessons: ["Reading simple notes", "Playing 'Twinkle, Twinkle'", "Playing 'Mary Had a Little Lamb'"] }],
+    id: "c30",
+    title: "Intro Animation",
+    category: "Art",
+    image: "https://picsum.photos/seed/course30/600/400",
+    price: 100,
+    rating: 4.9,
+    teacherId: "t10",
+    lessonsCount: 18,
+    description: "Create digital drawings, characters, and simple animations.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c31", title: "Ancient Greece", image: "https://i.ibb.co/hLqJt5S/teacher10.png", teacherId: "t7", price: 85, category: "History", rating: 4.8, lessonsCount: 12,
-    description: "A fun journey through ancient Greece. This course covers Greek myths, the Olympics, and famous philosophers, bringing history to life.",
-    whatYoullLearn: ["Discover Greek mythology.", "Learn about the first Olympic games.", "Meet famous Greek philosophers.", "Explore ancient Greek architecture."],
-    courseOutline: [{ title: "Module 1: Myths and Legends", lessons: ["The Greek gods", "Stories of heroes", "Myths of the gods"] }, { title: "Module 2: Daily Life", lessons: ["Life in Athens and Sparta", "The first Olympics", "Greek architecture"] }],
+    id: "c31",
+    title: "Move & Stretch",
+    category: "Health",
+    image: "https://picsum.photos/seed/course31/600/400",
+    price: 35,
+    rating: 4.6,
+    teacherId: "t11",
+    lessonsCount: 12,
+    description: "Move, stretch, and learn healthy routines through fun challenges.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c32", title: "German for Kids", image: "https://i.ibb.co/z5p1D2d/teacher13.png", teacherId: "t8", price: 65, category: "Languages", rating: 4.6, lessonsCount: 10,
-    description: "An interactive course to introduce kids to the German language. We'll learn greetings, common phrases, and simple vocabulary through games and songs.",
-    whatYoullLearn: ["Say hello and goodbye in German.", "Introduce yourself.", "Learn basic vocabulary.", "Sing simple German songs."],
-    courseOutline: [{ title: "Module 1: Greetings", lessons: ["Hello and goodbye", "Asking 'how are you'", "Introductions"] }, { title: "Module 2: Vocabulary", lessons: ["Numbers 1-10", "Animals", "Food"] }],
+    id: "c32",
+    title: "Healthy Habits",
+    category: "Health",
+    image: "https://picsum.photos/seed/course32/600/400",
+    price: 50,
+    rating: 3.8,
+    teacherId: "t11",
+    lessonsCount: 25,
+    description: "Move, stretch, and learn healthy routines through fun challenges.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c33", title: "Computer Science Principles", image: "https://i.ibb.co/hLqJt5S/teacher10.png", teacherId: "t9", price: 130, category: "Programming", rating: 4.8, lessonsCount: 25,
-    description: "A comprehensive course that introduces fundamental computer science principles, including algorithms, data structures, and the basics of how computers work.",
-    whatYoullLearn: ["Understand what an algorithm is.", "Learn about binary numbers.", "Explore different data types.", "Understand how the internet works."],
-    courseOutline: [{ title: "Module 1: Algorithms", lessons: ["Introduction to algorithms", "Sorting algorithms", "Searching algorithms"] }, { title: "Module 2: Data & The Internet", lessons: ["Binary and decimal", "Data types", "How the internet works"] }],
+    id: "c33",
+    title: "Balance & Coordination",
+    category: "Health",
+    image: "https://picsum.photos/seed/course33/600/400",
+    price: 110,
+    rating: 3.8,
+    teacherId: "t11",
+    lessonsCount: 10,
+    description: "Move, stretch, and learn healthy routines through fun challenges.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c34", title: "Fashion Illustration", image: "https://i.ibb.co/hLqJt5S/teacher10.png", teacherId: "t10", price: 90, category: "Art", rating: 5.0, lessonsCount: 20,
-    description: "For the young fashion designer! This course teaches kids how to sketch fashion figures, design outfits, and create a mini-collection of their own designs.",
-    whatYoullLearn: ["Draw fashion figures.", "Design outfits and accessories.", "Create a mood board.", "Develop your own unique style."],
-    courseOutline: [{ title: "Module 1: Sketching", lessons: ["Drawing a fashion figure", "Posing your model", "Sketching different fabrics"] }, { title: "Module 2: Designing", lessons: ["Creating a color palette", "Designing a mini-collection", "Presenting your designs"] }],
+    id: "c34",
+    title: "Creative Writing 101",
+    category: "Writing",
+    image: "https://picsum.photos/seed/course34/600/400",
+    price: 60,
+    rating: 3.7,
+    teacherId: "t12",
+    lessonsCount: 18,
+    description: "Create characters, worlds, and poems with guided prompts.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c35", title: "Mindfulness for Kids", image: "https://i.ibb.co/R9m4HqR/course7.png", teacherId: "t11", price: 45, category: "Health", rating: 4.7, lessonsCount: 8,
-    description: "A gentle course that teaches children simple mindfulness and meditation techniques to help them manage their emotions and focus better.",
-    whatYoullLearn: ["Practice mindful breathing.", "Learn to be present in the moment.", "Understand and name emotions.", "Relax your body and mind."],
-    courseOutline: [{ title: "Module 1: Breathing", lessons: ["Belly breathing", "Bubble breathing", "Mindful walking"] }, { title: "Module 2: Feelings", lessons: ["Naming your feelings", "Feeling your feelings", "Letting go of anger"] }],
+    id: "c35",
+    title: "World & Characters",
+    category: "Writing",
+    image: "https://picsum.photos/seed/course35/600/400",
+    price: 150,
+    rating: 4.1,
+    teacherId: "t12",
+    lessonsCount: 25,
+    description: "Create characters, worlds, and poems with guided prompts.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c36", title: "Creative Writing for Teens", image: "https://i.ibb.co/hLqJt5S/teacher10.png", teacherId: "t12", price: 80, category: "Writing", rating: 4.9, lessonsCount: 20,
-    description: "A course for young writers ready to take their skills to the next level. We'll explore different genres, from fantasy to mystery, and workshop your stories.",
-    whatYoullLearn: ["Explore different writing genres.", "Give and receive constructive feedback.", "Develop complex characters.", "Write a complete short story or a chapter of a novel."],
-    courseOutline: [{ title: "Module 1: Genres", lessons: ["Introduction to fantasy", "Writing a mystery", "Writing a short play"] }, { title: "Module 2: Workshop", lessons: ["Sharing your work", "Giving feedback", "Revising and editing"] }],
+    id: "c36",
+    title: "Poetry Lab",
+    category: "Writing",
+    image: "https://picsum.photos/seed/course36/600/400",
+    price: 80,
+    rating: 3.9,
+    teacherId: "t12",
+    lessonsCount: 10,
+    description: "Create characters, worlds, and poems with guided prompts.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c37", title: "Video Making for Kids", image: "https://i.ibb.co/pLwV0g1/course1.png", teacherId: "t13", price: 95, category: "Art", rating: 4.9, lessonsCount: 15,
-    description: "Learn to be a filmmaker! This course teaches kids how to plan, film, and edit their own short videos using a smartphone or tablet.",
-    whatYoullLearn: ["Plan a video script.", "Shoot a video with a phone.", "Edit video clips.", "Add music and effects."],
-    courseOutline: [{ title: "Module 1: Pre-Production", lessons: ["Creating a storyboard", "Writing a script", "Planning your shots"] }, { title: "Module 2: Production & Editing", lessons: ["Filming with a phone", "Using video editing software", "Adding music and text"] }],
+    id: "c37",
+    title: "Piano Pathway",
+    category: "Music",
+    image: "https://picsum.photos/seed/course37/600/400",
+    price: 25,
+    rating: 4.7,
+    teacherId: "t13",
+    lessonsCount: 22,
+    description: "Explore rhythm and melody\u2014play simple tunes and create songs.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c38", title: "Baking Advanced", image: "https://i.ibb.co/V3Q2bX8/course2.png", teacherId: "t14", price: 100, category: "Culinary", rating: 5.0, lessonsCount: 20,
-    description: "For kids who love to bake! This course covers more complex recipes like layered cakes, pies, and breads, teaching advanced techniques and food decoration.",
-    whatYoullLearn: ["Bake a layered cake.", "Make a perfect pie crust.", "Decorate with advanced techniques.", "Create your own unique dessert."],
-    courseOutline: [{ title: "Module 1: Cakes and Pies", lessons: ["Baking a layered cake", "Making a pie crust from scratch", "Pies and tarts"] }, { title: "Module 2: Breads and More", lessons: ["Baking a simple bread", "Decorating techniques", "Final project"] }],
+    id: "c38",
+    title: "Rhythm & Melody",
+    category: "Music",
+    image: "https://picsum.photos/seed/course38/600/400",
+    price: 65,
+    rating: 4.2,
+    teacherId: "t13",
+    lessonsCount: 18,
+    description: "Explore rhythm and melody\u2014play simple tunes and create songs.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c39", title: "Introduction to Chemistry", image: "https://i.ibb.co/9hX1T3s/course4.png", teacherId: "t5", price: 85, category: "Science", rating: 4.8, lessonsCount: 18,
-    description: "A fun and safe introduction to chemistry. Kids will learn about atoms, molecules, and chemical reactions through exciting, hands-on experiments.",
-    whatYoullLearn: ["Understand what an atom is.", "Learn about acids and bases.", "Perform a simple chemical reaction.", "Explore the states of matter."],
-    courseOutline: [{ title: "Module 1: The Basics", lessons: ["Atoms and molecules", "The periodic table", "The states of matter"] }, { title: "Module 2: Experiments", lessons: ["Making a volcano", "Mixing solutions", "Making slime"] }],
+    id: "c39",
+    title: "Make a Song",
+    category: "Music",
+    image: "https://picsum.photos/seed/course39/600/400",
+    price: 45,
+    rating: 3.7,
+    teacherId: "t13",
+    lessonsCount: 15,
+    description: "Explore rhythm and melody\u2014play simple tunes and create songs.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c40", title: "Geometry Adventures", image: "https://i.ibb.co/z5p1D2d/teacher13.png", teacherId: "t1", price: 70, category: "Math", rating: 4.8, lessonsCount: 15,
-    description: "Explore the world of shapes and sizes! This course makes geometry fun by using real-world examples to teach about lines, angles, and polygons.",
-    whatYoullLearn: ["Identify different shapes.", "Understand lines and angles.", "Calculate the area of simple shapes.", "Solve geometric puzzles."],
-    courseOutline: [{ title: "Module 1: Shapes", lessons: ["2D and 3D shapes", "Lines and angles", "Polygons"] }, { title: "Module 2: Measurement", lessons: ["Area and perimeter", "Volume", "Symmetry"] }],
+    id: "c40",
+    title: "Ancient Adventures",
+    category: "History",
+    image: "https://picsum.photos/seed/course40/600/400",
+    price: 80,
+    rating: 5.0,
+    teacherId: "t14",
+    lessonsCount: 25,
+    description: "Travel through time with interactive stories and projects.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c41", title: "Poetry for Kids", image: "https://i.ibb.co/3sX8c0p/teacher2.png", teacherId: "t2", price: 55, category: "English", rating: 4.9, lessonsCount: 10,
-    description: "Unleash your inner poet! This course introduces children to the world of poetry, from rhyming to free verse, helping them express their feelings through words.",
-    whatYoullLearn: ["Understand what poetry is.", "Write a rhyming poem.", "Use metaphors and similes.", "Perform your own poem."],
-    courseOutline: [{ title: "Module 1: The Basics", lessons: ["Rhyming words", "Rhythm and meter", "Types of poems"] }, { title: "Module 2: Writing Poems", lessons: ["Writing a poem about nature", "Writing a poem about feelings", "Performing your poem"] }],
+    id: "c41",
+    title: "World Explorers",
+    category: "History",
+    image: "https://picsum.photos/seed/course41/600/400",
+    price: 50,
+    rating: 3.9,
+    teacherId: "t14",
+    lessonsCount: 18,
+    description: "Travel through time with interactive stories and projects.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c42", title: "App Development", image: "https://i.ibb.co/8Y4f21F/course3.png", teacherId: "t3", price: 140, category: "Programming", rating: 4.9, lessonsCount: 25,
-    description: "A hands-on course where kids learn to build a simple mobile app. We'll use a beginner-friendly platform to design the interface and code the app's functions.",
-    whatYoullLearn: ["Design an app interface.", "Code the app's functions.", "Test and debug your app.", "Share your app with friends."],
-    courseOutline: [{ title: "Module 1: Design", lessons: ["App design basics", "Creating an app layout", "Designing icons"] }, { title: "Module 2: Coding", lessons: ["Coding app functions", "Adding buttons and text", "Testing your app"] }],
+    id: "c42",
+    title: "Time Travelers",
+    category: "History",
+    image: "https://picsum.photos/seed/course42/600/400",
+    price: 130,
+    rating: 3.9,
+    teacherId: "t14",
+    lessonsCount: 18,
+    description: "Travel through time with interactive stories and projects.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c43", title: "Animation Fundamentals", image: "https://i.ibb.co/gV2T6hP/course5.png", teacherId: "t10", price: 100, category: "Art", rating: 5.0, lessonsCount: 20,
-    description: "Learn how to make your drawings move! This course covers the basic principles of animation, from frame-by-frame drawing to creating a short animated story.",
-    whatYoullLearn: ["Understand the principles of animation.", "Create a flipbook animation.", "Use simple animation software.", "Create a short animated story."],
-    courseOutline: [{ title: "Module 1: The Basics", lessons: ["Flipbook animation", "Introduction to animation software", "Keyframes and timing"] }, { title: "Module 2: Your Animation", lessons: ["Drawing a character", "Creating a simple scene", "Making a short animated video"] }],
+    id: "c43",
+    title: "Bake & Decorate",
+    category: "Culinary",
+    image: "https://picsum.photos/seed/course43/600/400",
+    price: 150,
+    rating: 4.5,
+    teacherId: "t15",
+    lessonsCount: 15,
+    description: "Cook safely, measure accurately, and make tasty, healthy snacks.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c44", title: "Space Exploration", image: "https://i.ibb.co/9hX1T3s/course4.png", teacherId: "t5", price: 90, category: "Science", rating: 4.7, lessonsCount: 15,
-    description: "A thrilling course that takes kids on a journey through our solar system and beyond. We'll explore planets, galaxies, and the history of space travel.",
-    whatYoullLearn: ["Identify all the planets.", "Learn about space missions.", "Understand galaxies and black holes.", "Explore the history of space travel."],
-    courseOutline: [{ title: "Module 1: The Solar System", lessons: ["The Sun and its planets", "The moon and its phases", "Asteroids and comets"] }, { title: "Module 2: Deep Space", lessons: ["What is a galaxy", "Black holes and nebulas", "The search for life"] }],
+    id: "c44",
+    title: "Kitchen Basics",
+    category: "Culinary",
+    image: "https://picsum.photos/seed/course44/600/400",
+    price: 60,
+    rating: 4.9,
+    teacherId: "t15",
+    lessonsCount: 25,
+    description: "Cook safely, measure accurately, and make tasty, healthy snacks.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c45", title: "Music Production", image: "https://i.ibb.co/MpnH2j5/course6.png", teacherId: "t6", price: 110, category: "Music", rating: 4.9, lessonsCount: 20,
-    description: "For young music makers! This course teaches kids the basics of music production, from creating beats to recording simple melodies using free software.",
-    whatYoullLearn: ["Create a simple beat.", "Record your own voice or instrument.", "Use a digital audio workstation.", "Mix and master a simple track."],
-    courseOutline: [{ title: "Module 1: The Studio", lessons: ["Introduction to a DAW", "Creating a beat", "Recording vocals"] }, { title: "Module 2: The Final Product", lessons: ["Mixing tracks", "Adding effects", "Sharing your song"] }],
+    id: "c45",
+    title: "Healthy Snacks",
+    category: "Culinary",
+    image: "https://picsum.photos/seed/course45/600/400",
+    price: 30,
+    rating: 3.7,
+    teacherId: "t15",
+    lessonsCount: 12,
+    description: "Cook safely, measure accurately, and make tasty, healthy snacks.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c46", title: "American History", image: "https://i.ibb.co/hLqJt5S/teacher10.png", teacherId: "t7", price: 80, category: "History", rating: 4.8, lessonsCount: 15,
-    description: "A course that brings American history to life, from the American Revolution to the Civil Rights Movement. We'll explore key events and figures.",
-    whatYoullLearn: ["Learn about the American Revolution.", "Understand the Civil War.", "Discover key figures in American history.", "Explore the history of the United States."],
-    courseOutline: [{ title: "Module 1: The Revolution", lessons: ["The Boston Tea Party", "Paul Revere's ride", "The Declaration of Independence"] }, { title: "Module 2: The Civil War", lessons: ["Slavery in America", "Key battles", "Abraham Lincoln"] }],
+    id: "c46",
+    title: "3D Printing Basics",
+    category: "Technology",
+    image: "https://picsum.photos/seed/course46/600/400",
+    price: 110,
+    rating: 3.8,
+    teacherId: "t16",
+    lessonsCount: 25,
+    description: "Design, print, and build with beginner-friendly maker tools.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c47", title: "Italian for Kids", image: "https://i.ibb.co/z5p1D2d/teacher13.png", teacherId: "t8", price: 75, category: "Languages", rating: 4.7, lessonsCount: 12,
-    description: "An exciting introduction to the Italian language. We'll learn greetings, common phrases, and simple vocabulary through games and songs.",
-    whatYoullLearn: ["Say hello and goodbye in Italian.", "Introduce yourself.", "Learn basic vocabulary.", "Sing simple Italian songs."],
-    courseOutline: [{ title: "Module 1: Greetings", lessons: ["Hello and goodbye", "Asking 'how are you'", "Introductions"] }, { title: "Module 2: Vocabulary", lessons: ["Numbers 1-10", "Animals", "Food"] }],
+    id: "c47",
+    title: "Maker Projects",
+    category: "Technology",
+    image: "https://picsum.photos/seed/course47/600/400",
+    price: 65,
+    rating: 3.8,
+    teacherId: "t16",
+    lessonsCount: 20,
+    description: "Design, print, and build with beginner-friendly maker tools.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c48", title: "DIY Projects", image: "https://i.ibb.co/pLwV0g1/course1.png", teacherId: "t4", price: 65, category: "Art", rating: 4.9, lessonsCount: 10,
-    description: "A hands-on course that teaches kids how to create fun and useful DIY projects. We'll make things from paper, wood, and other simple materials.",
-    whatYoullLearn: ["Learn basic crafting skills.", "Make a paper airplane.", "Build a simple birdhouse.", "Create a custom notebook."],
-    courseOutline: [{ title: "Module 1: Paper Crafts", lessons: ["Making a paper airplane", "Origami basics", "Creating a paper boat"] }, { title: "Module 2: Wood Crafts", lessons: ["Safety with tools", "Building a birdhouse", "Painting and decorating"] }],
+    id: "c48",
+    title: "Circuits 101",
+    category: "Technology",
+    image: "https://picsum.photos/seed/course48/600/400",
+    price: 160,
+    rating: 4.4,
+    teacherId: "t16",
+    lessonsCount: 22,
+    description: "Design, print, and build with beginner-friendly maker tools.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c49", title: "Advanced Robotics", image: "https://i.ibb.co/hLqJt5S/teacher10.png", teacherId: "t9", price: 160, category: "Programming", rating: 5.0, lessonsCount: 25,
-    description: "For the robotics master! This course dives into advanced robotics, including programming a robot to navigate a maze and compete in a robotics competition.",
-    whatYoullLearn: ["Code a robot to navigate a maze.", "Use complex sensors.", "Troubleshoot and debug advanced code.", "Prepare for a robotics competition."],
-    courseOutline: [{ title: "Module 1: Advanced Navigation", lessons: ["Using sensors to navigate", "Mapping a maze", "Pathfinding algorithms"] }, { title: "Module 2: Competition Prep", lessons: ["Building a competition robot", "Programming for a competition", "Final project"] }],
+    id: "c49",
+    title: "Speak with Confidence",
+    category: "Communication",
+    image: "https://picsum.photos/seed/course49/600/400",
+    price: 75,
+    rating: 4.6,
+    teacherId: "t17",
+    lessonsCount: 25,
+    description: "Practice speaking clearly, presenting, and basic debate.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
   {
-    id: "c50", title: "Photography and Editing", image: "https://i.ibb.co/z5p1D2d/teacher13.png", teacherId: "t13", price: 100, category: "Art", rating: 4.9, lessonsCount: 15,
-    description: "A course that teaches kids both photography and basic photo editing. We'll cover composition, lighting, and how to use software to make your photos look great.",
-    whatYoullLearn: ["Master composition and lighting.", "Take professional-looking photos.", "Use photo editing software.", "Create a photo gallery."],
-    courseOutline: [{ title: "Module 1: Photography", lessons: ["Composition rules", "Understanding light", "Taking a portrait"] }, { title: "Module 2: Editing", lessons: ["Introduction to photo editing software", "Basic editing tools", "Creating a photo gallery"] }],
+    id: "c50",
+    title: "Debate Basics",
+    category: "Communication",
+    image: "https://picsum.photos/seed/course50/600/400",
+    price: 160,
+    rating: 4.1,
+    teacherId: "t17",
+    lessonsCount: 10,
+    description: "Practice speaking clearly, presenting, and basic debate.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
   },
+  {
+    id: "c51",
+    title: "Present Like a Pro",
+    category: "Communication",
+    image: "https://picsum.photos/seed/course51/600/400",
+    price: 55,
+    rating: 4.1,
+    teacherId: "t17",
+    lessonsCount: 18,
+    description: "Practice speaking clearly, presenting, and basic debate.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
+  },
+  {
+    id: "c52",
+    title: "Design an App",
+    category: "Programming",
+    image: "https://picsum.photos/seed/course52/600/400",
+    price: 95,
+    rating: 4.7,
+    teacherId: "t18",
+    lessonsCount: 25,
+    description: "Design and code simple mobile apps with visual tools.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
+  },
+  {
+    id: "c53",
+    title: "Build & Test",
+    category: "Programming",
+    image: "https://picsum.photos/seed/course53/600/400",
+    price: 65,
+    rating: 4.4,
+    teacherId: "t18",
+    lessonsCount: 10,
+    description: "Design and code simple mobile apps with visual tools.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
+  },
+  {
+    id: "c54",
+    title: "Publish & Share",
+    category: "Programming",
+    image: "https://picsum.photos/seed/course54/600/400",
+    price: 100,
+    rating: 4.1,
+    teacherId: "t18",
+    lessonsCount: 10,
+    description: "Design and code simple mobile apps with visual tools.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
+  },
+  {
+    id: "c55",
+    title: "Mindful Moments",
+    category: "Health",
+    image: "https://picsum.photos/seed/course55/600/400",
+    price: 120,
+    rating: 4.0,
+    teacherId: "t19",
+    lessonsCount: 25,
+    description: "Practice mindfulness, breathing, and kid-friendly yoga.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
+  },
+  {
+    id: "c56",
+    title: "Yoga for Focus",
+    category: "Health",
+    image: "https://picsum.photos/seed/course56/600/400",
+    price: 40,
+    rating: 3.8,
+    teacherId: "t19",
+    lessonsCount: 15,
+    description: "Practice mindfulness, breathing, and kid-friendly yoga.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
+  },
+  {
+    id: "c57",
+    title: "Calm & Kind",
+    category: "Health",
+    image: "https://picsum.photos/seed/course57/600/400",
+    price: 45,
+    rating: 4.9,
+    teacherId: "t19",
+    lessonsCount: 12,
+    description: "Practice mindfulness, breathing, and kid-friendly yoga.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
+  },
+  {
+    id: "c58",
+    title: "Maps & Globes",
+    category: "Geography",
+    image: "https://picsum.photos/seed/course58/600/400",
+    price: 160,
+    rating: 4.3,
+    teacherId: "t20",
+    lessonsCount: 20,
+    description: "Explore maps, planets, and constellations in a child-friendly way.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
+  },
+  {
+    id: "c59",
+    title: "Our Solar System",
+    category: "Geography",
+    image: "https://picsum.photos/seed/course59/600/400",
+    price: 45,
+    rating: 4.3,
+    teacherId: "t20",
+    lessonsCount: 10,
+    description: "Explore maps, planets, and constellations in a child-friendly way.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
+  },
+  {
+    id: "c60",
+    title: "Stargazing 101",
+    category: "Geography",
+    image: "https://picsum.photos/seed/course60/600/400",
+    price: 85,
+    rating: 3.6,
+    teacherId: "t20",
+    lessonsCount: 15,
+    description: "Explore maps, planets, and constellations in a child-friendly way.",
+    whatYoullLearn: [
+      "Core concepts explained simply",
+      "Interactive exercises",
+      "Real-world examples",
+      "Project-based learning"
+    ],
+    courseOutline: [
+      {
+        title: "Module 1",
+        lessons: [
+          "Lesson 1",
+          "Lesson 2"
+        ]
+      },
+      {
+        title: "Module 2",
+        lessons: [
+          "Lesson 3",
+          "Lesson 4"
+        ]
+      }
+    ]
+  }
 ];

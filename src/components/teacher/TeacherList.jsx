@@ -1,4 +1,4 @@
-// src/components/teacher/TeacherList.jsx
+
 import React, { useMemo, useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import TeacherCard from "./TeacherCard.jsx";
