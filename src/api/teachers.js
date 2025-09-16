@@ -1,22 +1,431 @@
-
 export const teachers = [
-  { id: "t1", name: "Alex Johnson", image: "https://i.ibb.co/L5T199H/teacher1.png", bio: "Passionate about making math fun and accessible for all children. With over 10 years of experience, Alex specializes in interactive and engaging lessons that build a strong foundation in core mathematical concepts.", rating: 4.8, coursesCount: 4 },
-  { id: "t2", name: "Sarah Williams", image: "https://i.ibb.co/3sX8c0p/teacher2.png", bio: "An English language expert dedicated to fostering a love for reading and writing. Sarah's creative approach to teaching phonics and grammar helps children become confident communicators and storytellers.", rating: 4.9, coursesCount: 5 },
-  { id: "t3", name: "David Chen", image: "https://i.ibb.co/hZ2p4q8/teacher3.png", bio: "A software engineer who simplifies complex coding concepts for young learners. David's courses use project-based learning to teach logical thinking and problem-solving through game development and app creation.", rating: 4.7, coursesCount: 3 },
-  { id: "t4", name: "Emily Davis", image: "https://i.ibb.co/T1c9Q9F/teacher4.png", bio: "An inspiring art teacher who believes every child is an artist. Emily guides students through various mediums, from watercolor to digital art, helping them express their unique creativity and build a portfolio of their work.", rating: 5.0, coursesCount: 4 },
-  { id: "t5", name: "Michael Brown", image: "https://i.ibb.co/LgL2g2C/teacher5.png", bio: "A science enthusiast who brings science to life with exciting experiments. Michael's hands-on approach encourages curiosity and critical thinking, covering topics from biology to physics in a fun and memorable way.", rating: 4.6, coursesCount: 3 },
-  { id: "t6", name: "Jessica White", image: "https://i.ibb.co/d2xL5Yx/teacher6.png", bio: "A professional musician with a heart for teaching. Jessica's music courses cover everything from basic notes to composing simple tunes, helping children discover the joy of music and rhythm.", rating: 4.9, coursesCount: 3 },
-  { id: "t7", name: "Chris Lee", image: "https://i.ibb.co/G0S8T97/teacher7.png", bio: "A history buff who makes the past feel like an adventure. Chris uses engaging storytelling and interactive projects to transport students to different eras, from ancient civilizations to modern history.", rating: 4.8, coursesCount: 2 },
-  { id: "t8", name: "Anna Rodriguez", image: "https://i.ibb.co/c8G2J7P/teacher8.png", bio: "A Spanish language expert who makes learning a new language a cultural journey. Anna's lessons focus on conversational skills, songs, and cultural activities that make learning fun and effective.", rating: 4.7, coursesCount: 3 },
-  { id: "t9", name: "Robert Taylor", image: "https://i.ibb.co/G3Xm8tG/teacher9.png", bio: "A skilled robotics instructor. Robert guides kids through building and programming their own robots, teaching them about mechanics, electronics, and problem-solving in a hands-on environment.", rating: 4.9, coursesCount: 2 },
-  { id: "t10", name: "Maria Garcia", image: "https://i.ibb.co/hLqJt5S/teacher10.png", bio: "A talented digital art instructor. Maria's courses help students master digital tools and software, creating vibrant characters, landscapes, and illustrations.", rating: 5.0, coursesCount: 3 },
-  { id: "t11", name: "James Wilson", image: "https://i.ibb.co/y4L2q4Y/teacher11.png", bio: "An experienced fitness coach for kids. James's courses promote a healthy and active lifestyle through fun exercises, games, and sports, teaching children about teamwork and physical well-being.", rating: 4.5, coursesCount: 2 },
-  { id: "t12", name: "Lisa Adams", image: "https://i.ibb.co/R2tS5x5/teacher12.png", bio: "A creative writing mentor. Lisa inspires young authors to develop their voice and craft compelling stories, focusing on character development, plot structure, and descriptive language.", rating: 4.7, coursesCount: 3 },
-  { id: "t13", name: "Ben Carter", image: "https://i.ibb.co/z5p1D2d/teacher13.png", bio: "A photography and videography teacher. Ben teaches kids how to use cameras to capture beautiful moments and tell visual stories, covering composition, lighting, and editing.", rating: 4.8, coursesCount: 2 },
-  { id: "t14", name: "Olivia Green", image: "https://i.ibb.co/hH4B1J1/teacher14.png", bio: "An expert in culinary arts for kids. Olivia's courses teach children about healthy cooking and baking, focusing on kitchen safety, measuring ingredients, and creating delicious recipes.", rating: 4.9, coursesCount: 2 },
-  { id: "t15", name: "Mark Miller", image: "https://i.ibb.co/f4y1g1f/teacher15.png", bio: "A fantastic physics teacher who uses simple machines and everyday objects to explain complex concepts. Mark's lessons are hands-on and encourage a love for scientific discovery.", rating: 4.6, coursesCount: 2 },
+  {
+    id: "t1",
+    name: "Amelia Scott",
+    image: "https://randomuser.me/api/portraits/women/32.jpg",
+    bio: "Creative math educator who turns numbers into games and puzzles for kids.",
+    subject: "Math",
+    rating: 4.9,
+    coursesCount: 3,
+    experienceYears: 9,
+    languages: [
+      "English",
+      "Arabic"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t2",
+    name: "Noah Thompson",
+    image: "https://randomuser.me/api/portraits/men/31.jpg",
+    bio: "English coach focusing on phonics and confident reading for young learners.",
+    subject: "English",
+    rating: 4.8,
+    coursesCount: 3,
+    experienceYears: 7,
+    languages: [
+      "English",
+      "Arabic"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t3",
+    name: "Layla Martinez",
+    image: "https://randomuser.me/api/portraits/women/36.jpg",
+    bio: "Beginner-friendly coding mentor\u2014builds logic through playful projects.",
+    subject: "Programming",
+    rating: 4.7,
+    coursesCount: 3,
+    experienceYears: 6,
+    languages: [
+      "English",
+      "Arabic",
+      "Spanish"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t4",
+    name: "Ethan Rivera",
+    image: "https://randomuser.me/api/portraits/men/34.jpg",
+    bio: "Science explainer who mixes safe experiments with storytelling.",
+    subject: "Science",
+    rating: 4.6,
+    coursesCount: 3,
+    experienceYears: 8,
+    languages: [
+      "English",
+      "Arabic"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t5",
+    name: "Grace Kim",
+    image: "https://randomuser.me/api/portraits/women/39.jpg",
+    bio: "Art teacher helping kids explore color, shape, and imagination.",
+    subject: "Art",
+    rating: 5.0,
+    coursesCount: 3,
+    experienceYears: 10,
+    languages: [
+      "English",
+      "Arabic",
+      "Korean"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t6",
+    name: "Omar Hassan",
+    image: "https://randomuser.me/api/portraits/men/38.jpg",
+    bio: "Physics for kids\u2014simple machines, motion, and fun demos.",
+    subject: "Physics",
+    rating: 4.7,
+    coursesCount: 3,
+    experienceYears: 11,
+    languages: [
+      "English",
+      "Arabic"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t7",
+    name: "Sophia Turner",
+    image: "https://randomuser.me/api/portraits/women/42.jpg",
+    bio: "Photography & video instructor\u2014composition and visual stories.",
+    subject: "Photography",
+    rating: 4.9,
+    coursesCount: 3,
+    experienceYears: 6,
+    languages: [
+      "English",
+      "Arabic"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t8",
+    name: "Luca Romano",
+    image: "https://randomuser.me/api/portraits/men/41.jpg",
+    bio: "Languages tutor turning vocabulary into songs and games.",
+    subject: "Languages",
+    rating: 4.6,
+    coursesCount: 3,
+    experienceYears: 9,
+    languages: [
+      "English",
+      "Arabic",
+      "Italian"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t9",
+    name: "Maya Patel",
+    image: "https://randomuser.me/api/portraits/women/45.jpg",
+    bio: "Robotics coach\u2014build and code simple bots step by step.",
+    subject: "Robotics",
+    rating: 4.8,
+    coursesCount: 3,
+    experienceYears: 7,
+    languages: [
+      "English",
+      "Arabic",
+      "Hindi"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t10",
+    name: "Daniel Green",
+    image: "https://randomuser.me/api/portraits/men/44.jpg",
+    bio: "Digital art & animation for kids using friendly tools.",
+    subject: "Digital Art",
+    rating: 5.0,
+    coursesCount: 3,
+    experienceYears: 10,
+    languages: [
+      "English",
+      "Arabic"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t11",
+    name: "Hannah Brooks",
+    image: "https://randomuser.me/api/portraits/women/50.jpg",
+    bio: "Health & fitness instructor\u2014movement, balance, and fun habits.",
+    subject: "Health",
+    rating: 4.7,
+    coursesCount: 3,
+    experienceYears: 6,
+    languages: [
+      "English",
+      "Arabic"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t12",
+    name: "Yusuf Ali",
+    image: "https://randomuser.me/api/portraits/men/47.jpg",
+    bio: "Creative writing mentor\u2014characters, settings, and voice.",
+    subject: "Writing",
+    rating: 4.9,
+    coursesCount: 3,
+    experienceYears: 8,
+    languages: [
+      "English",
+      "Arabic"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t13",
+    name: "Ava Nguyen",
+    image: "https://randomuser.me/api/portraits/women/53.jpg",
+    bio: "Music teacher\u2014rhythm, melody, and playful practice.",
+    subject: "Music",
+    rating: 4.8,
+    coursesCount: 3,
+    experienceYears: 9,
+    languages: [
+      "English",
+      "Arabic",
+      "Vietnamese"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t14",
+    name: "Jonas M\u00fcller",
+    image: "https://randomuser.me/api/portraits/men/49.jpg",
+    bio: "History guide\u2014interactive tours across time and place.",
+    subject: "History",
+    rating: 4.7,
+    coursesCount: 3,
+    experienceYears: 12,
+    languages: [
+      "English",
+      "Arabic",
+      "German"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t15",
+    name: "Fatima Zahra",
+    image: "https://randomuser.me/api/portraits/women/57.jpg",
+    bio: "Culinary coach\u2014healthy snacks and safe kitchen skills.",
+    subject: "Culinary",
+    rating: 4.9,
+    coursesCount: 3,
+    experienceYears: 7,
+    languages: [
+      "English",
+      "Arabic",
+      "French"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t16",
+    name: "Leo Carter",
+    image: "https://randomuser.me/api/portraits/men/52.jpg",
+    bio: "Technology tinkerer\u20143D printing and maker projects.",
+    subject: "Technology",
+    rating: 4.8,
+    coursesCount: 3,
+    experienceYears: 10,
+    languages: [
+      "English",
+      "Arabic"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t17",
+    name: "Zara Ahmed",
+    image: "https://randomuser.me/api/portraits/women/61.jpg",
+    bio: "Public speaking & communication for teens.",
+    subject: "Communication",
+    rating: 4.7,
+    coursesCount: 3,
+    experienceYears: 8,
+    languages: [
+      "English",
+      "Arabic",
+      "Urdu"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t18",
+    name: "Miles Johnson",
+    image: "https://randomuser.me/api/portraits/men/55.jpg",
+    bio: "App development with kid-friendly tools.",
+    subject: "App Development",
+    rating: 4.8,
+    coursesCount: 3,
+    experienceYears: 9,
+    languages: [
+      "English",
+      "Arabic"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t19",
+    name: "Nora Ibrahim",
+    image: "https://randomuser.me/api/portraits/women/64.jpg",
+    bio: "Mindfulness & yoga\u2014focus, calm, and body awareness.",
+    subject: "Wellbeing",
+    rating: 4.9,
+    coursesCount: 3,
+    experienceYears: 6,
+    languages: [
+      "English",
+      "Arabic"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  },
+  {
+    id: "t20",
+    name: "Victor Santos",
+    image: "https://randomuser.me/api/portraits/men/59.jpg",
+    bio: "Geography & astronomy\u2014maps, planets, and exploration.",
+    subject: "Geo & Space",
+    rating: 4.8,
+    coursesCount: 3,
+    experienceYears: 11,
+    languages: [
+      "English",
+      "Arabic",
+      "Portuguese"
+    ],
+    socials: {
+      facebook: "#",
+      instagram: "#",
+      twitter: "#",
+      linkedin: "#",
+      youtube: "#"
+    }
+  }
 ];
-
-export const getTeacherById = (id) => {
-  return teachers.find(teacher => teacher.id === id);
-};
