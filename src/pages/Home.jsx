@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
-// import pic1 from "../assets/images/pic1.jpg";
+
 import pic2 from "../assets/images/pic2.jpg";
 import { grey } from "@mui/material/colors";
 import pic3 from "../assets/images/pic3.png";
@@ -8,7 +8,7 @@ import pic4 from "../assets/images/pic4.png";
 import pic5 from "../assets/images/pic5.png";
 import pic6 from "../assets/images/pic6.png";
 import pic7 from "../assets/images/pic7.png";
-// import pic8 from "../assets/images/pic8.png";
+
 import pic9 from "../assets/images/pic9.png";
 import pic10 from "../assets/images/pic10.png"
 import pic11 from "../assets/images/pic11.png"
@@ -21,7 +21,7 @@ function Home() {
   return (
     <>
         <Navbar/>
-      {/* Section 1 */}
+    
       <Box
         sx={{
           minHeight: "100vh",
@@ -48,7 +48,7 @@ function Home() {
             bgcolor: "#ffffff",
           }}
         >
-          {/* Text */}
+        
           <Box
             sx={{
               flex: 1,

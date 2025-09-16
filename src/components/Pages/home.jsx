@@ -220,13 +220,6 @@ function Home() {
 
 
 
-
-
-
-
-
-
-      {/* Section 3 */}
       <Box
         sx={{
           minHeight: "100vh",
@@ -253,7 +246,7 @@ function Home() {
             bgcolor: "#ffffff",
           }}
         >
-          {/* Image */}
+        
           <Box
             sx={{
               flex: 1,

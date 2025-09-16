@@ -1,9 +1,15 @@
-//src/App.jsx
+
 import React from "react";
 import AppRoutes from "./routes/AppRoutes.jsx";
+import Navbar from "./components/common/navbar.jsx"; 
 
 function App() {
-    return <AppRoutes />;
+  return (
+    <>
+      <Navbar />
+      <AppRoutes />
+    </>
+  );
 }
 
 export default App;

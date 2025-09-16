@@ -1,4 +1,4 @@
-// src/pages/TeacherDetail.jsx
+
 import React, { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
