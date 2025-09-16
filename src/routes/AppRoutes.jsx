@@ -1,3 +1,4 @@
+//src/routs/AppRoutes.jsx
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Teachers from "../pages/Teachers.jsx";
