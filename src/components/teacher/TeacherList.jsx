@@ -26,23 +26,24 @@ export default function TeacherList({ teachers }) {
     return (
         <Box sx={{ display: "grid", gap: 2 }}>
             <Box
-                sx={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-                    gap: 2
-                }}
-            >
-                {paginated.map((t) => (
-                    <TeacherCard
-                        key={t.id}
-                        id={t.id}
-                        image={t.image}
-                        name={t.name}
-                        rating={t.rating}
-                        description={t.bio || t.description}
-                    />
-                ))}
-            </Box>
+  sx={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+    gap: 3, 
+  }}
+>
+  {paginated.map((t) => (
+    <TeacherCard
+      key={t.id}
+      id={t.id}
+      image={t.image}
+      name={t.name}
+      rating={t.rating}
+      description={t.bio || t.description}
+    />
+  ))}
+</Box>
+
 
             <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
                 <CustomPagination
