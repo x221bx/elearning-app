@@ -1,16 +1,13 @@
-// src/hooks/useAuth.js
-import { useDispatch, useSelector } from "react-redux";
-import { selectAuth, selectIsAdmin, setCredentials, logout } from "../redux/slices/authSlice";
 
-export default function useAuth() {
-    const dispatch = useDispatch();
-    const auth = useSelector(selectAuth);
-    const isAdmin = useSelector(selectIsAdmin);
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
-    return {
-        auth,
-        isAdmin,
-        setCredentials: (u) => dispatch(setCredentials(u)),
-        logout: () => dispatch(logout()),
-    };
+export function useAuth() {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+
+  return context;
 }

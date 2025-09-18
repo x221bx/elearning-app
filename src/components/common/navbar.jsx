@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   AppBar,
@@ -20,11 +19,23 @@ import RegisterModal from "../Pages/register";
 
 function Navbar() {
   const [anchorElMobile, setAnchorElMobile] = useState(null);
+  const [anchorElProfile, setAnchorElProfile] = useState(null);
+
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   const handleOpenMobile = (event) => setAnchorElMobile(event.currentTarget);
   const handleCloseMobile = () => setAnchorElMobile(null);
+
+  const handleOpenProfile = (event) => setAnchorElProfile(event.currentTarget);
+  const handleCloseProfile = () => setAnchorElProfile(null);
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    handleCloseProfile();
+  };
 
   return (
     <>
@@ -37,7 +48,6 @@ function Navbar() {
         }}
       >
         <Toolbar>
-        
           <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
             <Avatar sx={{ width: 45, height: 45, mr: 1 }} src={pic1} />
             <Typography variant="h6" sx={{ fontWeight: "bold" }}>
@@ -45,7 +55,6 @@ function Navbar() {
             </Typography>
           </Box>
 
-        
           <Box
             sx={{
               flexGrow: 2,
@@ -58,42 +67,58 @@ function Navbar() {
             <Button component={Link} to="/" sx={{ color: "black", fontWeight: "bold" }}>
               Home
             </Button>
-
             <Button component={Link} to="/courses" sx={{ color: "black", fontWeight: "bold" }}>
               Courses
             </Button>
-
             <Button component={Link} to="/teachers" sx={{ color: "black", fontWeight: "bold" }}>
               Teachers
             </Button>
-
             <Button sx={{ color: "black", fontWeight: "bold" }}>How to use</Button>
             <Button sx={{ color: "black", fontWeight: "bold" }}>About us</Button>
           </Box>
 
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Button
-              variant="contained"
-              sx={{
-                ml: 1,
-                backgroundColor: "#ebebd2ff",
-                color: "black",
-                boxShadow: "none",
-              }}
-              onClick={() => setOpenRegister(true)}
-            >
-              Sign Up
-            </Button>
-            <Button
-              variant="outlined"
-              sx={{ ml: 2, bgcolor: "#3e3a21ff", color: "white" }}
-              onClick={() => setOpenLogin(true)}
-            >
-              Login
-            </Button>
+            {!isLoggedIn ? (
+              <>
+                <Button
+                  variant="contained"
+                  sx={{
+                    ml: 1,
+                    backgroundColor: "#ebebd2ff",
+                    color: "black",
+                    boxShadow: "none",
+                  }}
+                  onClick={() => setOpenRegister(true)}
+                >
+                  Sign Up
+                </Button>
+                <Button
+                  variant="outlined"
+                  sx={{ ml: 2, bgcolor: "#3e3a21ff", color: "white" }}
+                  onClick={() => setOpenLogin(true)}
+                >
+                  Login
+                </Button>
+              </>
+            ) : (
+              <>
+                <IconButton onClick={handleOpenProfile} sx={{ p: 0 }}>
+                  <Avatar src={pic1} />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorElProfile}
+                  open={Boolean(anchorElProfile)}
+                  onClose={handleCloseProfile}
+                >
+                  <MenuItem component={Link} to="/wishlist" onClick={handleCloseProfile}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                </Menu>
+              </>
+            )}
           </Box>
 
-     
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton color="inherit" onClick={handleOpenMobile}>
               <MenuIcon />
@@ -115,30 +140,58 @@ function Navbar() {
               </MenuItem>
               <MenuItem onClick={handleCloseMobile}>How to use</MenuItem>
               <MenuItem onClick={handleCloseMobile}>About us</MenuItem>
-              <MenuItem
-                onClick={() => {
-                  setOpenLogin(true);
-                  handleCloseMobile();
-                }}
-              >
-                Login
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  setOpenRegister(true);
-                  handleCloseMobile();
-                }}
-              >
-                Sign Up
-              </MenuItem>
+
+              {!isLoggedIn ? (
+                <>
+                  <MenuItem
+                    onClick={() => {
+                      setOpenLogin(true);
+                      handleCloseMobile();
+                    }}
+                  >
+                    Login
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setOpenRegister(true);
+                      handleCloseMobile();
+                    }}
+                  >
+                    Sign Up
+                  </MenuItem>
+                </>
+              ) : (
+                <>
+                  <MenuItem component={Link} to="/wishlist" onClick={handleCloseMobile}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem component={Link} to="/cart" onClick={handleCloseMobile}>
+                    logout
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Log out</MenuItem>
+                </>
+              )}
             </Menu>
           </Box>
         </Toolbar>
       </AppBar>
 
- 
-      <LoginModal open={openLogin} onClose={() => setOpenLogin(false)} />
-      <RegisterModal open={openRegister} onClose={() => setOpenRegister(false)} />
+      <LoginModal
+        open={openLogin}
+        onClose={() => setOpenLogin(false)}
+        onLoginSuccess={() => {
+          setIsLoggedIn(true);
+          setOpenLogin(false);
+        }}
+      />
+      <RegisterModal
+        open={openRegister}
+        onClose={() => setOpenRegister(false)}
+        onRegisterSuccess={() => {
+          setIsLoggedIn(true);
+          setOpenRegister(false);
+        }}
+      />
     </>
   );
 }
