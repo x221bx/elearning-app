@@ -14,11 +14,11 @@ const MediaCard = ({ image, title, description }) => {
                 image={image}
                 title={title}
                 sx={{
-                    height: { xs: 100, sm: 120 }, // أصغر من قبل
-                    width: { xs: 120, sm: 140 },  // عرض أصغر
-                    objectFit: "contain",          // تحافظ على نسب الصورة
-                    mx: "auto",                    // توسيط الصورة
-                    mt: 2,                         // مسافة من فوق
+                    height: { xs: 100, sm: 120 },
+                    width: { xs: 120, sm: 140 },  
+                    objectFit: "contain",         
+                    mx: "auto",                    
+                    mt: 2,                         
                 }}
             />
 
