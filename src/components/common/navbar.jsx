@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import {
     AppBar, Box, Toolbar, Typography, Button, Menu, MenuItem,
-    IconButton, Avatar, Divider, ListItemIcon, Tooltip
+    IconButton, Avatar, Divider, ListItemIcon, Tooltip, Badge
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import useWishlist from "../../hooks/useWishlist";
+import useCart from "../../hooks/useCart";
 
 import pic1 from "../../assets/images/pic1.jpg";
 import LoginModal from "../Pages/login";
@@ -18,7 +20,10 @@ import useAuth, { isAdmin } from "../../hooks/useAuth";
 
 export default function Navbar() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { auth, logout } = useAuth();
+    const { wishlistItems } = useWishlist();
+    const { cartItems } = useCart();
     const user = auth?.email ? auth : null;
 
     const [anchorElMobile, setAnchorElMobile] = useState(null);
@@ -70,60 +75,91 @@ export default function Navbar() {
 
                     {/* Right side (desktop) */}
                     <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 1.25 }}>
-                        <IconButton component={Link} to="/search" aria-label="Search" size="small">
-                            <SearchIcon />
-                        </IconButton>
-                        <IconButton component={Link} to="/wishlist" aria-label="Wishlist" size="small">
-                            <FavoriteBorderIcon />
-                        </IconButton>
-                        <IconButton component={Link} to="/cart" aria-label="Cart" size="small">
-                            <ShoppingCartIcon />
-                        </IconButton>
-
-                        {!user ? (
+                        {user && (
                             <>
-                                <Button variant="contained" sx={{ ml: 1, backgroundColor: "#ebebd2ff", color: "black", boxShadow: "none" }} onClick={() => setOpenRegister(true)}>
-                                    Sign Up
-                                </Button>
-                                <Button variant="outlined" sx={{ ml: 2, bgcolor: "#3e3a21ff", color: "white" }} onClick={() => setOpenLogin(true)}>
-                                    Login
-                                </Button>
-                            </>
-                        ) : (
-                            <>
-                                <Tooltip title={user.name || user.email}>
-                                    <IconButton onClick={handleOpenUser} size="small">
+                                <IconButton
+                                    component={Link}
+                                    to="/wishlist"
+                                    aria-label="Wishlist"
+                                    size="small"
+                                    color={location.pathname === '/wishlist' ? 'secondary' : 'default'}
+                                    sx={{ '&:hover': { color: 'secondary.main' } }}
+                                >
+                                    <Badge
+                                        badgeContent={wishlistItems?.length || 0}
+                                        color="secondary"
+                                        max={99}
+                                    >
+                                        {location.pathname === '/wishlist' ?
+                                            <FavoriteIcon /> :
+                                            <FavoriteBorderIcon />
+                                        }
+                                    </Badge>
+                                </IconButton>
+                                <IconButton
+                                    component={Link}
+                                    to="/cart"
+                                    aria-label="Cart"
+                                    size="small"
+                                    color={location.pathname === '/cart' ? 'primary' : 'default'}
+                                    sx={{ '&:hover': { color: 'primary.main' } }}
+                                >
+                                    <Badge
+                                        badgeContent={cartItems?.length || 0}
+                                        color="primary"
+                                        max={99}
+                                    >
+                                        <ShoppingCartIcon />
+                                    </Badge>
+                                </IconButton>
 
-                                        <Avatar sx={{ width: 36, height: 36 }}>
-                                            {(user.name?.[0] || user.email?.[0] || "U").toUpperCase()}
-                                        </Avatar>
-                                    </IconButton>
-                                </Tooltip>
-                                <Menu anchorEl={anchorElUser} open={Boolean(anchorElUser)} onClose={handleCloseUser} keepMounted>
-                                    <MenuItem disabled>
-                                        <ListItemIcon><AccountCircle fontSize="small" /></ListItemIcon>
-                                        {user.name || user.email}
-                                    </MenuItem>
-                                    <Divider />
-                                    {isAdmin() && (
-                                        <MenuItem onClick={() => { handleCloseUser(); navigate("/admin"); }}>
-                                            Admin Dashboard
-                                        </MenuItem>
-                                    )}
-                                    <MenuItem onClick={() => { handleCloseUser(); navigate("/profile"); }}>
-                                        Profile
-                                    </MenuItem>
-                                    <Divider />
-                                    <MenuItem onClick={onLogout}>
-                                        <ListItemIcon><Logout fontSize="small" /></ListItemIcon>
-                                        Logout
-                                    </MenuItem>
-                                </Menu>
+                                {!user ? (
+                                    <>
+                                        <Button variant="contained" sx={{ ml: 1, backgroundColor: "#ebebd2ff", color: "black", boxShadow: "none" }} onClick={() => setOpenRegister(true)}>
+                                            Sign Up
+                                        </Button>
+                                        <Button variant="outlined" sx={{ ml: 2, bgcolor: "#3e3a21ff", color: "white" }} onClick={() => setOpenLogin(true)}>
+                                            Login
+                                        </Button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Tooltip title={user.name || user.email}>
+                                            <IconButton onClick={handleOpenUser} size="small">
+
+                                                <Avatar sx={{ width: 36, height: 36 }}>
+                                                    {(user.name?.[0] || user.email?.[0] || "U").toUpperCase()}
+                                                </Avatar>
+                                            </IconButton>
+                                        </Tooltip>
+                                        <Menu anchorEl={anchorElUser} open={Boolean(anchorElUser)} onClose={handleCloseUser} keepMounted>
+                                            <MenuItem disabled>
+                                                <ListItemIcon><AccountCircle fontSize="small" /></ListItemIcon>
+                                                {user.name || user.email}
+                                            </MenuItem>
+                                            <Divider />
+                                            {isAdmin() && (
+                                                <MenuItem onClick={() => { handleCloseUser(); navigate("/admin"); }}>
+                                                    Admin Dashboard
+                                                </MenuItem>
+                                            )}
+                                            <MenuItem onClick={() => { handleCloseUser(); navigate("/profile"); }}>
+                                                Profile
+                                            </MenuItem>
+                                            <Divider />
+                                            <MenuItem onClick={onLogout}>
+                                                <ListItemIcon><Logout fontSize="small" /></ListItemIcon>
+                                                Logout
+                                            </MenuItem>
+                                        </Menu>
+                                    </>
+                                )}
                             </>
                         )}
                     </Box>
 
-                     <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                    {/* Mobile menu */}
+                    <Box sx={{ display: { xs: "flex", md: "none" } }}>
                         <IconButton color="inherit" onClick={handleOpenMobile}><MenuIcon /></IconButton>
                         <Menu anchorEl={anchorElMobile} open={Boolean(anchorElMobile)} onClose={handleCloseMobile} keepMounted>
                             <MenuItem component={Link} to="/" onClick={handleCloseMobile}>Home</MenuItem>

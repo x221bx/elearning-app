@@ -5,6 +5,7 @@ import authReducer from "./slices/authSlice";
 import coursesReducer from "./slices/coursesSlice";
 import teachersReducer from "./slices/teachersSlice";
 import wishlistReducer from "./slices/wishlistSlice";
+import cartReducer from "./slices/cartSlice";
 
 // حفظ/قراءة من localStorage
 const PERSIST_KEY = "edudu:state:v1";
@@ -26,7 +27,7 @@ function saveState(state) {
             wishlist: state.wishlist,
         };
         localStorage.setItem(PERSIST_KEY, JSON.stringify(toSave));
-    } catch {}
+    } catch { }
 }
 
 const store = configureStore({
@@ -36,6 +37,7 @@ const store = configureStore({
         courses: coursesReducer,
         teachers: teachersReducer,
         wishlist: wishlistReducer,
+        cart: cartReducer,
     },
     preloadedState: loadState(),
     devTools: import.meta.env.MODE !== "production",

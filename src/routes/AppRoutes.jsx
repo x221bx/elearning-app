@@ -11,6 +11,8 @@ import AdminLayout from "../components/admin/AdminLayout.jsx";
 import AdminDashboard from "../pages/AdminDashboard.jsx";
 import AdminCourses from "../pages/AdminCourses.jsx";
 import AdminTeachers from "../pages/AdminTeachers.jsx";
+import WishlistPage from "../pages/Wishlist.jsx";
+import CartPage from "../pages/Cart.jsx";
 
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
@@ -24,9 +26,27 @@ export default function AppRoutes() {
             <Route path="/teachers/:id" element={<TeacherDetail />} />
 
             <Route
-                path="/admin"
+                path="/wishlist"
                 element={
                     <ProtectedRoute>
+                        <WishlistPage />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/cart"
+                element={
+                    <ProtectedRoute>
+                        <CartPage />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/admin"
+                element={
+                    <ProtectedRoute requireAdmin={true}>
                         <AdminLayout />
                     </ProtectedRoute>
                 }

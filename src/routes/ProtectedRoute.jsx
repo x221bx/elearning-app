@@ -1,9 +1,20 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { isAdmin } from "../hooks/useAuth";
+import useAuth, { isAdmin } from "../hooks/useAuth";
 
-// teacher = admin
-export default function ProtectedRoute({ children }) {
+export default function ProtectedRoute({ children, requireAdmin }) {
     const location = useLocation();
-    return isAdmin() ? children : <Navigate to="/" state={{ from: location }} replace />;
+    const { auth } = useAuth();
+
+    if (!auth) {
+        // Redirect to login if not authenticated
+        return <Navigate to="/auth" state={{ from: location }} replace />;
+    }
+
+    if (requireAdmin && !isAdmin()) {
+        // Redirect to home if admin access is required but user is not admin
+        return <Navigate to="/" replace />;
+    }
+
+    return children;
 }
