@@ -107,13 +107,9 @@ The application uses role-based authentication:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 👥 Authors
 
-- Your Name - Initial work
+ 
 
 ## 🙏 Acknowledgments
 
@@ -121,8 +117,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - React team for the amazing framework
 - All contributors who helped with the project
 
-License
-Add your preferred license (e.g., MIT) if you plan to distribute.
+
 
 makefile
 Copy code
