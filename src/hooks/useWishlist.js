@@ -16,8 +16,8 @@ import {
 export default function useWishlist() {
     const dispatch = useDispatch();
     const { auth } = useAuth();
-    const wishlistItems = useSelector(selectWishlistItems);
-    const enrolledCourses = useSelector(selectEnrolledCourses);
+    const wishlistItems = useSelector(selectWishlistItems) || [];
+    const enrolledCourses = useSelector(selectEnrolledCourses) || [];
 
     useEffect(() => {
         const userId = auth?.userId || 'guest';

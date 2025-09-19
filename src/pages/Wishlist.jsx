@@ -16,15 +16,28 @@ import { useNotification } from '../contexts/NotificationContext';
 
 export default function WishlistPage() {
     const navigate = useNavigate();
-    const { wishlistItems } = useWishlist();
-    const { courses } = useCourses();
+    const { wishlistItems, isInWishlist, toggleWishlist } = useWishlist();
+    const { courses, isLoading: coursesLoading } = useCourses();
     const { addItemToCart } = useCart();
     const { showNotification } = useNotification();
 
     // Get full course objects for items in wishlist
     const wishlistCourses = courses.filter(course =>
-        wishlistItems.includes(course.id)
+        Array.isArray(wishlistItems) && wishlistItems.includes(course.id)
     );
+
+    if (coursesLoading) {
+        return (
+            <Box sx={{
+                minHeight: '80vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}>
+                <Typography>Loading your wishlist...</Typography>
+            </Box>
+        );
+    }
 
     if (wishlistCourses.length === 0) {
         return (

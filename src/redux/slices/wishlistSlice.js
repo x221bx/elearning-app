@@ -31,10 +31,23 @@ const wishlistSlice = createSlice({
             const courseId = action.payload;
             state.enrolled = state.enrolled.filter((id) => id !== courseId);
         },
+        setWishlistItems(state, action) {
+            state.items = action.payload;
+        },
+        setEnrolledCourses(state, action) {
+            state.enrolled = action.payload;
+        },
     },
 });
 
-export const { addToWishlist, removeFromWishlist, enrollCourse, unenrollCourse } = wishlistSlice.actions;
+export const {
+    addToWishlist,
+    removeFromWishlist,
+    enrollCourse,
+    unenrollCourse,
+    setWishlistItems,
+    setEnrolledCourses
+} = wishlistSlice.actions;
 
 // Selectors
 export const selectWishlistState = (state) => state.wishlist;
