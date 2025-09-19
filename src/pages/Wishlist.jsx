@@ -7,13 +7,19 @@ import {
     Card,
     CardContent,
 } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import useWishlist from '../hooks/useWishlist';
 import useCourses from '../hooks/useCourses';
+import useCart from '../hooks/useCart';
 import CourseCard from '../components/course/CourseCard';
+import { useNotification } from '../contexts/NotificationContext';
 
 export default function WishlistPage() {
-    const { wishlistItems, handleEnrollment } = useWishlist();
+    const navigate = useNavigate();
+    const { wishlistItems } = useWishlist();
     const { courses } = useCourses();
+    const { addItemToCart } = useCart();
+    const { showNotification } = useNotification();
 
     // Get full course objects for items in wishlist
     const wishlistCourses = courses.filter(course =>
@@ -87,9 +93,16 @@ export default function WishlistPage() {
                                             fullWidth
                                             variant="contained"
                                             color="secondary"
-                                            onClick={() => handleEnrollment(course.id)}
+                                            onClick={() => {
+                                                addItemToCart({
+                                                    courseId: course.id,
+                                                    price: course.price
+                                                });
+                                                showNotification('Course added to cart', 'success');
+                                                navigate('/cart');
+                                            }}
                                         >
-                                            Enroll Now
+                                            Proceed to Enroll
                                         </Button>
                                     </CardContent>
                                 </Card>

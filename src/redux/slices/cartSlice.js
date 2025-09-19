@@ -20,13 +20,16 @@ const cartSlice = createSlice({
         clearCart(state) {
             state.items = [];
         },
+        setCartItems(state, action) {
+            state.items = action.payload;
+        },
         setPaymentProcessing(state, action) {
             state.paymentProcessing = action.payload;
         }
     },
 });
 
-export const { addToCart, removeFromCart, clearCart, setPaymentProcessing } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart, setCartItems, setPaymentProcessing } = cartSlice.actions;
 
 // Selectors
 export const selectCartState = (state) => state.cart;

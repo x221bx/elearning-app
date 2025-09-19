@@ -75,7 +75,7 @@ export default function Navbar() {
 
                     {/* Right side (desktop) */}
                     <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 1.25 }}>
-                        {user && (
+                        {user ? (
                             <>
                                 <IconButton
                                     component={Link}
@@ -112,48 +112,64 @@ export default function Navbar() {
                                         <ShoppingCartIcon />
                                     </Badge>
                                 </IconButton>
-
-                                {!user ? (
-                                    <>
-                                        <Button variant="contained" sx={{ ml: 1, backgroundColor: "#ebebd2ff", color: "black", boxShadow: "none" }} onClick={() => setOpenRegister(true)}>
-                                            Sign Up
-                                        </Button>
-                                        <Button variant="outlined" sx={{ ml: 2, bgcolor: "#3e3a21ff", color: "white" }} onClick={() => setOpenLogin(true)}>
-                                            Login
-                                        </Button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Tooltip title={user.name || user.email}>
-                                            <IconButton onClick={handleOpenUser} size="small">
-
-                                                <Avatar sx={{ width: 36, height: 36 }}>
-                                                    {(user.name?.[0] || user.email?.[0] || "U").toUpperCase()}
-                                                </Avatar>
-                                            </IconButton>
-                                        </Tooltip>
-                                        <Menu anchorEl={anchorElUser} open={Boolean(anchorElUser)} onClose={handleCloseUser} keepMounted>
-                                            <MenuItem disabled>
-                                                <ListItemIcon><AccountCircle fontSize="small" /></ListItemIcon>
-                                                {user.name || user.email}
-                                            </MenuItem>
-                                            <Divider />
-                                            {isAdmin() && (
-                                                <MenuItem onClick={() => { handleCloseUser(); navigate("/admin"); }}>
-                                                    Admin Dashboard
-                                                </MenuItem>
-                                            )}
-                                            <MenuItem onClick={() => { handleCloseUser(); navigate("/profile"); }}>
-                                                Profile
-                                            </MenuItem>
-                                            <Divider />
-                                            <MenuItem onClick={onLogout}>
-                                                <ListItemIcon><Logout fontSize="small" /></ListItemIcon>
-                                                Logout
-                                            </MenuItem>
-                                        </Menu>
-                                    </>
-                                )}
+                                <Tooltip title={user.name || user.email}>
+                                    <IconButton onClick={handleOpenUser} size="small">
+                                        <Avatar sx={{ width: 36, height: 36 }}>
+                                            {(user.name?.[0] || user.email?.[0] || "U").toUpperCase()}
+                                        </Avatar>
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu anchorEl={anchorElUser} open={Boolean(anchorElUser)} onClose={handleCloseUser} keepMounted>
+                                    <MenuItem disabled>
+                                        <ListItemIcon><AccountCircle fontSize="small" /></ListItemIcon>
+                                        {user.name || user.email}
+                                    </MenuItem>
+                                    <Divider />
+                                    {isAdmin() && (
+                                        <MenuItem onClick={() => { handleCloseUser(); navigate("/admin"); }}>
+                                            Admin Dashboard
+                                        </MenuItem>
+                                    )}
+                                    <MenuItem onClick={() => { handleCloseUser(); navigate("/profile"); }}>
+                                        Profile
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem onClick={onLogout}>
+                                        <ListItemIcon><Logout fontSize="small" /></ListItemIcon>
+                                        Logout
+                                    </MenuItem>
+                                </Menu>
+                            </>
+                        ) : (
+                            <>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: "#ebebd2ff",
+                                        color: "black",
+                                        boxShadow: "none",
+                                        '&:hover': {
+                                            backgroundColor: "#dddcc4"
+                                        }
+                                    }}
+                                    onClick={() => setOpenRegister(true)}
+                                >
+                                    Sign Up
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        ml: 1,
+                                        backgroundColor: "#3e3a21ff",
+                                        color: "white",
+                                        '&:hover': {
+                                            backgroundColor: "#2e2b18"
+                                        }
+                                    }}
+                                    onClick={() => setOpenLogin(true)}
+                                >
+                                    Login
+                                </Button>
                             </>
                         )}
                     </Box>

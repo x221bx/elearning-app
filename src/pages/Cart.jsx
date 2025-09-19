@@ -10,13 +10,22 @@ import {
     CircularProgress,
 } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useCart from '../hooks/useCart';
 import useCourses from '../hooks/useCourses';
+import { useNotification } from '../contexts/NotificationContext';
+import ConfirmDialog from '../components/common/ConfirmDialog';
 
 export default function CartPage() {
+    const navigate = useNavigate();
     const { cartItems, cartTotal, removeItemFromCart, handlePayment, isProcessing } = useCart();
     const { courses } = useCourses();
+    const { showNotification } = useNotification();
+
+    const [confirmDialog, setConfirmDialog] = React.useState({
+        open: false,
+        courseId: null
+    });
 
     // Get full course objects for items in cart
     const cartCourses = cartItems.map(item => ({
@@ -58,15 +67,29 @@ export default function CartPage() {
         try {
             const success = await handlePayment();
             if (success) {
-                // Show success message and redirect
-                alert('Payment successful! You are now enrolled in these courses.');
-                window.location.href = '/courses';
+                showNotification('Payment successful! You are now enrolled in these courses.', 'success');
+                navigate('/profile');
             } else {
-                alert('Payment failed. Please try again.');
+                showNotification('Payment failed. Please try again.', 'error');
             }
         } catch (error) {
             console.error('Payment error:', error);
-            alert('Payment failed. Please try again.');
+            showNotification('Payment failed. Please try again.', 'error');
+        }
+    };
+
+    const handleRemoveItem = (courseId) => {
+        setConfirmDialog({
+            open: true,
+            courseId
+        });
+    };
+
+    const confirmRemoveItem = () => {
+        if (confirmDialog.courseId) {
+            removeItemFromCart(confirmDialog.courseId);
+            showNotification('Item removed from cart', 'success');
+            setConfirmDialog({ open: false, courseId: null });
         }
     };
 
@@ -136,7 +159,7 @@ export default function CartPage() {
                                     </Typography>
 
                                     <IconButton
-                                        onClick={() => removeItemFromCart(course.id)}
+                                        onClick={() => handleRemoveItem(course.id)}
                                         color="error"
                                         size="small"
                                     >
@@ -203,6 +226,16 @@ export default function CartPage() {
                     </Box>
                 </Box>
             </Box>
+
+            <ConfirmDialog
+                open={confirmDialog.open}
+                onClose={() => setConfirmDialog({ open: false, courseId: null })}
+                onConfirm={confirmRemoveItem}
+                title="Remove from Cart"
+                message="Are you sure you want to remove this course from your cart?"
+                confirmText="Remove"
+                severity="warning"
+            />
         </Box>
     );
 }

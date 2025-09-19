@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import useCourses from "../../hooks/useCourses";
 import useTeachers from "../../hooks/useTeachers";
 import CustomPagination from "../common/customPagination";
+import ConfirmDialog from "../common/ConfirmDialog";
 
 import {
     palette, headerBarSx, tableContainerSx, tableHeadSx, tableRowSx,
@@ -23,6 +24,10 @@ export default function CourseTable({ onCreate }) {
     const { courses, removeCourse, updateCourse } = useCourses();
     const { teachers } = useTeachers();
 
+    const [confirmDelete, setConfirmDelete] = useState({
+        open: false,
+        courseId: null
+    });
     const [page, setPage] = useState(1);
     const perPage = isMobile ? 6 : 8;
     const pageCount = Math.max(1, Math.ceil(courses.length / perPage));
@@ -30,7 +35,7 @@ export default function CourseTable({ onCreate }) {
 
     // Edit state
     const [editing, setEditing] = useState(null);
-    const [form, setForm] = useState({ id:"", title:"", category:"", price:"", rating:"", image:"", teacherId:"" });
+    const [form, setForm] = useState({ id: "", title: "", category: "", price: "", rating: "", image: "", teacherId: "" });
 
     const onEdit = (c) => {
         setEditing(c.id);
@@ -107,8 +112,8 @@ export default function CourseTable({ onCreate }) {
                                                     style={{ width: 56, height: 36, objectFit: "cover", borderRadius: 6 }}
                                                 />
                                                 <span style={{ fontWeight: 600, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                          {c.title}
-                        </span>
+                                                    {c.title}
+                                                </span>
                                             </Box>
                                         </TableCell>
 
@@ -137,7 +142,11 @@ export default function CourseTable({ onCreate }) {
                                                 </IconButton>
                                             </Tooltip>
                                             <Tooltip title="Delete" arrow>
-                                                <IconButton color="error" onClick={() => removeCourse(c.id)} size="small">
+                                                <IconButton
+                                                    color="error"
+                                                    onClick={() => setConfirmDelete({ open: true, courseId: c.id })}
+                                                    size="small"
+                                                >
                                                     <DeleteOutline fontSize="small" />
                                                 </IconButton>
                                             </Tooltip>
@@ -159,7 +168,7 @@ export default function CourseTable({ onCreate }) {
                     </Table>
                 </TableContainer>
 
-                 {courses.length > 0 && (
+                {courses.length > 0 && (
                     <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
                         <CustomPagination
                             count={pageCount}
@@ -201,6 +210,21 @@ export default function CourseTable({ onCreate }) {
                     <Button variant="contained" onClick={onSave}>Save</Button>
                 </DialogActions>
             </Dialog>
+
+            <ConfirmDialog
+                open={confirmDelete.open}
+                onClose={() => setConfirmDelete({ open: false, courseId: null })}
+                onConfirm={() => {
+                    if (confirmDelete.courseId) {
+                        removeCourse(confirmDelete.courseId);
+                        setConfirmDelete({ open: false, courseId: null });
+                    }
+                }}
+                title="Delete Course"
+                message="Are you sure you want to delete this course? This action cannot be undone."
+                confirmText="Delete"
+                severity="error"
+            />
         </Card>
     );
 }

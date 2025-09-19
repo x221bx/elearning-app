@@ -8,18 +8,40 @@ export function AuthProvider({ children }) {
 
     // load from localStorage on mount
     useEffect(() => {
+        const userId = localStorage.getItem("userId");
         const email = localStorage.getItem("userEmail");
-        const name  = localStorage.getItem("userName");
-        const role  = localStorage.getItem("userRole") || "student";
-        if (email) setAuth({ email, name, role });
+        if (email) {
+            const name = localStorage.getItem("userName");
+            const role = localStorage.getItem("userRole") || "student";
+            setAuth({ userId, email, name, role });
+        }
     }, []);
 
     const setCredentials = useCallback(({ email, name, role }) => {
+        const userId = crypto.randomUUID(); // Generate unique userId
         const safeRole = role || "student";
-        if (email) localStorage.setItem("userEmail", email);
-        if (name)  localStorage.setItem("userName", name);
-        if (safeRole) localStorage.setItem("userRole", safeRole);
-        setAuth({ email, name, role: safeRole });
+        const normalizedEmail = email.toLowerCase();
+
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("userEmail", normalizedEmail);
+        if (name) localStorage.setItem("userName", name);
+        localStorage.setItem("userRole", safeRole);
+
+        setAuth({ userId, email: normalizedEmail, name, role: safeRole });
+
+        // Migrate guest data if exists
+        const guestCart = localStorage.getItem('cart:guest');
+        const guestWishlist = localStorage.getItem('wishlist:guest');
+
+        if (guestCart) {
+            localStorage.setItem(`cart:${userId}`, guestCart);
+            localStorage.removeItem('cart:guest');
+        }
+
+        if (guestWishlist) {
+            localStorage.setItem(`wishlist:${userId}`, guestWishlist);
+            localStorage.removeItem('wishlist:guest');
+        }
     }, []);
 
     const logout = useCallback(() => {

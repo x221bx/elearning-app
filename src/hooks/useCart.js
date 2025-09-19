@@ -1,10 +1,12 @@
-// src/hooks/useCart.js
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from 'react';
+import useAuth from './useAuth';
 import {
     addToCart,
     removeFromCart,
     clearCart,
     setPaymentProcessing,
+    setCartItems,
     selectCartItems,
     selectCartTotal,
     selectIsInCart,
@@ -14,18 +16,39 @@ import { enrollCourse } from "../redux/slices/wishlistSlice";
 
 export default function useCart() {
     const dispatch = useDispatch();
+    const { auth } = useAuth();
     const cartItems = useSelector(selectCartItems);
     const cartTotal = useSelector(selectCartTotal);
     const isProcessing = useSelector(selectPaymentProcessing);
 
+    // Load user-specific cart on auth change
+    useEffect(() => {
+        const userId = auth?.userId || 'guest';
+        const savedCart = localStorage.getItem(`cart:${userId}`);
+        if (savedCart) {
+            try {
+                const items = JSON.parse(savedCart);
+                dispatch(setCartItems(items));
+            } catch (e) {
+                console.error('Failed to load cart:', e);
+            }
+        }
+    }, [auth?.userId, dispatch]);
+
     const isInCart = (courseId) => cartItems.some(item => item.courseId === courseId);
 
     const addItemToCart = (course) => {
+        const userId = auth?.userId || 'guest';
         dispatch(addToCart(course));
+        const updatedItems = [...cartItems, course];
+        localStorage.setItem(`cart:${userId}`, JSON.stringify(updatedItems));
     };
 
     const removeItemFromCart = (courseId) => {
+        const userId = auth?.userId || 'guest';
         dispatch(removeFromCart(courseId));
+        const updatedItems = cartItems.filter(item => item.courseId !== courseId);
+        localStorage.setItem(`cart:${userId}`, JSON.stringify(updatedItems));
     };
 
     const handlePayment = async () => {

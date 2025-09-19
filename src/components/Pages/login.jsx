@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 
-const LS = { email:"userEmail", password:"userPassword", name:"userName", role:"userRole" };
+const LS = { email: "userEmail", password: "userPassword", name: "userName", role: "userRole" };
 
 export default function LoginModal({ open, onClose }) {
     const { setCredentials } = useAuth();
@@ -26,6 +26,8 @@ export default function LoginModal({ open, onClose }) {
 
     const submit = (e) => {
         e.preventDefault();
+        setErr({ mail: "", pass: "", auth: "" }); // Clear previous errors
+
         if (!email || !password) {
             setErr({
                 mail: !email ? "Email is required" : "",
@@ -35,7 +37,8 @@ export default function LoginModal({ open, onClose }) {
             return;
         }
 
-        const savedEmail = localStorage.getItem(LS.email);
+        const savedEmail = localStorage.getItem(LS.email)?.toLowerCase();
+        const normalizedEmail = email.toLowerCase();
         const savedPassword = localStorage.getItem(LS.password);
         const savedName = localStorage.getItem(LS.name) || "";
         const savedRole = localStorage.getItem(LS.role) || "student";
@@ -80,16 +83,16 @@ export default function LoginModal({ open, onClose }) {
                     sx={{ mt: 1, p: 4, backgroundColor: "#fff", borderRadius: 2, boxShadow: "0px 4px 20px rgba(0,0,0,0.1)", maxWidth: 400, mx: "auto" }}
                 >
                     <TextField fullWidth label="Email" type="email" margin="normal" name="email" value={email} onChange={onChange}
-                               error={!!err.mail} helperText={err.mail} />
+                        error={!!err.mail} helperText={err.mail} />
                     <TextField fullWidth label="Password" type="password" margin="normal" name="password" value={password} onChange={onChange}
-                               error={!!err.pass} helperText={err.pass} />
+                        error={!!err.pass} helperText={err.pass} />
                     {err.auth && <Typography color="error" variant="body2" sx={{ mt: 1 }}>{err.auth}</Typography>}
                     <Button type="submit" fullWidth variant="contained"
-                            sx={{
-                                mt: 3, width: 140, mx: "auto", display: "block", borderRadius: "30px",
-                                fontWeight: "bold", textTransform: "none", backgroundColor: "#fbc02d", color: "#000",
-                                "&:hover": { backgroundColor: "#f9a825" }
-                            }}>
+                        sx={{
+                            mt: 3, width: 140, mx: "auto", display: "block", borderRadius: "30px",
+                            fontWeight: "bold", textTransform: "none", backgroundColor: "#fbc02d", color: "#000",
+                            "&:hover": { backgroundColor: "#f9a825" }
+                        }}>
                         Login
                     </Button>
                 </Box>

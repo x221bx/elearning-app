@@ -6,6 +6,8 @@ import Courses from "../pages/Courses.jsx";
 import CourseDetail from "../pages/CourseDetail.jsx";
 import Teachers from "../pages/Teachers.jsx";
 import TeacherDetail from "../pages/TeacherDetail.jsx";
+import ProfilePage from "../pages/Profile.jsx";
+import AdminProfile from "../pages/AdminProfile.jsx";
 
 import AdminLayout from "../components/admin/AdminLayout.jsx";
 import AdminDashboard from "../pages/AdminDashboard.jsx";
@@ -44,6 +46,15 @@ export default function AppRoutes() {
             />
 
             <Route
+                path="/profile"
+                element={
+                    <ProtectedRoute>
+                        <ProfilePage />
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
                 path="/admin"
                 element={
                     <ProtectedRoute requireAdmin={true}>
@@ -51,6 +62,8 @@ export default function AppRoutes() {
                     </ProtectedRoute>
                 }
             >
+                <Route path="profile" element={<AdminProfile />} />
+
                 <Route index element={<AdminDashboard />} />
                 <Route path="courses" element={<AdminCourses />} />
                 <Route path="teachers" element={<AdminTeachers />} />
