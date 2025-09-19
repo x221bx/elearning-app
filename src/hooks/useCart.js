@@ -12,30 +12,34 @@ import {
     selectIsInCart,
     selectPaymentProcessing
 } from "../redux/slices/cartSlice";
-import { enrollCourse } from "../redux/slices/wishlistSlice";
+import { enrollCourse } from "../redux/slices/enrollmentSlice";
 
 export default function useCart() {
     const dispatch = useDispatch();
     const { auth } = useAuth();
-    const cartItems = useSelector(selectCartItems);
-    const cartTotal = useSelector(selectCartTotal);
-    const isProcessing = useSelector(selectPaymentProcessing);
+    const userId = auth?.userId || 'guest';
+    const cartItems = useSelector(selectCartItems) || [];
+    const cartTotal = useSelector(selectCartTotal) || 0;
+    const isProcessing = useSelector(selectPaymentProcessing) || false;
 
     // Load user-specific cart on auth change
     useEffect(() => {
-        const userId = auth?.userId || 'guest';
-        const savedCart = localStorage.getItem(`cart:${userId}`);
-        if (savedCart) {
-            try {
-                const items = JSON.parse(savedCart);
-                dispatch(setCartItems(items));
-            } catch (e) {
-                console.error('Failed to load cart:', e);
+        try {
+            const savedCart = localStorage.getItem(`cart:${userId}`);
+            const items = savedCart ? JSON.parse(savedCart) : [];
+
+            if (!Array.isArray(items)) {
+                throw new Error('Invalid cart data format');
             }
+
+            dispatch(setCartItems(items));
+        } catch (e) {
+            console.error('Failed to load cart:', e);
+            dispatch(setCartItems([]));
         }
     }, [auth?.userId, dispatch]);
 
-    const isInCart = (courseId) => cartItems.some(item => item.courseId === courseId);
+    const isInCart = (courseId) => (cartItems || []).some(item => item.courseId === courseId);
 
     const addItemToCart = (course) => {
         const userId = auth?.userId || 'guest';

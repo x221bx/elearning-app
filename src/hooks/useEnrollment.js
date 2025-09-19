@@ -1,7 +1,12 @@
 // src/hooks/useEnrollment.js
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { enrollCourse, unenrollCourse } from '../redux/slices/wishlistSlice';
+import {
+    enrollCourse,
+    unenrollCourse,
+    setEnrolledCourses,
+    selectEnrolledCourses
+} from '../redux/slices/enrollmentSlice';
 import useWishlist from './useWishlist';
 
 export default function useEnrollment() {

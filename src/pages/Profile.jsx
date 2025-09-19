@@ -13,7 +13,7 @@ import {
     Tabs,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import useWishlist from '../hooks/useWishlist';
+import useEnrollment from '../hooks/useEnrollment';
 import useCourses from '../hooks/useCourses';
 import useAuth from '../hooks/useAuth';
 import { useNotification } from '../contexts/NotificationContext';
@@ -22,7 +22,7 @@ import ConfirmDialog from '../components/common/ConfirmDialog';
 export default function ProfilePage() {
     const [activeTab, setActiveTab] = React.useState(0);
     const { auth } = useAuth();
-    const { enrolledCourses, handleEnrollment } = useWishlist();
+    const { enrolledCourses, toggleEnrollment } = useEnrollment();
     const { courses } = useCourses();
     const { showNotification } = useNotification();
 
@@ -44,7 +44,7 @@ export default function ProfilePage() {
 
     const confirmUnenroll = () => {
         if (confirmDialog.courseId) {
-            handleEnrollment(confirmDialog.courseId);
+            toggleEnrollment(confirmDialog.courseId);
             showNotification('Successfully unenrolled from course', 'success');
             setConfirmDialog({ open: false, courseId: null });
         }

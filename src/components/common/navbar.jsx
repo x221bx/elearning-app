@@ -23,8 +23,12 @@ export default function Navbar() {
     const location = useLocation();
     const { auth, logout } = useAuth();
     const { wishlistItems } = useWishlist();
-    const { cartItems } = useCart();
+    const { cartItems, isProcessing } = useCart();
     const user = auth?.email ? auth : null;
+
+    // Ensure arrays are defined
+    const safeWishlistItems = wishlistItems || [];
+    const safeCartItems = cartItems || [];
 
     const [anchorElMobile, setAnchorElMobile] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);

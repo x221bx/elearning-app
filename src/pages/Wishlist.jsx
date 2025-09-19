@@ -26,8 +26,11 @@ export default function WishlistPage() {
         Array.isArray(wishlistItems) && wishlistItems.includes(course.id)
     );
 
+    // Add state debugger
+    const showDebug = process.env.NODE_ENV === 'development';
+
     if (coursesLoading) {
-        return (
+        return showDebug ? <StateDebugger /> : (
             <Box sx={{
                 minHeight: '80vh',
                 display: 'flex',

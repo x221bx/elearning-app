@@ -1,73 +1,56 @@
 // src/redux/slices/wishlistSlice.js
-import { createSlice, createSelector } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from '@reduxjs/toolkit';
+
+const initialState = {
+    items: [],
+    initialized: false
+};
 
 const wishlistSlice = createSlice({
-    name: "wishlist",
-    initialState: {
-        items: [], // Array of course IDs in wishlist
-        enrolled: [], // Array of enrolled course IDs
-    },
+    name: 'wishlist',
+    initialState,
     reducers: {
+        setWishlistItems(state, action) {
+            state.items = action.payload || [];
+            state.initialized = true;
+        },
         addToWishlist(state, action) {
             const courseId = action.payload;
-            // Only add to wishlist if not enrolled
-            if (!state.enrolled.includes(courseId) && !state.items.includes(courseId)) {
+            if (!state.items.includes(courseId)) {
                 state.items.push(courseId);
             }
         },
         removeFromWishlist(state, action) {
-            state.items = state.items.filter((id) => id !== action.payload);
-        },
-        enrollCourse(state, action) {
-            const courseId = action.payload;
-            // Add to enrolled courses
-            if (!state.enrolled.includes(courseId)) {
-                state.enrolled.push(courseId);
-                // Remove from wishlist if present
-                state.items = state.items.filter((id) => id !== courseId);
-            }
-        },
-        unenrollCourse(state, action) {
-            const courseId = action.payload;
-            state.enrolled = state.enrolled.filter((id) => id !== courseId);
-        },
-        setWishlistItems(state, action) {
-            state.items = action.payload;
-        },
-        setEnrolledCourses(state, action) {
-            state.enrolled = action.payload;
-        },
-    },
+            state.items = state.items.filter(id => id !== action.payload);
+        }
+    }
 });
 
 export const {
-    addToWishlist,
-    removeFromWishlist,
-    enrollCourse,
-    unenrollCourse,
     setWishlistItems,
-    setEnrolledCourses
+    addToWishlist,
+    removeFromWishlist
 } = wishlistSlice.actions;
 
-// Selectors
-export const selectWishlistState = (state) => state.wishlist;
+// Base selector with null safety
+const getWishlistState = state => state?.wishlist || initialState;
+
+// Memoized selectors with null safety
 export const selectWishlistItems = createSelector(
-    [selectWishlistState],
-    (wishlist) => wishlist.items
+    [getWishlistState],
+    state => state?.items || []
 );
-export const selectEnrolledCourses = createSelector(
-    [selectWishlistState],
-    (wishlist) => wishlist.enrolled
+
+export const selectIsWishlistInitialized = createSelector(
+    [getWishlistState],
+    state => Boolean(state?.initialized)
 );
-export const makeSelectIsInWishlist = () =>
+
+// Helper selector creator for checking if a specific course is in the wishlist
+export const selectIsInWishlist = courseId =>
     createSelector(
-        [selectWishlistItems, (_, courseId) => courseId],
-        (items, courseId) => items.includes(courseId)
-    );
-export const makeSelectIsEnrolled = () =>
-    createSelector(
-        [selectEnrolledCourses, (_, courseId) => courseId],
-        (enrolled, courseId) => enrolled.includes(courseId)
+        [selectWishlistItems],
+        items => items.includes(courseId)
     );
 
 export default wishlistSlice.reducer;

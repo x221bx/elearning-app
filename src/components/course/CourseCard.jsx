@@ -16,8 +16,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SchoolIcon from '@mui/icons-material/School';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import useWishlist from '../../hooks/useWishlist';
-import useCart from '../../hooks/useCart';
+import useShoppingActions from '../../hooks/useShoppingActions';
+import { useNotification } from '../../contexts/NotificationContext';
 
 export default function CourseCard({
     id,
@@ -28,31 +28,35 @@ export default function CourseCard({
     rating,
     category
 }) {
-    const { isInWishlist, isEnrolled, toggleWishlist } = useWishlist();
-    const { isInCart, addItemToCart, removeItemFromCart } = useCart();
+    const {
+        isInCart,
+        isFavorite,
+        isEnrolled,
+        handleAddToCart,
+        toggleFavorite
+    } = useShoppingActions();
+    const { showNotification } = useNotification();
 
-    const enrolled = isEnrolled(id);
-    const inWishlist = isInWishlist(id);
     const inCart = isInCart(id);
+    const inWishlist = isFavorite(id);
+    const enrolled = isEnrolled(id);
 
     const handleWishlistClick = (e) => {
         e.preventDefault(); // Prevent card navigation
         e.stopPropagation(); // Stop event bubbling
-        if (!enrolled) {
-            toggleWishlist(id);
-        }
+        toggleFavorite(id);
+        showNotification(
+            inWishlist ? 'Removed from wishlist' : 'Added to wishlist',
+            'success'
+        );
     };
 
     const handleCartClick = (e) => {
         e.preventDefault(); // Prevent card navigation
         e.stopPropagation(); // Stop event bubbling
-        if (inCart) {
-            removeItemFromCart(id);
-        } else if (!enrolled) {
-            addItemToCart({
-                courseId: id,
-                price: price
-            });
+        if (!inCart) {
+            handleAddToCart({ id, price });
+            showNotification('Added to cart', 'success');
         }
     };
 
@@ -101,10 +105,12 @@ export default function CourseCard({
                                 bgcolor: 'rgba(255,255,255,1)',
                             },
                         }}
-                        disabled={enrolled}
+                        disabled={enrolled || inCart}
                     >
                         {inCart ? (
                             <ShoppingCartIcon color="primary" />
+                        ) : enrolled ? (
+                            <SchoolIcon color="success" />
                         ) : (
                             <AddShoppingCartIcon />
                         )}

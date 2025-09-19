@@ -56,14 +56,17 @@ export const {
     removeCourse,
 } = coursesSlice.actions;
 
-export const selectCoursesState = (s) => s.courses;
+export const selectCoursesState = (state) => state?.courses || initial;
 export const selectCourses = createSelector(
     [selectCoursesState],
-    (c) => c.items
+    (c) => c?.items || []
 );
 export const makeSelectCoursesByTeacher = (teacherId) =>
-    createSelector([selectCourses], (list) =>
-        list.filter((c) => String(c.teacherId) === String(teacherId))
+    createSelector(
+        [selectCourses],
+        (list) => (list || []).filter(
+            (c) => c && String(c.teacherId) === String(teacherId)
+        )
     );
 
 export default coursesSlice.reducer;
