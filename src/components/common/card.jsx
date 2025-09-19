@@ -15,10 +15,10 @@ const MediaCard = ({ image, title, description }) => {
                 title={title}
                 sx={{
                     height: { xs: 100, sm: 120 },
-                    width: { xs: 120, sm: 140 },  
-                    objectFit: "contain",         
-                    mx: "auto",                    
-                    mt: 2,                         
+                    width: { xs: 120, sm: 140 },
+                    objectFit: "contain",
+                    mx: "auto",
+                    mt: 2,
                 }}
             />
 

@@ -10,15 +10,16 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const email = localStorage.getItem("userEmail");
         const name  = localStorage.getItem("userName");
-        const role  = localStorage.getItem("userRole");
-        if (email && role) setAuth({ email, name, role });
+        const role  = localStorage.getItem("userRole") || "student";
+        if (email) setAuth({ email, name, role });
     }, []);
 
     const setCredentials = useCallback(({ email, name, role }) => {
+        const safeRole = role || "student";
         if (email) localStorage.setItem("userEmail", email);
         if (name)  localStorage.setItem("userName", name);
-        if (role)  localStorage.setItem("userRole", role);
-        setAuth({ email, name, role });
+        if (safeRole) localStorage.setItem("userRole", safeRole);
+        setAuth({ email, name, role: safeRole });
     }, []);
 
     const logout = useCallback(() => {
@@ -29,7 +30,7 @@ export function AuthProvider({ children }) {
         setAuth(null);
     }, []);
 
-    const isAdmin = useMemo(() => auth?.role === "admin", [auth]);
+    const isAdmin = useMemo(() => auth?.role === "teacher", [auth]);
 
     const value = useMemo(() => ({
         auth, isAdmin, setCredentials, logout
