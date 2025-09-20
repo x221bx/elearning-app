@@ -1,199 +1,210 @@
 import React, { useState } from "react";
 import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  Button,
-  Menu,
-  MenuItem,
-  IconButton,
-  Avatar,
+    AppBar, Box, Toolbar, Typography, Button, Menu, MenuItem,
+    IconButton, Avatar, Divider, ListItemIcon, Tooltip, Badge
 } from "@mui/material";
+import Logout from "@mui/icons-material/Logout";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import useWishlist from "../../hooks/useWishlist";
+import useCart from "../../hooks/useCart";
+import useEnrollment from "../../hooks/useEnrollment";
 
 import pic1 from "../../assets/images/pic1.jpg";
 import LoginModal from "../Pages/login";
 import RegisterModal from "../Pages/register";
+import useAuth, { isAdmin } from "../../hooks/useAuth";
 
-function Navbar() {
-  const [anchorElMobile, setAnchorElMobile] = useState(null);
-  const [anchorElProfile, setAnchorElProfile] = useState(null);
+export default function Navbar() {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { auth, logout } = useAuth();
+    const { wishlistItems } = useWishlist();
+    const { cartItems } = useCart();
+    const { enrolledCourses } = useEnrollment();
+    const user = auth?.email ? auth : null;
 
-  const [openLogin, setOpenLogin] = useState(false);
-  const [openRegister, setOpenRegister] = useState(false);
+    
+    const safeWishlistItems = wishlistItems || [];
+    const safeCartItems = cartItems || [];
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const wishlistCount = safeWishlistItems.filter(
+        (id) => !(enrolledCourses || []).includes(id)
+    ).length;
 
-  const handleOpenMobile = (event) => setAnchorElMobile(event.currentTarget);
-  const handleCloseMobile = () => setAnchorElMobile(null);
+    const [anchorElMobile, setAnchorElMobile] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
+    const [openLogin, setOpenLogin] = useState(false);
+    const [openRegister, setOpenRegister] = useState(false);
 
-  const handleOpenProfile = (event) => setAnchorElProfile(event.currentTarget);
-  const handleCloseProfile = () => setAnchorElProfile(null);
+    const handleOpenMobile = (e) => setAnchorElMobile(e.currentTarget);
+    const handleCloseMobile = () => setAnchorElMobile(null);
+    const handleOpenUser = (e) => setAnchorElUser(e.currentTarget);
+    const handleCloseUser = () => setAnchorElUser(null);
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    handleCloseProfile();
-  };
+    const onLogout = () => {
+        handleCloseUser();
+        logout();
+        navigate("/");
+    };
 
-  return (
-    <>
-      <AppBar
-        position="fixed"
-        sx={{
-          backgroundColor: "#eeed9bff",
-          color: "black",
-          boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
-        }}
-      >
-        <Toolbar>
-          <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
-            <Avatar sx={{ width: 45, height: 45, mr: 1 }} src={pic1} />
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              Edudu For Kids
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              flexGrow: 2,
-              display: { xs: "none", md: "flex" },
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 2,
-            }}
-          >
-            <Button component={Link} to="/" sx={{ color: "black", fontWeight: "bold" }}>
-              Home
-            </Button>
-            <Button component={Link} to="/courses" sx={{ color: "black", fontWeight: "bold" }}>
-              Courses
-            </Button>
-            <Button component={Link} to="/teachers" sx={{ color: "black", fontWeight: "bold" }}>
-              Teachers
-            </Button>
-            <Button sx={{ color: "black", fontWeight: "bold" }}>How to use</Button>
-            <Button sx={{ color: "black", fontWeight: "bold" }}>About us</Button>
-          </Box>
-
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            {!isLoggedIn ? (
-              <>
-                <Button
-                  variant="contained"
-                  sx={{
-                    ml: 1,
-                    backgroundColor: "#ebebd2ff",
+    return (
+        <>
+            <AppBar
+                position="fixed"
+                sx={{
+                    backgroundColor: "#eeed9bff",
                     color: "black",
-                    boxShadow: "none",
-                  }}
-                  onClick={() => setOpenRegister(true)}
-                >
-                  Sign Up
-                </Button>
-                <Button
-                  variant="outlined"
-                  sx={{ ml: 2, bgcolor: "#3e3a21ff", color: "white" }}
-                  onClick={() => setOpenLogin(true)}
-                >
-                  Login
-                </Button>
-              </>
-            ) : (
-              <>
-                <IconButton onClick={handleOpenProfile} sx={{ p: 0 }}>
-                  <Avatar src={pic1} />
-                </IconButton>
-                <Menu
-                  anchorEl={anchorElProfile}
-                  open={Boolean(anchorElProfile)}
-                  onClose={handleCloseProfile}
-                >
-                  <MenuItem component={Link} to="/wishlist" onClick={handleCloseProfile}>
-                    Profile
-                  </MenuItem>
-                  <MenuItem onClick={handleLogout}>Log out</MenuItem>
-                </Menu>
-              </>
-            )}
-          </Box>
-
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton color="inherit" onClick={handleOpenMobile}>
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              anchorEl={anchorElMobile}
-              open={Boolean(anchorElMobile)}
-              onClose={handleCloseMobile}
-              keepMounted
+                    boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
+                }}
             >
-              <MenuItem component={Link} to="/" onClick={handleCloseMobile}>
-                Home
-              </MenuItem>
-              <MenuItem component={Link} to="/courses" onClick={handleCloseMobile}>
-                Courses
-              </MenuItem>
-              <MenuItem component={Link} to="/teachers" onClick={handleCloseMobile}>
-                Teachers
-              </MenuItem>
-              <MenuItem onClick={handleCloseMobile}>How to use</MenuItem>
-              <MenuItem onClick={handleCloseMobile}>About us</MenuItem>
+                <Toolbar>
+                   
+                    <Box component={Link} to="/" sx={{ display: "flex", alignItems: "center", flexGrow: 1, textDecoration: "none", color: "inherit" }}>
+                        <Avatar sx={{ width: 45, height: 45, mr: 1 }} src={pic1} />
+                        <Typography variant="h6" sx={{ fontWeight: "bold" }}>Edudu For Kids</Typography>
+                    </Box>
 
-              {!isLoggedIn ? (
-                <>
-                  <MenuItem
-                    onClick={() => {
-                      setOpenLogin(true);
-                      handleCloseMobile();
-                    }}
-                  >
-                    Login
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => {
-                      setOpenRegister(true);
-                      handleCloseMobile();
-                    }}
-                  >
-                    Sign Up
-                  </MenuItem>
-                </>
-              ) : (
-                <>
-                  <MenuItem component={Link} to="/wishlist" onClick={handleCloseMobile}>
-                    Profile
-                  </MenuItem>
-                  <MenuItem component={Link} to="/cart" onClick={handleCloseMobile}>
-                    logout
-                  </MenuItem>
-                  <MenuItem onClick={handleLogout}>Log out</MenuItem>
-                </>
-              )}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </AppBar>
+                   
+                    <Box sx={{ flexGrow: 2, display: { xs: "none", md: "flex" }, justifyContent: "center", alignItems: "center", gap: 2 }}>
+                        <Button component={Link} to="/" sx={{ color: "black", fontWeight: "bold" }}>Home</Button>
+                        <Button component={Link} to="/courses" sx={{ color: "black", fontWeight: "bold" }}>Courses</Button>
+                        <Button component={Link} to="/teachers" sx={{ color: "black", fontWeight: "bold" }}>Teachers</Button>
+                        <Button component={Link} to="/how-to-use" sx={{ color: "black", fontWeight: "bold" }}>How to use</Button>
+                        <Button sx={{ color: "black", fontWeight: "bold" }}>About us</Button>
+                        {isAdmin() && (
+                            <Button component={Link} to="/admin" sx={{ color: "black", fontWeight: "bold" }}>
+                                Dashboard
+                            </Button>
+                        )}
+                    </Box>
 
-      <LoginModal
-        open={openLogin}
-        onClose={() => setOpenLogin(false)}
-        onLoginSuccess={() => {
-          setIsLoggedIn(true);
-          setOpenLogin(false);
-        }}
-      />
-      <RegisterModal
-        open={openRegister}
-        onClose={() => setOpenRegister(false)}
-        onRegisterSuccess={() => {
-          setIsLoggedIn(true);
-          setOpenRegister(false);
-        }}
-      />
-    </>
-  );
+                   
+                    <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 1.25 }}>
+                        {user ? (
+                            <>
+                                <IconButton
+                                    component={Link}
+                                    to="/wishlist"
+                                    aria-label="Wishlist"
+                                    size="small"
+                                    color={location.pathname === '/wishlist' ? 'secondary' : 'default'}
+                                    sx={{ '&:hover': { color: 'secondary.main' } }}
+                                >
+                                    <Badge
+                                        badgeContent={wishlistCount}
+                                        color="secondary"
+                                        max={99}
+                                    >
+                                        {location.pathname === '/wishlist' ?
+                                            <FavoriteIcon /> :
+                                            <FavoriteBorderIcon />
+                                        }
+                                    </Badge>
+                                </IconButton>
+                                <IconButton
+                                    component={Link}
+                                    to="/cart"
+                                    aria-label="Cart"
+                                    size="small"
+                                    color={location.pathname === '/cart' ? 'primary' : 'default'}
+                                    sx={{ '&:hover': { color: 'primary.main' } }}
+                                >
+                                    <Badge
+                                        badgeContent={safeCartItems.length}
+                                        color="primary"
+                                        max={99}
+                                    >
+                                        <ShoppingCartIcon />
+                                    </Badge>
+                                </IconButton>
+                                <Tooltip title={user.name || user.email}>
+                                    <IconButton onClick={handleOpenUser} size="small">
+                                        <Avatar sx={{ width: 36, height: 36 }}>
+                                            {(user.name?.[0] || user.email?.[0] || "U").toUpperCase()}
+                                        </Avatar>
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu anchorEl={anchorElUser} open={Boolean(anchorElUser)} onClose={handleCloseUser} keepMounted>
+                                    <MenuItem disabled>
+                                        <ListItemIcon><AccountCircle fontSize="small" /></ListItemIcon>
+                                        {user.name || user.email}
+                                    </MenuItem>
+                                    <Divider />
+                                    {isAdmin() && (
+                                        <MenuItem onClick={() => { handleCloseUser(); navigate("/admin"); }}>
+                                            Admin Dashboard
+                                        </MenuItem>
+                                    )}
+                                    <MenuItem onClick={() => { handleCloseUser(); navigate("/profile"); }}>
+                                        Profile
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem onClick={onLogout}>
+                                        <ListItemIcon><Logout fontSize="small" /></ListItemIcon>
+                                        Logout
+                                    </MenuItem>
+                                </Menu>
+                            </>
+                        ) : (
+                            <>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: "#ebebd2ff",
+                                        color: "black",
+                                        boxShadow: "none",
+                                        '&:hover': {
+                                            backgroundColor: "#dddcc4"
+                                        }
+                                    }}
+                                    onClick={() => setOpenRegister(true)}
+                                >
+                                    Sign Up
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        ml: 1,
+                                        backgroundColor: "#3e3a21ff",
+                                        color: "white",
+                                        '&:hover': {
+                                            backgroundColor: "#2e2b18"
+                                        }
+                                    }}
+                                    onClick={() => setOpenLogin(true)}
+                                >
+                                    Login
+                                </Button>
+                            </>
+                        )}
+                    </Box>
+
+                   
+                    <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                        <IconButton color="inherit" onClick={handleOpenMobile}><MenuIcon /></IconButton>
+                        <Menu anchorEl={anchorElMobile} open={Boolean(anchorElMobile)} onClose={handleCloseMobile} keepMounted>
+                            <MenuItem component={Link} to="/" onClick={handleCloseMobile}>Home</MenuItem>
+                            <MenuItem component={Link} to="/courses" onClick={handleCloseMobile}>Courses</MenuItem>
+                            <MenuItem component={Link} to="/teachers" onClick={handleCloseMobile}>Teachers</MenuItem>
+                            {isAdmin() && <MenuItem component={Link} to="/admin" onClick={handleCloseMobile}>Dashboard</MenuItem>}
+                            <Divider />
+                            {!user && <MenuItem onClick={() => { setOpenLogin(true); handleCloseMobile(); }}>Login</MenuItem>}
+                            {!user && <MenuItem onClick={() => { setOpenRegister(true); handleCloseMobile(); }}>Sign Up</MenuItem>}
+                            {user && <MenuItem onClick={() => { handleCloseMobile(); navigate("/profile"); }}>Profile</MenuItem>}
+                            {user && <MenuItem onClick={() => { handleCloseMobile(); onLogout(); }}>Logout</MenuItem>}
+                        </Menu>
+                    </Box>
+                </Toolbar>
+            </AppBar>
+
+            
+            <LoginModal open={openLogin} onClose={() => setOpenLogin(false)} />
+            <RegisterModal open={openRegister} onClose={() => setOpenRegister(false)} />
+        </>
+    );
 }
-
-export default Navbar;

@@ -2,7 +2,7 @@
 import * as React from "react";
 import { Box, Typography } from "@mui/material";
 
-export default function MiniArea({ data }) {
+export default function MiniArea() {
     return (
         <Box
             sx={{

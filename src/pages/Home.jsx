@@ -2,11 +2,11 @@ import React from "react";
 import {
   Box,
   Typography,
-  Grid,
   Button,
   Paper,
   TextField,
-  Link
+  Link,
+  Grid
 } from "@mui/material";
 
 import { grey } from "@mui/material/colors";
@@ -450,7 +450,7 @@ function Home() {
           sx={{
             position: "relative",
             maxWidth: 900,
-            height:500,
+            height: 500,
             mx: "auto",
             mb: 0,
           }}
@@ -588,100 +588,101 @@ function Home() {
 
 
       {/* section 6 */}
-<Box sx={{ backgroundColor: "rgba(248, 214, 220, 0.56)" , py:1}}>
- <Container maxWidth="lg">
-      <Box textAlign="center" my={6}>
-        <Typography
-  variant="h4"
-  fontWeight="bold"
-  gutterBottom
-  sx={{ mx: "auto", display: "block", width: "fit-content", 'mt':10}}
->
-  What do students say about Edudu?
-</Typography>
+      <Box sx={{ backgroundColor: "rgba(248, 214, 220, 0.56)", py: 1 }}>
+        <Container maxWidth="lg">
+          <Box textAlign="center" my={6}>
+            <Typography
+              variant="h4"
+              fontWeight="bold"
+              gutterBottom
+              sx={{ mx: "auto", display: "block", width: "fit-content", 'mt': 10 }}
+            >
+              What do students say about Edudu?
+            </Typography>
+          </Box>
+
+          <Grid container spacing={4} justifyContent="center">
+            {[
+              {
+                name: "Jessica Andrew",
+                review: "My child has improved a lot after finishing school. Thank you very much Edudu",
+                image: pic17,
+              },
+              {
+                name: "Darlene Robertson",
+                review: "My child knows how to write very good essays. English ability is also much better. The cost is very cheap, so you should register. Thank you very much Edudu.",
+                image: pic18,
+              },
+              {
+                name: "Dianne Russell",
+                review: "My child has improved a lot after finishing school. Thank you very much Edudu",
+                image: pic19,
+              },
+            ].map((item) => (
+              <Grid item xs={12} sm={6} md={4} key={item.name}>
+                <Card
+                  sx={{
+                    maxWidth: 345,
+                    margin: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    height: "100%",
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    image={item.image}
+                    title={item.name}
+                    sx={{
+                      height: { xs: 100, sm: 120, md: 140 },
+                      width: { xs: 120, sm: 140, md: 160 },
+                      objectFit: "contain",
+                      borderRadius: '50%',
+                      mx: "auto",
+                      mt: 2,
+                    }}
+                  />
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      sx={{
+                        fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.5rem" },
+                        textAlign: "center",
+                      }}
+                    >
+                      {item.name}
+                    </Typography>
+                    <Box>
+                      <Box display="flex" justifyContent="center" mb={1}>
+                        {[...Array(5)].map((_, index) => (
+                          <StarIcon key={index} color="warning" />
+                        ))}
+                      </Box>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "text.secondary",
+                          fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" },
+                          textAlign: "center",
+                          mb: 2
+                        }}
+                      >
+                        {item.review}
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+
+
+        </Container>
       </Box>
 
-     <Grid container spacing={4} justifyContent="center">
-  {[
-    {
-      name: "Jessica Andrew",
-      review: "My child has improved a lot after finishing school. Thank you very much Edudu",
-      image: pic17,
-    },
-    {
-      name: "Darlene Robertson",
-      review: "My child knows how to write very good essays. English ability is also much better. The cost is very cheap, so you should register. Thank you very much Edudu.",
-      image: pic18,
-    },
-    {
-      name: "Dianne Russell",
-      review: "My child has improved a lot after finishing school. Thank you very much Edudu",
-      image: pic19,
-    },
-  ].map((item) => (
-    <Grid item xs={12} sm={6} md={4} key={item.name}>
-      <Card
-        sx={{
-          maxWidth: 345,
-          margin: "auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          height: "100%",
-        }}
-      >
-        <CardMedia
-          component="img"
-          image={item.image}
-          title={item.name}
-          sx={{
-            height: { xs: 100, sm: 120, md: 140 },
-            width: { xs: 120, sm: 140, md: 160 },
-            objectFit: "contain",
-            borderRadius:'50%',
-            mx: "auto",
-            mt: 2,
-          }}
-        />
-        <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            sx={{
-              fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.5rem" },
-              textAlign: "center",
-            }}
-          >
-            {item.name}
-          </Typography>
-          <Box>
-            <Box display="flex" justifyContent="center" mb={1}>
-              {[...Array(5)].map((_, index) => (
-                <StarIcon key={index} color="warning" />
-              ))}
-            </Box>
-            <Typography
-              variant="body2"
-              sx={{
-                color: "text.secondary",
-                fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" },
-                textAlign: "center",
-                mb:2
-              }}
-            >
-              {item.review}
-            </Typography>
-          </Box>
-        </CardContent>
-      </Card>
-    </Grid>
-  ))}
-</Grid>
-
-
-    </Container>
-    </Box>
 
 
 
@@ -691,87 +692,86 @@ function Home() {
 
 
 
+      {/* section 7 footer */}
+      <Box sx={{ backgroundColor: '#fffdfd', color: '#000', py: 5, mt: 6 }}>
+        <Container maxWidth="lg">
+          <Grid container spacing={4} justifyContent="space-between">
 
-    {/* section 7 footer */}
-    <Box sx={{ backgroundColor: '#fffdfd', color: '#000', py: 5, mt: 6 }}>
-      <Container maxWidth="lg">
-        <Grid container spacing={4} justifyContent="space-between">
-
-          {/* Social Icons + Trademark */}
-          <Grid item xs={12} sm={6} md={2.4}>
-            <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1,mb:2 }}>
-            <Avatar sx={{ width: 45, height: 45, mr: 1 }} src={pic1} />
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              Edudu 
-            </Typography>
-          </Box>
-            <Box display="flex" flexDirection="column" alignItems={{ xs: "center", md: "flex-start" }}>
-              <Box mb={2}>
-                <Link href="#" color="inherit" sx={{ mr: 1 }}>
-                  <Facebook />
-                </Link>
-                <Link href="#" color="inherit" sx={{ mr: 1 }}>
-                  <Twitter />
-                </Link>
-                <Link href="#" color="inherit">
-                  <LinkedIn />
-                </Link>
+            {/* Social Icons + Trademark */}
+            <Grid item xs={12} sm={6} md={2.4}>
+              <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1, mb: 2 }}>
+                <Avatar sx={{ width: 45, height: 45, mr: 1 }} src={pic1} />
+                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                  Edudu
+                </Typography>
               </Box>
-              <Typography variant="body2" color="inherit">
-              ©2020 Edudu.co
-              </Typography>
+              <Box display="flex" flexDirection="column" alignItems={{ xs: "center", md: "flex-start" }}>
+                <Box mb={2}>
+                  <Link href="#" color="inherit" sx={{ mr: 1 }}>
+                    <Facebook />
+                  </Link>
+                  <Link href="#" color="inherit" sx={{ mr: 1 }}>
+                    <Twitter />
+                  </Link>
+                  <Link href="#" color="inherit">
+                    <LinkedIn />
+                  </Link>
+                </Box>
+                <Typography variant="body2" color="inherit">
+                  ©2020 Edudu.co
+                </Typography>
 
-              <Typography variant="body2" color="inherit">
-               <Box component="span" display= "block" >Edudu is a registered  </Box>trademark of Edudu.co
-              </Typography>
-            </Box>
+                <Typography variant="body2" color="inherit">
+                  <Box component="span" display="block" >Edudu is a registered  </Box>trademark of Edudu.co
+                </Typography>
+              </Box>
+            </Grid>
+
+            {/* Courses */}
+            <Grid item xs={12} sm={6} md={2.4}>
+              <Typography variant="h6" gutterBottom>Courses</Typography>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Classroom courses</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Virtual classroom courses</Link>
+              <Link href="courses" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>E-learning courses</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Video Courses</Link>
+              <Link href="#" color="inherit" display="block" sx={{ textDecoration: 'none' }}>Offline Courses</Link>
+            </Grid>
+
+            {/* Community */}
+            <Grid item xs={12} sm={6} md={2.4}>
+              <Typography variant="h6" gutterBottom>Community</Typography>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Learners</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Partners</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Developers</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Transactions</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Blog</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Teaching Center</Link>
+            </Grid>
+
+            {/* Quick Links */}
+            <Grid item xs={12} sm={6} md={2.4}>
+              <Typography variant="h6" gutterBottom>Quick links</Typography>
+              <Link href="/" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Home</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Professional Education</Link>
+              <Link href="courses" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Courses</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Admissions</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Testimonial</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Programs</Link>
+            </Grid>
+
+            {/* More */}
+            <Grid item xs={12} sm={6} md={2.4}>
+              <Typography variant="h6" gutterBottom>More</Typography>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Press</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Investors</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Terms</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Privacy</Link>
+              <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Help</Link>
+            </Grid>
+
           </Grid>
-
-          {/* Courses */}
-          <Grid item xs={12} sm={6} md={2.4}>
-            <Typography variant="h6" gutterBottom>Courses</Typography>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Classroom courses</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Virtual classroom courses</Link>
-            <Link href="courses" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>E-learning courses</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Video Courses</Link>
-            <Link href="#" color="inherit" display="block" sx={{ textDecoration: 'none' }}>Offline Courses</Link>
-          </Grid>
-
-          {/* Community */}
-          <Grid item xs={12} sm={6} md={2.4}>
-            <Typography variant="h6" gutterBottom>Community</Typography>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Learners</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Partners</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Developers</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Transactions</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Blog</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Teaching Center</Link>
-          </Grid>
-
-          {/* Quick Links */}
-          <Grid item xs={12} sm={6} md={2.4}>
-            <Typography variant="h6" gutterBottom>Quick links</Typography>
-            <Link href="/" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Home</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Professional Education</Link>
-            <Link href="courses" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Courses</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Admissions</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Testimonial</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Programs</Link>
-          </Grid>
-
-          {/* More */}
-          <Grid item xs={12} sm={6} md={2.4}>
-            <Typography variant="h6" gutterBottom>More</Typography>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Press</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Investors</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Terms</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Privacy</Link>
-            <Link href="#" color="inherit" display="block" mb={0.8} sx={{ textDecoration: 'none' }}>Help</Link>
-          </Grid>
-
-        </Grid>
-      </Container>
-    </Box>
+        </Container>
+      </Box>
 
 
     </>
