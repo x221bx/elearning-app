@@ -33,7 +33,9 @@ function saveState(state) {
             enrollment: state.enrollment,
         };
         localStorage.setItem(PERSIST_KEY, JSON.stringify(toSave));
-    } catch { }
+    } catch (error) {
+        console.error('Failed to save state:', error);
+    }
 }
 
 const store = configureStore({

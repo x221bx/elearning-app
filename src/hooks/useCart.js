@@ -9,7 +9,6 @@ import {
     setCartItems,
     selectCartItems,
     selectCartTotal,
-    selectIsInCart,
     selectPaymentProcessing
 } from "../redux/slices/cartSlice";
 import { enrollCourse } from "../redux/slices/enrollmentSlice";
@@ -18,11 +17,10 @@ export default function useCart() {
     const dispatch = useDispatch();
     const { auth } = useAuth();
     const userId = auth?.userId || 'guest';
-    const cartItems = useSelector(selectCartItems) || [];
+    const cartItems = useSelector(selectCartItems);
     const cartTotal = useSelector(selectCartTotal) || 0;
     const isProcessing = useSelector(selectPaymentProcessing) || false;
 
-    // Load user-specific cart on auth change
     useEffect(() => {
         try {
             const savedCart = localStorage.getItem(`cart:${userId}`);
@@ -37,14 +35,17 @@ export default function useCart() {
             console.error('Failed to load cart:', e);
             dispatch(setCartItems([]));
         }
-    }, [auth?.userId, dispatch]);
+    }, [auth?.userId, dispatch, userId]);
 
-    const isInCart = (courseId) => (cartItems || []).some(item => item.courseId === courseId);
+    const isInCart = (courseId) => cartItems.some(item => item.courseId === courseId);
 
     const addItemToCart = (course) => {
-        const userId = auth?.userId || 'guest';
+        const cartCourseId = course.courseId || course.id;
+        if (!cartCourseId) return;
+        if (isInCart(cartCourseId)) return;
+
         const cartItem = {
-            courseId: course.courseId || course.id,
+            courseId: cartCourseId,
             price: course.price
         };
         dispatch(addToCart(cartItem));
@@ -53,27 +54,24 @@ export default function useCart() {
     };
 
     const removeItemFromCart = (courseId) => {
-        const userId = auth?.userId || 'guest';
         dispatch(removeFromCart(courseId));
         const updatedItems = cartItems.filter(item => item.courseId !== courseId);
         localStorage.setItem(`cart:${userId}`, JSON.stringify(updatedItems));
     };
 
     const handlePayment = async () => {
+        const itemsToPurchase = [...cartItems];
         try {
             dispatch(setPaymentProcessing(true));
 
-            // Here you would typically make an API call to process payment
-            // For demo purposes, we'll just simulate a delay
             await new Promise(resolve => setTimeout(resolve, 1500));
 
-            // After successful payment, enroll in all courses
-            cartItems.forEach(item => {
+            itemsToPurchase.forEach(item => {
                 dispatch(enrollCourse(item.courseId));
             });
 
-            // Clear the cart
             dispatch(clearCart());
+            localStorage.setItem(`cart:${userId}`, JSON.stringify([]));
 
             return true;
         } catch (error) {

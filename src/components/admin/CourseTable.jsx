@@ -31,7 +31,7 @@ export default function CourseTable({ onCreate }) {
     const [page, setPage] = useState(1);
     const perPage = isMobile ? 6 : 8;
     const pageCount = Math.max(1, Math.ceil(courses.length / perPage));
-    const paginated = useMemo(() => courses.slice((page - 1) * perPage, page * perPage), [courses, page]);
+    const paginated = useMemo(() => courses.slice((page - 1) * perPage, page * perPage), [courses, page, perPage]);
 
     // Edit state
     const [editing, setEditing] = useState(null);

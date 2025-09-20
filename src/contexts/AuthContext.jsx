@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 // src/contexts/AuthContext.jsx
 import React, { createContext, useCallback, useEffect, useMemo, useState } from "react";
 

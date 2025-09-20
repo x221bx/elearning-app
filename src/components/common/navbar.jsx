@@ -12,6 +12,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useWishlist from "../../hooks/useWishlist";
 import useCart from "../../hooks/useCart";
+import useEnrollment from "../../hooks/useEnrollment";
 
 import pic1 from "../../assets/images/pic1.jpg";
 import LoginModal from "../Pages/login";
@@ -23,12 +24,17 @@ export default function Navbar() {
     const location = useLocation();
     const { auth, logout } = useAuth();
     const { wishlistItems } = useWishlist();
-    const { cartItems, isProcessing } = useCart();
+    const { cartItems } = useCart();
+    const { enrolledCourses } = useEnrollment();
     const user = auth?.email ? auth : null;
 
     // Ensure arrays are defined
     const safeWishlistItems = wishlistItems || [];
     const safeCartItems = cartItems || [];
+
+    const wishlistCount = safeWishlistItems.filter(
+        (id) => !(enrolledCourses || []).includes(id)
+    ).length;
 
     const [anchorElMobile, setAnchorElMobile] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -90,7 +96,7 @@ export default function Navbar() {
                                     sx={{ '&:hover': { color: 'secondary.main' } }}
                                 >
                                     <Badge
-                                        badgeContent={wishlistItems?.length || 0}
+                                        badgeContent={wishlistCount}
                                         color="secondary"
                                         max={99}
                                     >
@@ -109,7 +115,7 @@ export default function Navbar() {
                                     sx={{ '&:hover': { color: 'primary.main' } }}
                                 >
                                     <Badge
-                                        badgeContent={cartItems?.length || 0}
+                                        badgeContent={safeCartItems.length}
                                         color="primary"
                                         max={99}
                                     >

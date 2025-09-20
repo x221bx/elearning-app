@@ -14,12 +14,10 @@ import {
 } from '@mui/material';
 import useAuth from '../hooks/useAuth';
 import useCourses from '../hooks/useCourses';
-import { useNotification } from '../contexts/NotificationContext';
 
 export default function AdminProfile() {
     const { auth } = useAuth();
     const { courses, seed } = useCourses();
-    const { showNotification } = useNotification();
 
     // Seed courses on component mount
     useEffect(() => {

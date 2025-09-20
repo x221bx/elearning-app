@@ -12,7 +12,7 @@ export default function useWishlist() {
     const dispatch = useDispatch();
     const { auth } = useAuth();
     const userId = auth?.userId || 'guest';
-    const wishlistItems = useSelector(selectWishlistItems) || [];
+    const wishlistItems = useSelector(selectWishlistItems);
 
     useEffect(() => {
         try {

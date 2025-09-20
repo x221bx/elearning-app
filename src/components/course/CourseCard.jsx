@@ -38,15 +38,15 @@ export default function CourseCard({
     const { showNotification } = useNotification();
 
     const inCart = isInCart(id);
-    const inWishlist = isFavorite(id);
+    const favorite = isFavorite(id);
     const enrolled = isEnrolled(id);
 
-    const handleWishlistClick = (e) => {
+    const handleFavoriteClick = (e) => {
         e.preventDefault(); // Prevent card navigation
         e.stopPropagation(); // Stop event bubbling
         toggleFavorite(id);
         showNotification(
-            inWishlist ? 'Removed from wishlist' : 'Added to wishlist',
+            favorite ? 'Removed from favorites' : 'Added to favorites',
             'success'
         );
     };
@@ -117,21 +117,18 @@ export default function CourseCard({
                     </IconButton>
                 </Tooltip>
 
-                {/* Wishlist/Enrolled Icon */}
-                <Tooltip title={enrolled ? "Enrolled" : inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}>
+                {/* Favorites Icon */}
+                <Tooltip title={favorite ? "Remove from Favorites" : "Add to Favorites"}>
                     <IconButton
-                        onClick={handleWishlistClick}
+                        onClick={handleFavoriteClick}
                         sx={{
                             bgcolor: 'rgba(255,255,255,0.9)',
                             '&:hover': {
                                 bgcolor: 'rgba(255,255,255,1)',
                             },
                         }}
-                        disabled={enrolled}
                     >
-                        {enrolled ? (
-                            <SchoolIcon color="primary" />
-                        ) : inWishlist ? (
+                        {favorite ? (
                             <FavoriteIcon color="error" />
                         ) : (
                             <FavoriteBorderIcon />
@@ -191,9 +188,19 @@ export default function CourseCard({
                         mt: 'auto'
                     }}
                 >
-                    <Typography variant="h6" color="primary.main">
-                        ${price}
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Typography variant="h6" color="primary.main">
+                            ${price}
+                        </Typography>
+                        {enrolled && (
+                            <Chip
+                                label="Enrolled"
+                                size="small"
+                                color="success"
+                                sx={{ fontWeight: 'bold' }}
+                            />
+                        )}
+                    </Box>
                     <Typography
                         variant="body2"
                         sx={{
