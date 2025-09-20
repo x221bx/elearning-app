@@ -12,7 +12,11 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state, action) {
-            state.items.push(action.payload);
+            const course = action.payload;
+            // Check if course is already in cart
+            if (!state.items.some(item => item.courseId === course.courseId)) {
+                state.items.push(course);
+            }
         },
         removeFromCart(state, action) {
             state.items = state.items.filter(item => item.courseId !== action.payload);

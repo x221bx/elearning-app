@@ -1,5 +1,5 @@
 
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -13,14 +13,20 @@ import {
   Divider,
   Chip,
 } from "@mui/material";
-import { courses } from "../api/courses";
+import useCourses from "../hooks/useCourses";
 
 export default function CourseDetail() {
   const { id } = useParams();
+  const { courses, seed } = useCourses();
+
+  // Seed courses on component mount
+  useEffect(() => {
+    seed();
+  }, [seed]);
 
   const course = useMemo(
     () => courses.find((c) => String(c.id) === String(id)),
-    [id]
+    [courses, id]
   );
 
   if (!course) {
@@ -40,7 +46,7 @@ export default function CourseDetail() {
         px: { xs: 2, sm: 4, md: 6 },
       }}
     >
-    
+
       <Card
         sx={{
           borderRadius: 4,
@@ -62,7 +68,7 @@ export default function CourseDetail() {
         />
       </Card>
 
-  
+
       <Typography
         variant="h4"
         fontWeight="bold"
@@ -85,7 +91,7 @@ export default function CourseDetail() {
         ${course.price}
       </Typography>
 
-  
+
       <Card
         sx={{
           borderRadius: 3,
@@ -105,7 +111,7 @@ export default function CourseDetail() {
         </CardContent>
       </Card>
 
-      
+
       <Card
         sx={{
           borderRadius: 3,

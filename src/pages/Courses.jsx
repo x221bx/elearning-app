@@ -1,29 +1,33 @@
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   Box,
   Typography,
-  Grid,
   TextField,
   Chip,
+  Grid,
 } from "@mui/material";
-import { courses } from "../api/courses";
 import CustomPagination from "../components/common/customPagination";
 import CourseCard from "../components/course/CourseCard";
+import useCourses from "../hooks/useCourses";
 
 export default function Courses() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
+  const { courses, seed } = useCourses();
 
   const perPage = 8;
 
+  // Seed courses on component mount
+  useEffect(() => {
+    seed();
+  }, [seed]);
 
   const categories = useMemo(() => {
     const cats = ["All", ...new Set(courses.map((c) => c.category))];
     return cats;
-  }, []);
-
+  }, [courses]);
 
   const filteredCourses = useMemo(() => {
     return courses.filter((c) => {
@@ -31,7 +35,7 @@ export default function Courses() {
       const matchesCategory = category === "All" || c.category === category;
       return matchesSearch && matchesCategory;
     });
-  }, [search, category]);
+  }, [courses, search, category]);
 
   const pageCount = Math.max(1, Math.ceil(filteredCourses.length / perPage));
   const paginated = filteredCourses.slice((page - 1) * perPage, page * perPage);

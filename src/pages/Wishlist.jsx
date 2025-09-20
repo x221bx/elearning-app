@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Box,
     Typography,
-    Grid,
     Button,
     Card,
     CardContent,
+    Grid,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import useWishlist from '../hooks/useWishlist';
@@ -17,7 +17,12 @@ import { useNotification } from '../contexts/NotificationContext';
 export default function WishlistPage() {
     const navigate = useNavigate();
     const { wishlistItems, isInWishlist, toggleWishlist } = useWishlist();
-    const { courses, isLoading: coursesLoading } = useCourses();
+    const { courses, isLoading: coursesLoading, seed } = useCourses();
+
+    // Seed courses on component mount
+    useEffect(() => {
+        seed();
+    }, [seed]);
     const { addItemToCart } = useCart();
     const { showNotification } = useNotification();
 

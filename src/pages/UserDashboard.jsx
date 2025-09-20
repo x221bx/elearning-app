@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { Box, Typography, Card, CardContent, Grid, Avatar, Stack, Chip } from "@mui/material";
+import React, { useMemo, useEffect } from "react";
+import { Box, Typography, Card, CardContent, Avatar, Stack, Chip, Grid } from "@mui/material";
 import useAuth from "../hooks/useAuth";
 import useCourses from "../hooks/useCourses";
 import useTeachers from "../hooks/useTeachers";
@@ -10,8 +10,13 @@ import useTeachers from "../hooks/useTeachers";
  */
 export default function UserDashboard() {
     const { auth } = useAuth();
-    const { courses } = useCourses();
+    const { courses, seed } = useCourses();
     const { teachers } = useTeachers();
+
+    // Seed courses on component mount
+    useEffect(() => {
+        seed();
+    }, [seed]);
 
     const isAdmin = auth?.role === "admin";
     const email = auth?.email || "";

@@ -43,8 +43,12 @@ export default function useCart() {
 
     const addItemToCart = (course) => {
         const userId = auth?.userId || 'guest';
-        dispatch(addToCart(course));
-        const updatedItems = [...cartItems, course];
+        const cartItem = {
+            courseId: course.courseId || course.id,
+            price: course.price
+        };
+        dispatch(addToCart(cartItem));
+        const updatedItems = [...cartItems, cartItem];
         localStorage.setItem(`cart:${userId}`, JSON.stringify(updatedItems));
     };
 

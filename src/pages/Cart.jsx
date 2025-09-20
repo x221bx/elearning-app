@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Box,
     Typography,
@@ -19,8 +19,13 @@ import ConfirmDialog from '../components/common/ConfirmDialog';
 export default function CartPage() {
     const navigate = useNavigate();
     const { cartItems, cartTotal, removeItemFromCart, handlePayment, isProcessing } = useCart();
-    const { courses } = useCourses();
+    const { courses, seed } = useCourses();
     const { showNotification } = useNotification();
+
+    // Seed courses on component mount
+    useEffect(() => {
+        seed();
+    }, [seed]);
 
     const [confirmDialog, setConfirmDialog] = React.useState({
         open: false,

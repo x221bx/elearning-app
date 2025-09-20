@@ -55,7 +55,7 @@ export default function CourseCard({
         e.preventDefault(); // Prevent card navigation
         e.stopPropagation(); // Stop event bubbling
         if (!inCart) {
-            handleAddToCart({ id, price });
+            handleAddToCart({ courseId: id, price });
             showNotification('Added to cart', 'success');
         }
     };

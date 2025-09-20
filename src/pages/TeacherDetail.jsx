@@ -1,5 +1,5 @@
 // src/pages/TeacherDetail.jsx
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   Box, Card, CardContent, CardMedia, Avatar,
@@ -36,7 +36,12 @@ function Section({ title, children, sx }) {
 export default function TeacherDetail() {
   const { id } = useParams();
   const { teachers } = useTeachers();
-  const { courses } = useCourses();
+  const { courses, seed } = useCourses();
+
+  // Seed courses on component mount
+  useEffect(() => {
+    seed();
+  }, [seed]);
 
   const teacher = useMemo(
     () => teachers.find((t) => String(t.id) === String(id)),

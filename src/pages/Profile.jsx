@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Box,
     Typography,
-    Grid,
     Card,
     CardContent,
     IconButton,
@@ -11,6 +10,7 @@ import {
     Container,
     Tab,
     Tabs,
+    Grid,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useEnrollment from '../hooks/useEnrollment';
@@ -23,11 +23,16 @@ export default function ProfilePage() {
     const [activeTab, setActiveTab] = React.useState(0);
     const { auth } = useAuth();
     const { enrolledCourses, toggleEnrollment } = useEnrollment();
-    const { courses } = useCourses();
+    const { courses, seed } = useCourses();
     const { showNotification } = useNotification();
 
+    // Seed courses on component mount
+    useEffect(() => {
+        seed();
+    }, [seed]);
+
     const userEnrolledCourses = courses.filter(course =>
-        enrolledCourses.includes(course.id)
+        enrolledCourses?.includes(course.id)
     );
 
     const [confirmDialog, setConfirmDialog] = React.useState({

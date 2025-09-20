@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Card, CardContent, MenuItem, FormHelperText, Grid, Stack } from "@mui/material";
+import { Card, CardContent, MenuItem, FormHelperText, Stack, Grid } from "@mui/material";
 import YellowButton from "../common/button";
 import useTeachers from "../../hooks/useTeachers";
 import useAuth from "../../hooks/useAuth";
@@ -95,16 +95,16 @@ export default function TeacherForm({ editing, onSaved, onCancel }) {
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                         <FormField label="Name" name="name" value={form.name} onChange={onChange}
-                                   error={!!errors.name} helperText={errors.name} autoGrow minRows={1} maxRows={2} />
+                            error={!!errors.name} helperText={errors.name} autoGrow minRows={1} maxRows={2} />
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <FormField label="Subject" name="subject" value={form.subject} onChange={onChange}
-                                   error={!!errors.subject} helperText={errors.subject} autoGrow minRows={1} maxRows={2} />
+                            error={!!errors.subject} helperText={errors.subject} autoGrow minRows={1} maxRows={2} />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
                         <FormField label="Rating (0–5)" name="rating" value={form.rating} onChange={onChange}
-                                   error={!!errors.rating} helperText={errors.rating} />
+                            error={!!errors.rating} helperText={errors.rating} />
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <FormField select label="Language" name="language" value={form.language} onChange={onChange}>
@@ -116,20 +116,20 @@ export default function TeacherForm({ editing, onSaved, onCancel }) {
 
                     <Grid item xs={12} md={6}>
                         <FormField label="Image URL" name="image" value={form.image} onChange={onChange}
-                                   error={!!errors.image} helperText={errors.image} autoGrow minRows={1} maxRows={3} />
+                            error={!!errors.image} helperText={errors.image} autoGrow minRows={1} maxRows={3} />
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <FormField label="Experience (Years)" name="experienceYears" value={form.experienceYears}
-                                   onChange={onChange} error={!!errors.experienceYears} helperText={errors.experienceYears} />
+                            onChange={onChange} error={!!errors.experienceYears} helperText={errors.experienceYears} />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
                         <FormField label="Certification" name="certification" value={form.certification} onChange={onChange}
-                                   error={!!errors.certification} helperText={errors.certification} autoGrow minRows={1} maxRows={3} />
+                            error={!!errors.certification} helperText={errors.certification} autoGrow minRows={1} maxRows={3} />
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <FormField multiline autoGrow minRows={3} maxRows={8} label="About" name="bio" value={form.bio} onChange={onChange}
-                                   error={!!errors.bio} helperText={errors.bio} />
+                            error={!!errors.bio} helperText={errors.bio} />
                     </Grid>
 
                     <Grid item xs={12}>

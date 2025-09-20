@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Box,
     Container,
     Typography,
-    Grid,
     Card,
     CardContent,
     TablePagination,
     Tabs,
     Tab,
     Divider,
-    Avatar
+    Avatar,
+    Grid
 } from '@mui/material';
 import useAuth from '../hooks/useAuth';
 import useCourses from '../hooks/useCourses';
@@ -18,8 +18,13 @@ import { useNotification } from '../contexts/NotificationContext';
 
 export default function AdminProfile() {
     const { auth } = useAuth();
-    const { courses } = useCourses();
+    const { courses, seed } = useCourses();
     const { showNotification } = useNotification();
+
+    // Seed courses on component mount
+    useEffect(() => {
+        seed();
+    }, [seed]);
     const [tab, setTab] = useState(0);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);

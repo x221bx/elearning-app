@@ -1,6 +1,6 @@
 // src/hooks/useEnrollment.js
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     enrollCourse,
     unenrollCourse,
@@ -12,6 +12,7 @@ import useWishlist from './useWishlist';
 export default function useEnrollment() {
     const dispatch = useDispatch();
     const { isEnrolled } = useWishlist();
+    const enrolledCourses = useSelector(selectEnrolledCourses);
 
     const handleEnroll = useCallback((courseId) => {
         if (!isEnrolled(courseId)) {
@@ -33,8 +34,18 @@ export default function useEnrollment() {
         return false;
     }, [dispatch, isEnrolled]);
 
+    const toggleEnrollment = useCallback((courseId) => {
+        if (isEnrolled(courseId)) {
+            return handleUnenroll(courseId);
+        } else {
+            return handleEnroll(courseId);
+        }
+    }, [isEnrolled, handleEnroll, handleUnenroll]);
+
     return {
+        enrolledCourses,
         handleEnroll,
         handleUnenroll,
+        toggleEnrollment,
     };
 }
