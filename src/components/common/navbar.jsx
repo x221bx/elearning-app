@@ -10,7 +10,6 @@ import {
     IconButton,
     Avatar,
     Divider,
-    ListItemIcon,
     Tooltip,
     Badge
 } from "@mui/material";
@@ -146,7 +145,41 @@ export default function Navbar() {
                         </Tooltip>
                     </Box>
 
+                    {/* Desktop actions */}
                     <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 1.25 }}>
+                        {/* Language switcher - always visible */}
+                        <Tooltip title="Change language">
+                            <IconButton
+                                aria-label="Change language"
+                                onClick={handleOpenLanguage}
+                                size="small"
+                                sx={{ ml: 0.5 }}
+                            >
+                                <PublicIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            anchorEl={anchorElLanguage}
+                            open={Boolean(anchorElLanguage)}
+                            onClose={handleCloseLanguage}
+                            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                            transformOrigin={{ vertical: "top", horizontal: "right" }}
+                            keepMounted
+                        >
+                            <MenuItem
+                                onClick={() => { applyLanguage("en"); handleCloseLanguage(); }}
+                                selected={getLang() === "en"}
+                            >
+                                English (EN)
+                            </MenuItem>
+                            <MenuItem
+                                onClick={() => { applyLanguage("ar"); handleCloseLanguage(); }}
+                                selected={getLang() === "ar"}
+                            >
+                                العربية (AR)
+                            </MenuItem>
+                        </Menu>
+
                         {user ? (
                             <>
                                 <IconButton
@@ -182,38 +215,6 @@ export default function Navbar() {
                                         </Avatar>
                                     </IconButton>
                                 </Tooltip>
-
-                                <Tooltip title="Change language">
-                                    <IconButton
-                                        aria-label="Change language"
-                                        onClick={handleOpenLanguage}
-                                        size="small"
-                                        sx={{ ml: 0.5 }}
-                                    >
-                                        <PublicIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                <Menu
-                                    anchorEl={anchorElLanguage}
-                                    open={Boolean(anchorElLanguage)}
-                                    onClose={handleCloseLanguage}
-                                    anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                                    transformOrigin={{ vertical: "top", horizontal: "right" }}
-                                    keepMounted
-                                >
-                                    <MenuItem
-                                        onClick={() => { applyLanguage("en"); handleCloseLanguage(); }}
-                                        selected={getLang() === "en"}
-                                    >
-                                        English (EN)
-                                    </MenuItem>
-                                    <MenuItem
-                                        onClick={() => { applyLanguage("ar"); handleCloseLanguage(); }}
-                                        selected={getLang() === "ar"}
-                                    >
-                                        العربية (AR)
-                                    </MenuItem>
-                                </Menu>
                             </>
                         ) : (
                             <>
@@ -239,6 +240,7 @@ export default function Navbar() {
                         )}
                     </Box>
 
+                    {/* Mobile menu */}
                     <Box sx={{ display: { xs: "flex", md: "none" } }}>
                         <IconButton color="inherit" onClick={handleOpenMobile}><MenuIcon /></IconButton>
                         <Menu anchorEl={anchorElMobile} open={Boolean(anchorElMobile)} onClose={handleCloseMobile} keepMounted>
