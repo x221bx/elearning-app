@@ -8,6 +8,7 @@ import Teachers from "../pages/Teachers.jsx";
 import TeacherDetail from "../pages/TeacherDetail.jsx";
 import ProfilePage from "../pages/Profile.jsx";
 import AdminProfile from "../pages/AdminProfile.jsx";
+import HowToUse from "../pages/HowToUse.jsx";
 
 import AdminLayout from "../components/admin/AdminLayout.jsx";
 import AdminDashboard from "../pages/AdminDashboard.jsx";
@@ -26,6 +27,8 @@ export default function AppRoutes() {
             <Route path="/courses/:id" element={<CourseDetail />} />
             <Route path="/teachers" element={<Teachers />} />
             <Route path="/teachers/:id" element={<TeacherDetail />} />
+
+            <Route path="/how-to-use" element={<HowToUse />} />
 
             <Route
                 path="/wishlist"

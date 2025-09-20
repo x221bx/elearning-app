@@ -28,7 +28,7 @@ export default function Navbar() {
     const { enrolledCourses } = useEnrollment();
     const user = auth?.email ? auth : null;
 
-    // Ensure arrays are defined
+    
     const safeWishlistItems = wishlistItems || [];
     const safeCartItems = cartItems || [];
 
@@ -63,18 +63,18 @@ export default function Navbar() {
                 }}
             >
                 <Toolbar>
-                    {/* Brand */}
+                   
                     <Box component={Link} to="/" sx={{ display: "flex", alignItems: "center", flexGrow: 1, textDecoration: "none", color: "inherit" }}>
                         <Avatar sx={{ width: 45, height: 45, mr: 1 }} src={pic1} />
                         <Typography variant="h6" sx={{ fontWeight: "bold" }}>Edudu For Kids</Typography>
                     </Box>
 
-                    {/* Center links (desktop) */}
+                   
                     <Box sx={{ flexGrow: 2, display: { xs: "none", md: "flex" }, justifyContent: "center", alignItems: "center", gap: 2 }}>
                         <Button component={Link} to="/" sx={{ color: "black", fontWeight: "bold" }}>Home</Button>
                         <Button component={Link} to="/courses" sx={{ color: "black", fontWeight: "bold" }}>Courses</Button>
                         <Button component={Link} to="/teachers" sx={{ color: "black", fontWeight: "bold" }}>Teachers</Button>
-                        <Button sx={{ color: "black", fontWeight: "bold" }}>How to use</Button>
+                        <Button component={Link} to="/how-to-use" sx={{ color: "black", fontWeight: "bold" }}>How to use</Button>
                         <Button sx={{ color: "black", fontWeight: "bold" }}>About us</Button>
                         {isAdmin() && (
                             <Button component={Link} to="/admin" sx={{ color: "black", fontWeight: "bold" }}>
@@ -83,7 +83,7 @@ export default function Navbar() {
                         )}
                     </Box>
 
-                    {/* Right side (desktop) */}
+                   
                     <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 1.25 }}>
                         {user ? (
                             <>
@@ -184,7 +184,7 @@ export default function Navbar() {
                         )}
                     </Box>
 
-                    {/* Mobile menu */}
+                   
                     <Box sx={{ display: { xs: "flex", md: "none" } }}>
                         <IconButton color="inherit" onClick={handleOpenMobile}><MenuIcon /></IconButton>
                         <Menu anchorEl={anchorElMobile} open={Boolean(anchorElMobile)} onClose={handleCloseMobile} keepMounted>
@@ -202,7 +202,7 @@ export default function Navbar() {
                 </Toolbar>
             </AppBar>
 
-            {/* Auth Modals */}
+            
             <LoginModal open={openLogin} onClose={() => setOpenLogin(false)} />
             <RegisterModal open={openRegister} onClose={() => setOpenRegister(false)} />
         </>
