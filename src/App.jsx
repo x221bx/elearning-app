@@ -1,27 +1,13 @@
-import React, { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from "react";
 
 import Navbar from "./components/common/navbar";
-import Home from "./pages/Home";
-import AboutUs from "./pages/AboutUs";
+import AppRoutes from "./routes/AppRoutes";
 
-function AppContent() {
-    const theme = useSelector((state) => state.theme);
-
-    useEffect(() => {
-        document.body.className = theme === "light" ? "light-theme" : "dark-theme";
-    }, [theme]);
-
+export default function App() {
     return (
         <>
             <Navbar />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<AboutUs />} />
-            </Routes>
+            <AppRoutes />
         </>
     );
 }
-
-export default AppContent;

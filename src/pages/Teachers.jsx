@@ -1,25 +1,46 @@
 import React from "react";
-import TeachersList from "../components/teacher/TeacherList";
 import { Typography, Box } from "@mui/material";
+import { useTheme, alpha } from "@mui/material/styles";
+import TeachersList from "../components/teacher/TeacherList";
 
 const Teachers = () => {
-    return (
-        <Box sx={{ backgroundColor: "#FFF9F0", minHeight: "100%", display: "flex", flexDirection: "column" }}>
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
+  const gradientStart = isDark
+    ? alpha(theme.palette.secondary.dark, 0.28)
+    : alpha(theme.palette.secondary.light, 0.36);
 
-            <Box sx={{ flex: 1, px: { xs: 2, sm: 4, md: 8 }, py: 4 }}>
-                <Box textAlign="center" mb={4}>
-                    <Typography variant="h5" fontWeight="bold" gutterBottom>
-                        A team of experienced teachers at Edudu
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary">
-                        Meet our qualified and passionate teachers who are dedicated to providing the best learning experience.
-                    </Typography>
-                </Box>
-
-                <TeachersList />
-            </Box>
+  return (
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        backgroundImage: `linear-gradient(180deg, ${gradientStart} 0%, ${theme.palette.background.default} 65%)`,
+        backgroundColor: theme.palette.background.default,
+      }}
+    >
+      <Box sx={{ flex: 1, px: { xs: 2, sm: 4, md: 8 }, py: { xs: 5, md: 8 } }}>
+        <Box
+          sx={{
+            textAlign: "center",
+            mb: 4,
+            maxWidth: 640,
+            mx: "auto",
+          }}
+        >
+          <Typography variant="h5" fontWeight="bold" color="text.primary" gutterBottom>
+            Meet Our Teachers
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            A team of compassionate mentors dedicated to making every learning moment enjoyable and inspiring.
+          </Typography>
         </Box>
-    );
+
+        <TeachersList />
+      </Box>
+    </Box>
+  );
 };
 
 export default Teachers;

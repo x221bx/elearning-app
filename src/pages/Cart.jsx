@@ -100,7 +100,7 @@ export default function CartPage() {
 
     return (
         <Box sx={{
-            backgroundColor: "#fdf7ff",
+            backgroundColor: "var(--brand-soft)",
             minHeight: "100vh",
             py: 8,
         }}>
@@ -126,7 +126,7 @@ export default function CartPage() {
                                 sx={{
                                     mb: 2,
                                     borderRadius: 3,
-                                    backgroundColor: '#fff9f0',
+                                    backgroundColor: 'var(--brand-soft)',
                                 }}
                             >
                                 <CardContent sx={{
@@ -179,7 +179,7 @@ export default function CartPage() {
                     <Box sx={{ width: { xs: '100%', md: 300 } }}>
                         <Card sx={{
                             borderRadius: 3,
-                            backgroundColor: '#fff9f0',
+                            backgroundColor: 'var(--brand-soft)',
                             position: 'sticky',
                             top: 100,
                         }}>
@@ -216,7 +216,7 @@ export default function CartPage() {
                                     sx={{
                                         py: 1.5,
                                         '&.Mui-disabled': {
-                                            backgroundColor: '#ccc',
+                                            backgroundColor: (theme) => theme.palette.action.disabledBackground,
                                         },
                                     }}
                                 >

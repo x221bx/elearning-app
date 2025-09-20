@@ -6,17 +6,17 @@ import { Box } from "@mui/material";
 export default function AdminLayout({ children }) {
     return (
         <Box sx={{ display: "flex", minHeight: "100vh" }}>
-             <Box
-                sx={{
+            <Box
+                sx={(theme) => ({
                     flexShrink: 0,
                     width: { xs: 220, md: 240 },
-                    borderRight: "1px solid #eee",
-                    bgcolor: "#fff",
+                    borderRight: `1px solid ${theme.palette.divider}`,
+                    bgcolor: theme.palette.background.paper,
                     position: "sticky",
                     top: 0,
                     height: "100vh",
                     overflowY: "auto",
-                }}
+                })}
             >
                 <AdminSidebar />
             </Box>

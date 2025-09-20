@@ -38,7 +38,6 @@ import pic18 from "../assets/images/pic18.png";
 import pic19 from "../assets/images/pic19.png";
 
 import MediaCard from "../components/common/card";
-import Navbar from "../components/common/navbar";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
 
@@ -47,7 +46,6 @@ function Home() {
   const navigate = useNavigate();
   return (
     <>
-      <Navbar />
 
       <Box
         sx={{
@@ -55,7 +53,7 @@ function Home() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          bgcolor: "#fdfdfd",
+          bgcolor: (theme) => theme.palette.background.default,
           px: { xs: 3, md: 10 },
         }}
       >
@@ -72,7 +70,7 @@ function Home() {
             px: { xs: 3, md: 6 },
             borderRadius: "20px",
             boxShadow: "0px 8px 30px rgba(0,0,0,0.05)",
-            bgcolor: "#ffffff",
+            bgcolor: (theme) => theme.palette.background.paper,
           }}
         >
           <Box
@@ -129,8 +127,8 @@ function Home() {
             <Button
               variant="contained"
               sx={{
-                backgroundColor: "#FFD700",
-                color: "#000",
+                backgroundColor: (theme) => theme.palette.primary.main,
+                color: "text.primary",
                 fontWeight: "bold",
                 borderRadius: "25px",
                 px: 4,
@@ -167,7 +165,7 @@ function Home() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          bgcolor: "#f9f9f9",
+          bgcolor: (theme) => theme.palette.background.default,
           px: { xs: 3, md: 10 },
           mt: 6,
         }}
@@ -223,9 +221,9 @@ function Home() {
                 variant="outlined"
                 sx={{
                   height: 55,
-                  borderColor: "#d8d8afff",
-                  bgcolor: "#f2f2cfff",
-                  color: "#000",
+                  borderColor: (theme) => theme.palette.divider,
+                  bgcolor: (theme) => theme.palette.brand.soft,
+                  color: "text.primary",
                   fontWeight: "bold",
                   borderRadius: "25px",
                   width: { xs: "45%", sm: btn.width, md: btn.width },
@@ -248,7 +246,7 @@ function Home() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          bgcolor: "#fdfdfd",
+          bgcolor: (theme) => theme.palette.background.default,
           px: { xs: 3, md: 10 },
         }}
       >
@@ -265,7 +263,7 @@ function Home() {
             px: { xs: 3, md: 6 },
             borderRadius: "20px",
             boxShadow: "0px 8px 30px rgba(0,0,0,0.05)",
-            bgcolor: "#ffffff",
+            bgcolor: (theme) => theme.palette.background.paper,
           }}
         >
           <Box sx={{ flex: 1, display: "flex", justifyContent: "center" }}>
@@ -345,7 +343,7 @@ function Home() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          bgcolor: "#fdfdfd",
+          bgcolor: (theme) => theme.palette.background.default,
           px: { xs: 3, md: 10 },
           pt: { xs: 3, md: 6 },
         }}
@@ -400,7 +398,7 @@ function Home() {
       <Box
         sx={{
           py: 4,
-          bgcolor: "#ffffff",
+          bgcolor: (theme) => theme.palette.background.paper,
           textAlign: "center",
           px: { xs: 2, md: 10 },
           mt: 2,
@@ -417,7 +415,7 @@ function Home() {
 
 
         <Typography variant="h4" fontWeight="bold" gutterBottom>
-          What's in the class at <span style={{ color: "#FACC15" }}>Edudu?</span>
+          What's in the class at <Box component="span" sx={{ color: 'primary.main', fontWeight: 700 }}>Edudu?</Box>
         </Typography>
 
         <Typography
@@ -433,14 +431,14 @@ function Home() {
         <Button
           variant="contained"
           sx={{
-            bgcolor: "#FACC15",
-            color: "black",
+            bgcolor: (theme) => theme.palette.primary.main,
+            color: "text.primary",
             px: 1,
             py: 1.5,
             fontWeight: "bold",
             borderRadius: "6px",
             mb: -8,
-            "&:hover": { bgcolor: "#eab308" },
+            "&:hover": { bgcolor: (theme) => theme.palette.primary.dark },
           }}
         >
           Free trial lesson
@@ -506,11 +504,11 @@ function Home() {
               textTransform: "none",
               flex: "1 1 250px",
               boxShadow: 3,
-              bgcolor: "white",
-              color: "black",
+              bgcolor: (theme) => theme.palette.background.paper,
+              color: "text.primary",
               "&:hover": {
-                bgcolor: "white",
-                borderColor: "#999",
+                bgcolor: (theme) => theme.palette.background.paper,
+                borderColor: (theme) => theme.palette.divider,
               },
             }}
           >
@@ -535,11 +533,11 @@ function Home() {
               textTransform: "none",
               flex: "1 1 250px",
               boxShadow: 3,
-              bgcolor: "white",
-              color: "black",
+              bgcolor: (theme) => theme.palette.background.paper,
+              color: "text.primary",
               "&:hover": {
-                bgcolor: "white",
-                borderColor: "#999",
+                bgcolor: (theme) => theme.palette.background.paper,
+                borderColor: (theme) => theme.palette.divider,
               },
             }}
           >
@@ -564,11 +562,11 @@ function Home() {
               textTransform: "none",
               flex: "1 1 250px",
               boxShadow: 3,
-              bgcolor: "white",
-              color: "black",
+              bgcolor: (theme) => theme.palette.background.paper,
+              color: "text.primary",
               "&:hover": {
-                bgcolor: "white",
-                borderColor: "#999",
+                bgcolor: (theme) => theme.palette.background.paper,
+                borderColor: (theme) => theme.palette.divider,
               },
             }}
           >
@@ -693,7 +691,7 @@ function Home() {
 
 
       {/* section 7 footer */}
-      <Box sx={{ backgroundColor: '#fffdfd', color: '#000', py: 5, mt: 6 }}>
+      <Box sx={{ backgroundColor: (theme) => theme.palette.background.default, color: 'text.primary', py: 5, mt: 6 }}>
         <Container maxWidth="lg">
           <Grid container spacing={4} justifyContent="space-between">
 

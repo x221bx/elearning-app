@@ -1,7 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
-  AppBar, Box, Toolbar, Typography, Button, Menu, MenuItem,
-  IconButton, Avatar, Divider, ListItemIcon, Tooltip, Badge
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  Button,
+  Menu,
+  MenuItem,
+  IconButton,
+  Avatar,
+  Divider,
+  ListItemIcon,
+  Tooltip,
+  Badge
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -9,8 +20,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import { useTheme } from "@mui/material/styles";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 
 import pic1 from "../../assets/images/pic1.jpg";
 import LoginModal from "../Pages/login";
@@ -19,13 +32,13 @@ import useAuth, { isAdmin } from "../../hooks/useAuth";
 import useWishlist from "../../hooks/useWishlist";
 import useCart from "../../hooks/useCart";
 import useEnrollment from "../../hooks/useEnrollment";
-import { toggleTheme } from "../../redux/slices/themeSlice";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
+import { useThemeMode } from "../../theme/ThemeProvider";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const theme = useTheme();
+  const { mode, toggleMode } = useThemeMode();
   const { auth, logout } = useAuth();
   const { wishlistItems } = useWishlist();
   const { cartItems } = useCart();
@@ -43,18 +56,6 @@ export default function Navbar() {
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
 
-  const theme = useSelector((state) => state.theme);
-  const dispatch = useDispatch();
-
-  const handletheme = () => {
-    dispatch(toggleTheme());
-  };
-
-  useEffect(() => {
-    document.body.classList.remove("light-theme", "dark-theme");
-    document.body.classList.add(theme === "light" ? "light-theme" : "dark-theme");
-  }, [theme]);
-
   const handleOpenMobile = (e) => setAnchorElMobile(e.currentTarget);
   const handleCloseMobile = () => setAnchorElMobile(null);
   const handleOpenUser = (e) => setAnchorElUser(e.currentTarget);
@@ -66,17 +67,27 @@ export default function Navbar() {
     navigate("/");
   };
 
+  const navButtonSx = {
+    fontWeight: 600,
+    color: "text.primary",
+    "&.active": {
+      color: theme.palette.primary.main,
+    },
+  };
+
   return (
     <>
       <AppBar
         position="fixed"
+        elevation={0}
         sx={{
-          backgroundColor: "var(--navbar-bg)",
-          color: "var(--navbar-color)",
-          boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
+          borderBottom: `1px solid ${theme.palette.divider}`,
+          backgroundColor: theme.palette.background.paper,
+          color: theme.palette.text.primary,
+          boxShadow: theme.customShadows?.card,
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{ gap: 2 }}>
           <Box
             component={Link}
             to="/"
@@ -88,8 +99,8 @@ export default function Navbar() {
               color: "inherit",
             }}
           >
-            <Avatar sx={{ width: 45, height: 45, mr: 1 }} src={pic1} />
-            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            <Avatar sx={{ width: 44, height: 44, mr: 1 }} src={pic1} />
+            <Typography variant="h6" fontWeight={700}>
               Edudu For Kids
             </Typography>
           </Box>
@@ -103,21 +114,22 @@ export default function Navbar() {
               gap: 2,
             }}
           >
-            <Button component={Link} to="/" sx={{ color: "var(--text-color)", fontWeight: "bold" }}>Home</Button>
-            <Button component={Link} to="/courses" sx={{ color: "var(--text-color)", fontWeight: "bold" }}>Courses</Button>
-            <Button component={Link} to="/teachers" sx={{ color: "var(--text-color)", fontWeight: "bold" }}>Teachers</Button>
-            <Button component={Link} to="/how-to-use" sx={{ color: "var(--text-color)", fontWeight: "bold" }}>How to use</Button>
-            <Button component={Link} to="/about" sx={{ color: "var(--text-color)", fontWeight: "bold" }}>About us</Button>
+            <Button component={Link} to="/" sx={navButtonSx}>Home</Button>
+            <Button component={Link} to="/courses" sx={navButtonSx}>Courses</Button>
+            <Button component={Link} to="/teachers" sx={navButtonSx}>Teachers</Button>
+            <Button component={Link} to="/how-to-use" sx={navButtonSx}>How to use</Button>
+            <Button component={Link} to="/about" sx={navButtonSx}>About us</Button>
             {isAdmin() && (
-              <Button component={Link} to="/admin" sx={{ color: "var(--text-color)", fontWeight: "bold" }}>Dashboard</Button>
+              <Button component={Link} to="/admin" sx={navButtonSx}>Dashboard</Button>
             )}
 
-             <IconButton onClick={handletheme} color="inherit">
-              {theme === "light" ? <DarkModeIcon /> : <LightModeIcon />}
-            </IconButton>
+            <Tooltip title={mode === "light" ? "Switch to dark mode" : "Switch to light mode"}>
+              <IconButton onClick={toggleMode} color="inherit" sx={{ ml: 1 }}>
+                {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+              </IconButton>
+            </Tooltip>
           </Box>
 
-         
           <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 1.25 }}>
             {user ? (
               <>
@@ -180,24 +192,18 @@ export default function Navbar() {
               <>
                 <Button
                   variant="contained"
+                  color="primary"
                   sx={{
-                    backgroundColor: "#ebebd2ff",
-                    color: "black",
                     boxShadow: "none",
-                    "&:hover": { backgroundColor: "#dddcc4" },
+                    color: theme.palette.primary.contrastText,
                   }}
                   onClick={() => setOpenRegister(true)}
                 >
                   Sign Up
                 </Button>
                 <Button
-                  variant="contained"
-                  sx={{
-                    ml: 1,
-                    backgroundColor: "#3e3a21ff",
-                    color: "white",
-                    "&:hover": { backgroundColor: "#2e2b18" },
-                  }}
+                  variant="outlined"
+                  sx={{ ml: 1 }}
                   onClick={() => setOpenLogin(true)}
                 >
                   Login
@@ -206,13 +212,14 @@ export default function Navbar() {
             )}
           </Box>
 
-  
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton color="inherit" onClick={handleOpenMobile}><MenuIcon /></IconButton>
             <Menu anchorEl={anchorElMobile} open={Boolean(anchorElMobile)} onClose={handleCloseMobile} keepMounted>
               <MenuItem component={Link} to="/" onClick={handleCloseMobile}>Home</MenuItem>
               <MenuItem component={Link} to="/courses" onClick={handleCloseMobile}>Courses</MenuItem>
               <MenuItem component={Link} to="/teachers" onClick={handleCloseMobile}>Teachers</MenuItem>
+              <MenuItem component={Link} to="/how-to-use" onClick={handleCloseMobile}>How to use</MenuItem>
+              <MenuItem component={Link} to="/about" onClick={handleCloseMobile}>About us</MenuItem>
               {isAdmin() && <MenuItem component={Link} to="/admin" onClick={handleCloseMobile}>Dashboard</MenuItem>}
               <Divider />
               {!user && <MenuItem onClick={() => { setOpenLogin(true); handleCloseMobile(); }}>Login</MenuItem>}
@@ -224,7 +231,6 @@ export default function Navbar() {
         </Toolbar>
       </AppBar>
 
-    
       <LoginModal open={openLogin} onClose={() => setOpenLogin(false)} />
       <RegisterModal open={openRegister} onClose={() => setOpenRegister(false)} />
     </>

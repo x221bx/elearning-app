@@ -11,6 +11,7 @@ import {
   IconButton,
   Box,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -138,7 +139,7 @@ function AboutUs() {
                   height: "160px",
                   borderRadius: "50%",
                   objectFit: "cover",
-                  border: "5px solid #f1e7bbff",
+                  border: (theme) => `5px solid ${alpha(theme.palette.primary.main, 0.25)}`,
                   mt: 2,
                 }}
               />
@@ -153,7 +154,7 @@ function AboutUs() {
                 <Typography
                   variant="subtitle2"
                   align="center"
-                  sx={{ color: "#888" }}
+                  sx={{ color: "text.secondary" }}
                 >
                   {member.role}
                 </Typography>

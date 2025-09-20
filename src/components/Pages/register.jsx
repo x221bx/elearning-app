@@ -41,14 +41,14 @@ export default function RegisterModal({ open, onClose }) {
 
     return (
         <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth
-                PaperProps={{ sx: { borderRadius: 2, backgroundColor: "#f5f5f5", overflow: "hidden" } }}>
+                PaperProps={{ sx: { borderRadius: 2, backgroundColor: "var(--card-bg)", overflow: "hidden" } }}>
             <DialogTitle component="div" textAlign="center" sx={{ pb: 0 }}>
                 <Avatar sx={{ width: 60, height: 60, mx: "auto", mb: 1 }} src={pic1} />
                 <Typography variant="h6" component="h2">Sign Up</Typography>
             </DialogTitle>
             <DialogContent sx={{ p: 2 }}>
                 <Box component="form" onSubmit={submit}
-                     sx={{ backgroundColor: "#fff", borderRadius: 2, boxShadow: "0px 2px 12px rgba(0,0,0,0.08)", p: 2 }}>
+                     sx={{ backgroundColor: "var(--card-bg)", borderRadius: 2, boxShadow: "var(--card-shadow)", p: 2 }}>
                     <TextField fullWidth size="small" label="Username" margin="dense"
                                value={username} onChange={(e)=>setUsername(e.target.value)}
                                error={!!errors.username} helperText={errors.username} />
@@ -64,8 +64,8 @@ export default function RegisterModal({ open, onClose }) {
                         <MenuItem value="teacher">Teacher</MenuItem>
                     </TextField>
                     <Button type="submit" fullWidth variant="contained"
-                            sx={{ mt: 2, borderRadius: "20px", fontWeight: "bold", backgroundColor: "#fbc02d", color: "#000", textTransform: "none",
-                                "&:hover": { backgroundColor: "#f9a825" } }}>
+                            sx={{ mt: 2, borderRadius: "20px", fontWeight: "bold", backgroundColor: "var(--primary-btn-bg)", color: "var(--primary-btn-color)", textTransform: "none",
+                                "&:hover": { backgroundColor: "var(--primary-btn-hover)" } }}>
                         Sign Up
                     </Button>
                 </Box>

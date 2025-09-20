@@ -9,7 +9,7 @@ export default function MiniArea() {
                 width: 220,
                 height: 100,
                 borderRadius: 2,
-                bgcolor: "#fff9c4",
+                bgcolor: "var(--brand-hover)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
