@@ -1,5 +1,5 @@
 // src/hooks/useEnrollment.js
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     enrollCourse,
@@ -7,43 +7,71 @@ import {
     setEnrolledCourses,
     selectEnrolledCourses
 } from '../redux/slices/enrollmentSlice';
-import useWishlist from './useWishlist';
+import useAuth from './useAuth';
 
 export default function useEnrollment() {
     const dispatch = useDispatch();
-    const { isEnrolled } = useWishlist();
+    const { auth } = useAuth();
+    const userId = auth?.userId || 'guest';
     const enrolledCourses = useSelector(selectEnrolledCourses);
+    const hasLoadedRef = useRef(null);
+
+    useEffect(() => {
+        if (hasLoadedRef.current === userId) {
+            return;
+        }
+        hasLoadedRef.current = userId;
+
+        try {
+            const savedEnrollments = localStorage.getItem(`enrollments:${userId}`);
+            const enrollmentData = savedEnrollments ? JSON.parse(savedEnrollments) : [];
+            if (Array.isArray(enrollmentData)) {
+                dispatch(setEnrolledCourses(enrollmentData));
+            } else {
+                throw new Error('Invalid enrollment data');
+            }
+        } catch (error) {
+            console.error('Failed to load enrollments:', error);
+            dispatch(setEnrolledCourses([]));
+        }
+    }, [dispatch, userId]);
+
+    useEffect(() => {
+        localStorage.setItem(`enrollments:${userId}`, JSON.stringify(enrolledCourses));
+    }, [userId, enrolledCourses]);
+
+    const isEnrolled = useCallback(
+        (courseId) => (enrolledCourses || []).includes(courseId),
+        [enrolledCourses]
+    );
 
     const handleEnroll = useCallback((courseId) => {
-        if (!isEnrolled(courseId)) {
-            // Enroll in the course
-            dispatch(enrollCourse(courseId));
-            // Here you could also add API calls, payment processing, etc.
-            return true;
+        if (!courseId || isEnrolled(courseId)) {
+            return false;
         }
-        return false;
+        dispatch(enrollCourse(courseId));
+        return true;
     }, [dispatch, isEnrolled]);
 
     const handleUnenroll = useCallback((courseId) => {
-        if (isEnrolled(courseId)) {
-            // Unenroll from the course
-            dispatch(unenrollCourse(courseId));
-            // Here you could also add API calls for unenrollment
-            return true;
+        if (!courseId || !isEnrolled(courseId)) {
+            return false;
         }
-        return false;
+        dispatch(unenrollCourse(courseId));
+        return true;
     }, [dispatch, isEnrolled]);
 
     const toggleEnrollment = useCallback((courseId) => {
+        if (!courseId) return false;
         if (isEnrolled(courseId)) {
             return handleUnenroll(courseId);
-        } else {
-            return handleEnroll(courseId);
         }
-    }, [isEnrolled, handleEnroll, handleUnenroll]);
+        return handleEnroll(courseId);
+    }, [handleEnroll, handleUnenroll, isEnrolled]);
 
     return {
         enrolledCourses,
+        isEnrolled,
         handleEnroll,
         handleUnenroll,
         toggleEnrollment,

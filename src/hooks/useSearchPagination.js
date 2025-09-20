@@ -14,7 +14,7 @@ export default function useSearchPagination(list, {
         return (list || []).filter(item =>
             keys.some(k => normalize(String(item?.[k] ?? "")).includes(q))
         );
-    }, [list, query]);
+    }, [list, query, keys, normalize]);
 
     const pageCount = Math.max(1, Math.ceil(filtered.length / perPage));
     const paginated = useMemo(

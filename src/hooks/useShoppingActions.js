@@ -1,81 +1,44 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { addToCart, removeFromCart, selectCartItems } from '../redux/slices/cartSlice';
-import { addToWishlist, removeFromWishlist, selectWishlistItems } from '../redux/slices/wishlistSlice';
+import { selectWishlistItems } from '../redux/slices/wishlistSlice';
 import { selectEnrolledCourses } from '../redux/slices/enrollmentSlice';
 import useAuth from './useAuth';
+import useFavorites from './useFavorites';
 
 export default function useShoppingActions() {
     const dispatch = useDispatch();
     const { auth } = useAuth();
-    const cartItems = useSelector(selectCartItems) || [];
-    const wishlistItems = useSelector(selectWishlistItems) || [];
-    const enrolledCourses = useSelector(selectEnrolledCourses) || [];
+    const userId = auth?.userId || 'guest';
 
-    // Initialize from localStorage
-    useEffect(() => {
-        const userId = auth?.userId || 'guest';
-        // Load wishlist
-        const savedWishlist = localStorage.getItem(`wishlist:${userId}`);
-        if (savedWishlist) {
-            try {
-                const wishlistData = JSON.parse(savedWishlist);
-                if (Array.isArray(wishlistData)) {
-                    // Dispatch each item to wishlist
-                    wishlistData.forEach(courseId => {
-                        dispatch(addToWishlist(courseId));
-                    });
-                }
-            } catch (e) {
-                console.error('Failed to load wishlist:', e);
-            }
-        }
-    }, [auth?.userId, dispatch]);
+    const cartItems = useSelector(selectCartItems);
+    const wishlistItems = useSelector(selectWishlistItems);
+    const enrolledCourses = useSelector(selectEnrolledCourses);
+    const { isFavorite, toggleFavorite } = useFavorites();
 
-    // Check if a course is in cart
     const isInCart = (courseId) => cartItems.some(item => item.courseId === courseId);
 
-    // Check if a course is in wishlist
-    const isFavorite = (courseId) => wishlistItems.includes(courseId);
-
-    // Check if a course is enrolled
     const isEnrolled = (courseId) => enrolledCourses.includes(courseId);
 
-    // Add to cart
     const handleAddToCart = (course) => {
-        if (!isInCart(course.id)) {
-            dispatch(addToCart({
-                courseId: course.id,
-                price: course.price
-            }));
-            // Also save to localStorage
-            const userId = auth?.userId || 'guest';
-            const updatedItems = [...cartItems, { courseId: course.id, price: course.price }];
-            localStorage.setItem(`cart:${userId}`, JSON.stringify(updatedItems));
-        }
-    };
+        if (!course) return;
+        const courseId = course.id ?? course.courseId;
+        if (!courseId || isInCart(courseId)) return;
 
-    // Remove from cart
-    const handleRemoveFromCart = (courseId) => {
-        dispatch(removeFromCart(courseId));
-        // Also update localStorage
-        const userId = auth?.userId || 'guest';
-        const updatedItems = cartItems.filter(item => item.courseId !== courseId);
+        const cartItem = {
+            courseId,
+            price: course.price
+        };
+
+        dispatch(addToCart(cartItem));
+        const updatedItems = [...cartItems, cartItem];
         localStorage.setItem(`cart:${userId}`, JSON.stringify(updatedItems));
     };
 
-    // Toggle wishlist
-    const toggleFavorite = (courseId) => {
-        const userId = auth?.userId || 'guest';
-        if (isFavorite(courseId)) {
-            dispatch(removeFromWishlist(courseId));
-            const newWishlist = wishlistItems.filter(id => id !== courseId);
-            localStorage.setItem(`wishlist:${userId}`, JSON.stringify(newWishlist));
-        } else {
-            dispatch(addToWishlist(courseId));
-            const newWishlist = [...wishlistItems, courseId];
-            localStorage.setItem(`wishlist:${userId}`, JSON.stringify(newWishlist));
-        }
+    const handleRemoveFromCart = (courseId) => {
+        if (!courseId) return;
+        dispatch(removeFromCart(courseId));
+        const updatedItems = cartItems.filter(item => item.courseId !== courseId);
+        localStorage.setItem(`cart:${userId}`, JSON.stringify(updatedItems));
     };
 
     return {

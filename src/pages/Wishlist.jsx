@@ -11,13 +11,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import useWishlist from '../hooks/useWishlist';
 import useCourses from '../hooks/useCourses';
 import useCart from '../hooks/useCart';
+import useEnrollment from '../hooks/useEnrollment';
 import CourseCard from '../components/course/CourseCard';
 import { useNotification } from '../contexts/NotificationContext';
 
 export default function WishlistPage() {
     const navigate = useNavigate();
-    const { wishlistItems, isInWishlist, toggleWishlist } = useWishlist();
+    const { wishlistItems } = useWishlist();
     const { courses, isLoading: coursesLoading, seed } = useCourses();
+    const { enrolledCourses } = useEnrollment();
 
     // Seed courses on component mount
     useEffect(() => {
@@ -26,13 +28,19 @@ export default function WishlistPage() {
     const { addItemToCart } = useCart();
     const { showNotification } = useNotification();
 
-    // Get full course objects for items in wishlist
+    // Get full course objects for items in wishlist that are not yet enrolled
     const wishlistCourses = courses.filter(course =>
-        Array.isArray(wishlistItems) && wishlistItems.includes(course.id)
+        Array.isArray(wishlistItems) &&
+        wishlistItems.includes(course.id) &&
+        !enrolledCourses.includes(course.id)
     );
 
+    const enrolledWishlistCount = Array.isArray(wishlistItems)
+        ? wishlistItems.filter(id => enrolledCourses.includes(id)).length
+        : 0;
+
     // Add state debugger
-    const showDebug = process.env.NODE_ENV === 'development';
+    const showDebug = import.meta.env.MODE === 'development';
 
     if (coursesLoading) {
         return showDebug ? <StateDebugger /> : (
@@ -96,6 +104,13 @@ export default function WishlistPage() {
                 >
                     My Wishlist ({wishlistCourses.length})
                 </Typography>
+
+                {enrolledWishlistCount > 0 && (
+                    <Typography color="text.secondary" sx={{ mb: 3 }}>
+                        {enrolledWishlistCount} {enrolledWishlistCount === 1 ? 'course has' : 'courses have'}
+                        {' '}been moved to your favorites because you are already enrolled.
+                    </Typography>
+                )}
 
                 <Grid container spacing={3}>
                     {wishlistCourses.map(course => (

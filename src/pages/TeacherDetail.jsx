@@ -48,6 +48,16 @@ export default function TeacherDetail() {
     [teachers, id]
   );
 
+  const teacherId = teacher?.id;
+
+  const allCourses = useMemo(
+    () =>
+      teacherId ? courses.filter((c) => String(c.teacherId) === String(teacherId)) : [],
+    [courses, teacherId]
+  );
+
+  const [page, setPage] = useState(1);
+
   if (!teacher) {
     return (
       <Box sx={{ p: 4, textAlign: "center" }}>
@@ -56,19 +66,12 @@ export default function TeacherDetail() {
     );
   }
 
-  const allCourses = useMemo(
-    () => courses.filter((c) => String(c.teacherId) === String(teacher.id)),
-    [courses, teacher.id]
-  );
-
   const languages = Array.isArray(teacher.languages) && teacher.languages.length
     ? teacher.languages
     : ["Arabic", "English"];
   const aboutText = teacher.about || teacher.description || teacher.bio || "No bio.";
   const certText = teacher.certification || teacher.cert || "No certification info.";
   const rating = Math.max(0, Math.min(5, Number(teacher.rating || 0)));
-
-  const [page, setPage] = useState(1);
   const perPage = 4;
   const pageCount = Math.max(1, Math.ceil(allCourses.length / perPage));
   const paginated = allCourses.slice((page - 1) * perPage, page * perPage);

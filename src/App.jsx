@@ -14,7 +14,7 @@ export default function App() {
     useEffect(() => {
         seedTeachers();
         seedCourses();
-    }, []);
+    }, [seedTeachers, seedCourses]);
 
     return (
         <NotificationProvider>

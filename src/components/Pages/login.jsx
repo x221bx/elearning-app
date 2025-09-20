@@ -38,7 +38,6 @@ export default function LoginModal({ open, onClose }) {
         }
 
         const savedEmail = localStorage.getItem(LS.email)?.toLowerCase();
-        const normalizedEmail = email.toLowerCase();
         const savedPassword = localStorage.getItem(LS.password);
         const savedName = localStorage.getItem(LS.name) || "";
         const savedRole = localStorage.getItem(LS.role) || "student";
