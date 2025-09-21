@@ -107,16 +107,25 @@ export default function CourseCard({
                 top: 8,
                 right: 8,
                 display: 'flex',
-                gap: 1
+                gap: 1,
+                zIndex: 2,
             }}>
                 {/* Cart Icon */}
-                <Tooltip title={inCart ? "Remove from Cart" : "Add to Cart"}>
+                <Tooltip title={inCart ? "In Cart" : "Add to Cart"}>
                     <IconButton
                         onClick={handleCartClick}
+                        aria-label={inCart ? 'in cart' : 'add to cart'}
                         sx={{
-                            bgcolor: alpha(theme.palette.background.paper, 0.85),
+                            width: 38,
+                            height: 38,
+                            borderRadius: 2,
+                            bgcolor: alpha(theme.palette.background.paper, 0.8),
+                            border: `1px solid ${alpha(theme.palette.primary.main, 0.25)}`,
+                            backdropFilter: 'blur(4px)',
+                            boxShadow: '0 6px 16px rgba(15,23,42,0.12)',
                             '&:hover': {
-                                bgcolor: alpha(theme.palette.background.paper, 0.98),
+                                bgcolor: alpha(theme.palette.background.paper, 0.95),
+                                borderColor: theme.palette.primary.main,
                             },
                         }}
                         disabled={enrolled || inCart}
@@ -135,10 +144,19 @@ export default function CourseCard({
                 <Tooltip title={favorite ? "Remove from Favorites" : "Add to Favorites"}>
                     <IconButton
                         onClick={handleFavoriteClick}
+                        aria-pressed={favorite}
+                        aria-label={favorite ? 'remove from favorites' : 'add to favorites'}
                         sx={{
-                            bgcolor: alpha(theme.palette.background.paper, 0.85),
+                            width: 38,
+                            height: 38,
+                            borderRadius: 2,
+                            bgcolor: alpha(theme.palette.background.paper, 0.8),
+                            border: `1px solid ${alpha(theme.palette.primary.main, 0.25)}`,
+                            backdropFilter: 'blur(4px)',
+                            boxShadow: '0 6px 16px rgba(15,23,42,0.12)',
                             '&:hover': {
-                                bgcolor: alpha(theme.palette.background.paper, 0.98),
+                                bgcolor: alpha(theme.palette.background.paper, 0.95),
+                                borderColor: theme.palette.primary.main,
                             },
                         }}
                     >
