@@ -66,7 +66,13 @@ export default function CourseCard({
         }
     };
 
-    const r = Math.max(0, Math.min(5, Number(rating || 0)));
+    // Safe fallbacks to keep card rendering consistent
+    const courseTitle = title?.trim() || 'Untitled Course';
+    const courseDesc = (description || '').toString();
+    const courseCategory = category?.toString() || 'General';
+    const coverFallback = `https://picsum.photos/seed/course-${id || 'fallback'}/600/400`;
+    const cover = image || coverFallback;
+    const r = Math.max(0, Math.min(5, Number(isNaN(Number(rating)) ? 0 : Number(rating))));
 
     return (
         <Card
@@ -96,8 +102,9 @@ export default function CourseCard({
         >
             <CardMedia
                 component="img"
-                image={image}
-                alt={title}
+                image={cover}
+                alt={courseTitle}
+                onError={(e) => { e.currentTarget.src = coverFallback; }}
                 sx={{ height: 160, objectFit: 'cover', borderRadius: '12px 12px 0 0' }}
             />
 
@@ -172,7 +179,7 @@ export default function CourseCard({
             <CardContent sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1, flexGrow: 1 }}>
                 <Box sx={{ mb: 1 }}>
                     <Chip
-                        label={category}
+                        label={courseCategory}
                         size="small"
                         sx={{
                             bgcolor: alpha(theme.palette.primary.main, 0.12),
@@ -196,7 +203,7 @@ export default function CourseCard({
                         WebkitBoxOrient: 'vertical',
                     }}
                 >
-                    {title}
+                    {courseTitle}
                 </Typography>
 
                 <Typography
@@ -210,7 +217,7 @@ export default function CourseCard({
                         WebkitBoxOrient: 'vertical',
                     }}
                 >
-                    {description}
+                    {courseDesc}
                 </Typography>
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 'auto' }}>
