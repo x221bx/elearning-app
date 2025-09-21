@@ -1,30 +1,27 @@
 import React, { useEffect } from "react";
-import { Box } from "@mui/material";
-import AppRoutes from "./routes/AppRoutes";
-import Navbar from "./components/common/navbar";
-import useCourses from "./hooks/useCourses";
-import useTeachers from "./hooks/useTeachers";
-import { NotificationProvider } from "./contexts/NotificationContext";
-import { AuthProvider } from "./contexts/AuthContext";
+import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export default function App() {
-    const { seed: seedCourses } = useCourses();
-    const { seed: seedTeachers } = useTeachers();
+import Navbar from "./components/common/navbar";
+import Home from "./pages/Home";
+import AboutUs from "./pages/AboutUs";
+
+function AppContent() {
+    const theme = useSelector((state) => state.theme);
 
     useEffect(() => {
-        seedTeachers();
-        seedCourses();
-    }, [seedTeachers, seedCourses]);
+        document.body.className = theme === "light" ? "light-theme" : "dark-theme";
+    }, [theme]);
 
     return (
-        <NotificationProvider>
-            <AuthProvider>
-                <Box sx={{ minHeight: "100vh", bgcolor: "#fafafa" }}>
-                    <Navbar />
-                    <Box sx={{ height: 72 }} /> {/* Spacing for fixed navbar */}
-                    <AppRoutes />
-                </Box>
-            </AuthProvider>
-        </NotificationProvider>
+        <>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<AboutUs />} />
+            </Routes>
+        </>
     );
 }
+
+export default AppContent;

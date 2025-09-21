@@ -1,0 +1,115 @@
+.light-theme {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --primary-btn-bg: #ffd700;
+  --primary-btn-color: #000000;
+  --secondary-btn-bg: #f2f2cf;
+  --card-bg: #ffffff;
+  --card-shadow: 0px 8px 30px rgba(0,0,0,0.05);
+  --navbar-bg: #eeed9bff;
+  --navbar-color: #000000;
+  --input-bg: #fff;
+  --input-border: #ccc;
+  --dialog-bg: #f5f5f5;
+}
+
+
+.dark-theme {
+  --bg-color: #222;
+  --text-color: #fff;
+  --primary-btn-bg: #fbc02d;
+  --primary-btn-color: #000;
+  --secondary-btn-bg: #555;
+  --card-bg: #333;
+  --card-shadow: 0px 4px 12px rgba(0,0,0,0.5);
+  --navbar-bg: #333;
+  --navbar-color: #fff;
+  --input-bg: #333;
+  --input-border: #fff;
+  --dialog-bg: #444;
+}
+
+
+body, html, #root {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+.MuiAppBar-root {
+  background-color: var(--navbar-bg) !important;
+  color: var(--navbar-color) !important;
+}
+
+
+.MuiButton-root {
+  color: var(--text-color) !important;
+}
+
+.MuiButton-contained {
+  background-color: var(--primary-btn-bg) !important;
+  color: var(--primary-btn-color) !important;
+}
+
+.MuiButton-outlined {
+  border-color: var(--input-border) !important;
+  color: var(--text-color) !important;
+}
+
+.MuiCard-root {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+
+.MuiTypography-root {
+  color: var(--text-color) !important;
+}
+
+
+.MuiInputBase-root {
+  color: var(--text-color) !important;
+  background-color: var(--input-bg);
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: var(--input-border) !important;
+}
+
+
+.MuiDialog-paper {
+  background-color: var(--dialog-bg) !important;
+  color: var(--text-color) !important;
+}
+
+.MuiMenu-paper {
+  background-color: var(--dialog-bg) !important;
+  color: var(--text-color) !important;
+}
+
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+
+section, div {
+  transition: all 0.3s ease;
+}
+
+.MuiSvgIcon-root {
+  color: var(--text-color) !important;
+}
+
+.MuiLink-root {
+  color: var(--text-color) !important;
+}
+
+.MuiPaper-root {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+}
