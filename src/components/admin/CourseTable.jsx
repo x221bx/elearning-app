@@ -12,7 +12,7 @@ import { useTheme } from "@mui/material/styles";
 import useCourses from "../../hooks/useCourses";
 import useTeachers from "../../hooks/useTeachers";
 import CustomPagination from "../common/customPagination";
-import ConfirmDialog from "../common/ConfirmDialog";
+import ConfirmDialog from "../common/confirmDialog";
 
 import {
     adminPalette, tableRowSx, tagChipSx, actionsCellSx

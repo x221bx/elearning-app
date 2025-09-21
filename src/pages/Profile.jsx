@@ -17,7 +17,7 @@ import useEnrollment from '../hooks/useEnrollment';
 import useCourses from '../hooks/useCourses';
 import useAuth from '../hooks/useAuth';
 import { useNotification } from '../contexts/NotificationContext';
-import ConfirmDialog from '../components/common/ConfirmDialog';
+import ConfirmDialog from '../components/common/confirmDialog';
 import useFavorites from '../hooks/useFavorites';
 import useCart from '../hooks/useCart';
 import { Link } from 'react-router-dom';

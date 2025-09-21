@@ -14,7 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useCart from '../hooks/useCart';
 import useCourses from '../hooks/useCourses';
 import { useNotification } from '../contexts/NotificationContext';
-import ConfirmDialog from '../components/common/ConfirmDialog';
+import ConfirmDialog from '../components/common/confirmDialog';
 
 export default function CartPage() {
     const navigate = useNavigate();
