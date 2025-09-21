@@ -81,6 +81,7 @@ export default function CourseCard({
             sx={{
                 position: 'relative',
                 height: '100%',
+                minHeight: 300,
                 display: 'flex',
                 flexDirection: 'column',
                 textDecoration: 'none',
