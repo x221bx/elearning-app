@@ -6,27 +6,34 @@ export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
     const [auth, setAuth] = useState(null);
+    const SESSION_KEY = "edudu:session"; // '1' when logged in
 
     // load from localStorage on mount
     useEffect(() => {
+        const isActive = localStorage.getItem(SESSION_KEY) === "1";
         const userId = localStorage.getItem("userId");
         const email = localStorage.getItem("userEmail");
-        if (email) {
+        if (isActive && email) {
             const name = localStorage.getItem("userName");
             const role = localStorage.getItem("userRole") || "student";
             setAuth({ userId, email, name, role });
+        } else {
+            setAuth(null);
         }
     }, []);
 
     const setCredentials = useCallback(({ email, name, role }) => {
-        const userId = crypto.randomUUID(); // Generate unique userId
+        const existingId = localStorage.getItem("userId");
+        const userId = existingId || crypto.randomUUID();
         const safeRole = role || "student";
         const normalizedEmail = email.toLowerCase();
 
+        // Persist registered credentials (do not clear them on logout)
         localStorage.setItem("userId", userId);
         localStorage.setItem("userEmail", normalizedEmail);
         if (name) localStorage.setItem("userName", name);
         localStorage.setItem("userRole", safeRole);
+        localStorage.setItem(SESSION_KEY, "1");
 
         setAuth({ userId, email: normalizedEmail, name, role: safeRole });
 
@@ -46,10 +53,11 @@ export function AuthProvider({ children }) {
     }, []);
 
     const logout = useCallback(() => {
-        localStorage.removeItem("userEmail");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("userRole");
-        localStorage.removeItem("userPassword");
+        // End session but keep registered credentials so user can login again
+        try {
+            localStorage.removeItem(SESSION_KEY);
+        } catch {}
+        // Optionally keep userId to preserve user-specific data keys
         setAuth(null);
     }, []);
 
