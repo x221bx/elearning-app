@@ -42,14 +42,14 @@ export const selectFavorites = createSelector(
     state => state?.items || []
 );
 
-export const selectIsFavorite = courseId => createSelector(
-    [selectFavorites],
-    items => items.includes(courseId)
-);
-
-export const selectAreFavoritesInitialized = createSelector(
-    [getFavoritesState],
-    state => Boolean(state?.initialized)
-);
+// export const selectIsFavorite = courseId => createSelector(
+//     [selectFavorites],
+//     items => items.includes(courseId)
+// );
+//
+// export const selectAreFavoritesInitialized = createSelector(
+//     [getFavoritesState],
+//     state => Boolean(state?.initialized)
+// );
 
 export default favoritesSlice.reducer;

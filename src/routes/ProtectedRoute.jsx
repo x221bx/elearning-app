@@ -7,8 +7,7 @@ export default function ProtectedRoute({ children, requireAdmin }) {
     const { auth } = useAuth();
 
     if (!auth) {
-        // Redirect to login if not authenticated
-        return <Navigate to="/auth" state={{ from: location }} replace />;
+         return <Navigate to="/auth" state={{ from: location }} replace />;
     }
 
     if (requireAdmin && !isAdmin()) {

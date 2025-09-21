@@ -65,7 +65,7 @@ export default function WishlistPage() {
                 flexDirection: 'column',
                 gap: 2,
                 py: 8,
-                mt: 8 // Add top margin to account for navbar
+                mt: 8
             }}>
                 <Typography variant="h5" fontWeight="bold" textAlign="center">
                     Your wishlist is empty

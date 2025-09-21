@@ -26,8 +26,7 @@ const NavItem = ({ to, label, end }) => (
                     theme.palette.mode === "dark" ? 0.12 : 0.08
                 ),
             },
-            // NavLink يضيف class "active" تلقائيًا عند التطابق
-            "&.active": {
+             "&.active": {
                 backgroundColor: alpha(
                     theme.palette.primary.main,
                     theme.palette.mode === "dark" ? 0.22 : 0.16

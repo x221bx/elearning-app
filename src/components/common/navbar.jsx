@@ -12,7 +12,7 @@ import {
     Divider,
     Tooltip,
     Badge,
-    ListItemIcon, // ⬅️ مضاف لاستخدام الأيقونات داخل القوائم
+    ListItemIcon,
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -33,7 +33,7 @@ import useAuth, { isAdmin } from "../../hooks/useAuth";
 import useWishlist from "../../hooks/useWishlist";
 import useCart from "../../hooks/useCart";
 import useEnrollment from "../../hooks/useEnrollment";
-import { useThemeMode } from "../../theme/ThemeProvider";
+import {useThemeMode} from "../../theme/ThemeProvider";
 import { getLang, setLang, applyDir } from "../../utils/lang";
 
 export default function Navbar() {
@@ -76,18 +76,17 @@ export default function Navbar() {
         navigate("/");
     };
 
-    // تطبيق اللغة + الاتجاه (بدون ما نلمس theme أو ملفات تانية)
+
     const applyLanguage = (lng) => {
         const v = lng === "ar" ? "ar" : "en";
         setLang(v);
         applyDir(v);
-        setLangState(v); // يسبب re-render محلي للنافبار
+        setLangState(v);
     };
 
-    // initialize lang/dir عند أول تحميل
-    useEffect(() => {
+     useEffect(() => {
         applyLanguage(getLang() || "en");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, []);
 
     const navButtonSx = {
@@ -216,7 +215,7 @@ export default function Navbar() {
                                     </Badge>
                                 </IconButton>
 
-                                {/* Avatar يفتح منيو المستخدم */}
+
                                 <Tooltip title={user.name || user.email}>
                                     <IconButton onClick={handleOpenUser} size="small">
                                         <Avatar sx={{ width: 36, height: 36 }}>
@@ -276,7 +275,7 @@ export default function Navbar() {
                 </Toolbar>
             </AppBar>
 
-            {/* ✅ User menu (desktop) */}
+            {/*   User menu   */}
             <Menu
                 anchorEl={anchorElUser}
                 open={Boolean(anchorElUser)}

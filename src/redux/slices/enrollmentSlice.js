@@ -41,15 +41,15 @@ export const selectEnrolledCourses = createSelector(
     state => state?.items || []
 );
 
-export const selectIsEnrolled = (courseId) =>
-    createSelector(
-        [selectEnrolledCourses],
-        items => Boolean(items?.includes(courseId))
-    );
-
-export const selectIsEnrollmentInitialized = createSelector(
-    [getEnrollmentState],
-    state => Boolean(state?.initialized)
-);
+// export const selectIsEnrolled = (courseId) =>
+//     createSelector(
+//         [selectEnrolledCourses],
+//         items => Boolean(items?.includes(courseId))
+//     );
+//
+// export const selectIsEnrollmentInitialized = createSelector(
+//     [getEnrollmentState],
+//     state => Boolean(state?.initialized)
+// );
 
 export default enrollmentSlice.reducer;

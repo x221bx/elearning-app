@@ -1,5 +1,4 @@
-// src/components/common/customPagination.jsx
-import React from "react";
+ import React from "react";
 import { Pagination } from "@mui/material";
 
 export function CustomPagination({

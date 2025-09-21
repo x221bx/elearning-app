@@ -30,7 +30,7 @@ const coursesSlice = createSlice({
                         image: data.image?.trim() || "https://picsum.photos/seed/new/600/400",
                         price: Number(data.price || 0),
                         rating: Number(data.rating || 0),
-                        teacherId: data.teacherId || "", // ممكن يبقى فاضي
+                        teacherId: data.teacherId || "",
                         lessonsCount: Number(data.lessonsCount || 0),
                         description: data.description || "",
                         createdBy: currentUserEmail || null,
@@ -61,12 +61,12 @@ export const selectCourses = createSelector(
     [selectCoursesState],
     (c) => c?.items || []
 );
-export const makeSelectCoursesByTeacher = (teacherId) =>
-    createSelector(
-        [selectCourses],
-        (list) => (list || []).filter(
-            (c) => c && String(c.teacherId) === String(teacherId)
-        )
-    );
+// export const makeSelectCoursesByTeacher = (teacherId) =>
+//     createSelector(
+//         [selectCourses],
+//         (list) => (list || []).filter(
+//             (c) => c && String(c.teacherId) === String(teacherId)
+//         )
+//     );
 
 export default coursesSlice.reducer;

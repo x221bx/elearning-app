@@ -15,6 +15,7 @@ const isValidStoredMode = (value) => value === "light" || value === "dark";
 
 export const useThemeMode = () => useContext(ThemeModeContext);
 
+
 export function AppThemeProvider({ children }) {
   const getPreferredMode = () => {
     if (typeof window === "undefined") return "light";
