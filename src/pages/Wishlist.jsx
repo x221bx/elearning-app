@@ -13,6 +13,7 @@ import useCourses from '../hooks/useCourses';
 import useCart from '../hooks/useCart';
 import useEnrollment from '../hooks/useEnrollment';
 import CourseCard from '../components/course/CourseCard';
+import StateDebugger from '../components/common/StateDebugger';
 import { useNotification } from '../contexts/NotificationContext';
 
 export default function WishlistPage() {
