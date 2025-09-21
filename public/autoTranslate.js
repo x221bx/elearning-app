@@ -5,8 +5,8 @@
     var CACHE_PREFIX = "autodom:v3:";
     var ATTRS = ["placeholder", "title", "aria-label", "aria-placeholder"];
     var SKIP_TAGS = new Set(["SCRIPT","STYLE","NOSCRIPT","PRE","CODE","TEXTAREA","INPUT","SELECT","OPTION","SVG","LINK","META","IFRAME","CANVAS","TEMPLATE"]);
-    var MAX_LEN = 160;           // ignore long blobs (CSS, paragraphs, etc.)
-    var MAX_LINES = 2;           // ignore multi-line chunks
+    var MAX_LEN = 160;
+    var MAX_LINES = 2;
     var processed = new WeakMap();// mark processed text nodes to avoid repeats
 
     function log(){ if(DEBUG) try{ console.log.apply(console,arguments); }catch{} }
@@ -168,7 +168,8 @@
             if (m.type === "childList") {
                 m.addedNodes.forEach(function (node) {
                     if (node.nodeType === 1) scanNode(node);
-                    else if (node.nodeType === 3 && isGoodTextNode(node)) queue.push({ type:"text", node:node });
+                    else if (node.nodeType === 3 && isGoodTextNode(node)) queue.push({
+                        type:"text", node:node });
                 });
             } else if (m.type === "attributes" && ATTRS.indexOf(m.attributeName) >= 0) {
                 var el = m.target;
@@ -198,6 +199,20 @@
         window.addEventListener("storage", function (e) {
             if (e.key === "lang") location.reload();
         });
+
+         var __lastLang = lng;
+        setInterval(function () {
+            var now = getLang();
+            if (now !== __lastLang) {
+                __lastLang = now;
+                setDirLang(now);
+                if (now === "en") {
+                     location.reload();
+                } else {
+                     fullScan();
+                }
+            }
+        }, 250);
 
         window.__autoTranslatePing = function () {
             console.log("[autoTranslate] lang=", getLang(), "queue=", queue.length);

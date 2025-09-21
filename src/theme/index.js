@@ -197,4 +197,3 @@ export const createAppTheme = (mode = "light") => {
   });
 };
 
-export default createAppTheme;

@@ -11,7 +11,8 @@ import {
     Avatar,
     Divider,
     Tooltip,
-    Badge
+    Badge,
+    ListItemIcon, // ⬅️ مضاف لاستخدام الأيقونات داخل القوائم
 } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -58,6 +59,9 @@ export default function Navbar() {
     const [openLogin, setOpenLogin] = useState(false);
     const [openRegister, setOpenRegister] = useState(false);
 
+    // ✅ state خفيف لإجبار إعادة الرسم بعد تغيير اللغة بدون تأثير خارجي
+    const [langState, setLangState] = useState(getLang() || "en");
+
     const handleOpenMobile = (e) => setAnchorElMobile(e.currentTarget);
     const handleCloseMobile = () => setAnchorElMobile(null);
     const handleOpenUser = (e) => setAnchorElUser(e.currentTarget);
@@ -72,14 +76,18 @@ export default function Navbar() {
         navigate("/");
     };
 
+    // تطبيق اللغة + الاتجاه (بدون ما نلمس theme أو ملفات تانية)
     const applyLanguage = (lng) => {
         const v = lng === "ar" ? "ar" : "en";
         setLang(v);
         applyDir(v);
+        setLangState(v); // يسبب re-render محلي للنافبار
     };
 
+    // initialize lang/dir عند أول تحميل
     useEffect(() => {
         applyLanguage(getLang() || "en");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const navButtonSx = {
@@ -168,13 +176,13 @@ export default function Navbar() {
                         >
                             <MenuItem
                                 onClick={() => { applyLanguage("en"); handleCloseLanguage(); }}
-                                selected={getLang() === "en"}
+                                selected={langState === "en"}
                             >
                                 English (EN)
                             </MenuItem>
                             <MenuItem
                                 onClick={() => { applyLanguage("ar"); handleCloseLanguage(); }}
-                                selected={getLang() === "ar"}
+                                selected={langState === "ar"}
                             >
                                 العربية (AR)
                             </MenuItem>
@@ -208,6 +216,7 @@ export default function Navbar() {
                                     </Badge>
                                 </IconButton>
 
+                                {/* Avatar يفتح منيو المستخدم */}
                                 <Tooltip title={user.name || user.email}>
                                     <IconButton onClick={handleOpenUser} size="small">
                                         <Avatar sx={{ width: 36, height: 36 }}>
@@ -251,8 +260,12 @@ export default function Navbar() {
                             <MenuItem component={Link} to="/about" onClick={handleCloseMobile}>About us</MenuItem>
                             {isAdmin() && <MenuItem component={Link} to="/admin" onClick={handleCloseMobile}>Dashboard</MenuItem>}
                             <Divider />
-                            <MenuItem onClick={() => { applyLanguage("en"); handleCloseMobile(); }}>English (EN)</MenuItem>
-                            <MenuItem onClick={() => { applyLanguage("ar"); handleCloseMobile(); }}>العربية (AR)</MenuItem>
+                            <MenuItem onClick={() => { applyLanguage("en"); handleCloseMobile(); }}>
+                                English (EN)
+                            </MenuItem>
+                            <MenuItem onClick={() => { applyLanguage("ar"); handleCloseMobile(); }}>
+                                العربية (AR)
+                            </MenuItem>
                             <Divider />
                             {!user && <MenuItem onClick={() => { setOpenLogin(true); handleCloseMobile(); }}>Login</MenuItem>}
                             {!user && <MenuItem onClick={() => { setOpenRegister(true); handleCloseMobile(); }}>Sign Up</MenuItem>}
@@ -262,6 +275,35 @@ export default function Navbar() {
                     </Box>
                 </Toolbar>
             </AppBar>
+
+            {/* ✅ User menu (desktop) */}
+            <Menu
+                anchorEl={anchorElUser}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUser}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
+                keepMounted
+            >
+                <MenuItem onClick={() => { handleCloseUser(); navigate("/profile"); }}>
+                    <ListItemIcon><AccountCircle fontSize="small" /></ListItemIcon>
+                    Profile
+                </MenuItem>
+
+                {isAdmin() && (
+                    <MenuItem onClick={() => { handleCloseUser(); navigate("/admin"); }}>
+                        <ListItemIcon><AccountCircle fontSize="small" /></ListItemIcon>
+                        Admin Dashboard
+                    </MenuItem>
+                )}
+
+                <Divider />
+
+                <MenuItem onClick={onLogout}>
+                    <ListItemIcon><Logout fontSize="small" /></ListItemIcon>
+                    Logout
+                </MenuItem>
+            </Menu>
 
             <LoginModal open={openLogin} onClose={() => setOpenLogin(false)} />
             <RegisterModal open={openRegister} onClose={() => setOpenRegister(false)} />
