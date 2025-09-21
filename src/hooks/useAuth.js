@@ -9,7 +9,8 @@ export default function useAuth() {
 
 export const isAdmin = () => {
     try {
-        return localStorage.getItem("userRole") === "teacher";
+        const sessionActive = localStorage.getItem("edudu:session") === "1";
+        return sessionActive && localStorage.getItem("userRole") === "teacher";
     } catch {
         return false;
     }
