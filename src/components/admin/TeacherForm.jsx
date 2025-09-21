@@ -4,8 +4,17 @@ import YellowButton from "../common/button";
 import useTeachers from "../../hooks/useTeachers";
 import useAuth from "../../hooks/useAuth";
 import FormField from "../common/FormField";
+import { formPanelSx, formFieldSx } from "./tableUI";
 
-const isValidUrl = (s) => { try { if (!s) return true; new URL(s); return true; } catch { return false; } };
+const isValidUrl = (s) => {
+    try {
+        if (!s) return true;
+        new URL(s);
+        return true;
+    } catch {
+        return false;
+    }
+};
 const clampRating = (n) => Math.max(0, Math.min(5, Number(n || 0)));
 
 export default function TeacherForm({ editing, onSaved, onCancel }) {
@@ -13,17 +22,20 @@ export default function TeacherForm({ editing, onSaved, onCancel }) {
     const { auth } = useAuth();
     const email = auth?.email || null;
 
-    const initial = useMemo(() => ({
-        id: "",
-        name: "",
-        subject: "",
-        rating: "",
-        image: "",
-        language: "Arabic",
-        experienceYears: "",
-        certification: "",
-        bio: "",
-    }), []);
+    const initial = useMemo(
+        () => ({
+            id: "",
+            name: "",
+            subject: "",
+            rating: "",
+            image: "",
+            language: "Arabic",
+            experienceYears: "",
+            certification: "",
+            bio: "",
+        }),
+        []
+    );
 
     const [form, setForm] = useState(initial);
     const [errors, setErrors] = useState({});
@@ -36,7 +48,10 @@ export default function TeacherForm({ editing, onSaved, onCancel }) {
                 subject: editing.subject || "",
                 rating: editing.rating ?? "",
                 image: editing.image || "",
-                language: Array.isArray(editing.languages) && editing.languages.length ? editing.languages[0] : "Arabic",
+                language:
+                    Array.isArray(editing.languages) && editing.languages.length
+                        ? editing.languages[0]
+                        : "Arabic",
                 experienceYears: editing.experienceYears ?? "",
                 certification: editing.certification || "",
                 bio: editing.bio || editing.description || "",
@@ -50,16 +65,18 @@ export default function TeacherForm({ editing, onSaved, onCancel }) {
 
     const onChange = (e) => setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
 
-    // JS Validation
     const validate = () => {
         const e = {};
         if (!form.name.trim()) e.name = "Name is required.";
         if (!form.subject.trim()) e.subject = "Subject is required.";
-        if (form.rating !== "" && (isNaN(+form.rating) || +form.rating < 0 || +form.rating > 5)) e.rating = "Rating must be between 0 and 5.";
+        if (form.rating !== "" && (isNaN(+form.rating) || +form.rating < 0 || +form.rating > 5))
+            e.rating = "Rating must be between 0 and 5.";
         if (!isValidUrl(form.image)) e.image = "Image must be a valid URL.";
-        if (form.experienceYears !== "" && (isNaN(+form.experienceYears) || +form.experienceYears < 0)) e.experienceYears = "Experience must be a non-negative number.";
+        if (form.experienceYears !== "" && (isNaN(+form.experienceYears) || +form.experienceYears < 0))
+            e.experienceYears = "Experience must be a non-negative number.";
         if (form.bio && form.bio.length > 800) e.bio = "About should be under 800 characters.";
-        if (form.certification && form.certification.length > 200) e.certification = "Certification should be under 200 characters.";
+        if (form.certification && form.certification.length > 200)
+            e.certification = "Certification should be under 200 characters.";
         return e;
     };
 
@@ -90,24 +107,51 @@ export default function TeacherForm({ editing, onSaved, onCancel }) {
     };
 
     return (
-        <Card variant="outlined" sx={{ borderRadius: 3, backgroundColor: "#FFF9F0" }}>
+        <Card variant="outlined" sx={formPanelSx}>
             <CardContent component="form" noValidate onSubmit={onSubmit}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
-                        <FormField label="Name" name="name" value={form.name} onChange={onChange}
-                            error={!!errors.name} helperText={errors.name} autoGrow minRows={1} maxRows={2} />
+                        <FormField
+                            label="Name"
+                            name="name"
+                            value={form.name}
+                            onChange={onChange}
+                            error={!!errors.name}
+                            helperText={errors.name}
+                            autoGrow
+                            minRows={1}
+                            maxRows={2}
+                            sx={formFieldSx}
+                        />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <FormField label="Subject" name="subject" value={form.subject} onChange={onChange}
-                            error={!!errors.subject} helperText={errors.subject} autoGrow minRows={1} maxRows={2} />
+                        <FormField
+                            label="Subject"
+                            name="subject"
+                            value={form.subject}
+                            onChange={onChange}
+                            error={!!errors.subject}
+                            helperText={errors.subject}
+                            autoGrow
+                            minRows={1}
+                            maxRows={2}
+                            sx={formFieldSx}
+                        />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <FormField label="Rating (0–5)" name="rating" value={form.rating} onChange={onChange}
-                            error={!!errors.rating} helperText={errors.rating} />
+                        <FormField
+                            label="Rating (0–5)"
+                            name="rating"
+                            value={form.rating}
+                            onChange={onChange}
+                            error={!!errors.rating}
+                            helperText={errors.rating}
+                            sx={formFieldSx}
+                        />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <FormField select label="Language" name="language" value={form.language} onChange={onChange}>
+                        <FormField select label="Language" name="language" value={form.language} onChange={onChange} sx={formFieldSx}>
                             <MenuItem value="Arabic">Arabic</MenuItem>
                             <MenuItem value="English">English</MenuItem>
                         </FormField>
@@ -115,21 +159,59 @@ export default function TeacherForm({ editing, onSaved, onCancel }) {
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <FormField label="Image URL" name="image" value={form.image} onChange={onChange}
-                            error={!!errors.image} helperText={errors.image} autoGrow minRows={1} maxRows={3} />
+                        <FormField
+                            label="Image URL"
+                            name="image"
+                            value={form.image}
+                            onChange={onChange}
+                            error={!!errors.image}
+                            helperText={errors.image}
+                            autoGrow
+                            minRows={1}
+                            maxRows={3}
+                            sx={formFieldSx}
+                        />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <FormField label="Experience (Years)" name="experienceYears" value={form.experienceYears}
-                            onChange={onChange} error={!!errors.experienceYears} helperText={errors.experienceYears} />
+                        <FormField
+                            label="Experience (Years)"
+                            name="experienceYears"
+                            value={form.experienceYears}
+                            onChange={onChange}
+                            error={!!errors.experienceYears}
+                            helperText={errors.experienceYears}
+                            sx={formFieldSx}
+                        />
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <FormField label="Certification" name="certification" value={form.certification} onChange={onChange}
-                            error={!!errors.certification} helperText={errors.certification} autoGrow minRows={1} maxRows={3} />
+                        <FormField
+                            label="Certification"
+                            name="certification"
+                            value={form.certification}
+                            onChange={onChange}
+                            error={!!errors.certification}
+                            helperText={errors.certification}
+                            autoGrow
+                            minRows={1}
+                            maxRows={3}
+                            sx={formFieldSx}
+                        />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <FormField multiline autoGrow minRows={3} maxRows={8} label="About" name="bio" value={form.bio} onChange={onChange}
-                            error={!!errors.bio} helperText={errors.bio} />
+                        <FormField
+                            multiline
+                            autoGrow
+                            minRows={3}
+                            maxRows={8}
+                            label="About"
+                            name="bio"
+                            value={form.bio}
+                            onChange={onChange}
+                            error={!!errors.bio}
+                            helperText={errors.bio}
+                            sx={formFieldSx}
+                        />
                     </Grid>
 
                     <Grid item xs={12}>

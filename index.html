@@ -1,13 +1,26 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/bee.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edudu For Kids</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+    <script>
+        (function () {
+            try {
+                var lng = localStorage.getItem("lang") === "ar" ? "ar" : "en";
+                document.dir = lng === "ar" ? "rtl" : "ltr";
+                document.documentElement.setAttribute("lang", lng === "ar" ? "ar" : "en");
+            } catch {}
+        })();
+    </script>
+
+    <!-- Auto-translate the whole DOM (places in /public) -->
+    <script src="/autoTranslate.js" defer></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="module" src="/src/main.jsx"></script>
+</body>
 </html>

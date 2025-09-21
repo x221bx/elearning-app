@@ -88,7 +88,7 @@ export default function WishlistPage() {
 
     return (
         <Box sx={{
-            backgroundColor: "#fdf7ff",
+            backgroundColor: "var(--brand-soft)",
             minHeight: "100vh",
             py: 8,
         }}>
@@ -121,7 +121,7 @@ export default function WishlistPage() {
                                     sx={{
                                         mt: 1,
                                         borderRadius: 3,
-                                        bgcolor: '#fff9f0',
+                                        bgcolor: 'var(--brand-soft)',
                                     }}
                                 >
                                     <CardContent>

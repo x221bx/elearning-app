@@ -68,7 +68,7 @@ export default function LoginModal({ open, onClose }) {
     };
 
     return (
-        <Dialog open={open} onClose={onClose} PaperProps={{ sx: { borderRadius: 3, backgroundColor: "#f5f5f5" } }}>
+        <Dialog open={open} onClose={onClose} PaperProps={{ sx: { borderRadius: 3, backgroundColor: "var(--card-bg)" } }}>
             <DialogTitle component="div" sx={{ textAlign: "center" }}>
                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <Avatar sx={{ width: 80, height: 80, mb: 1 }} src={pic1} />
@@ -79,7 +79,7 @@ export default function LoginModal({ open, onClose }) {
                 <Box
                     component="form"
                     onSubmit={submit}
-                    sx={{ mt: 1, p: 4, backgroundColor: "#fff", borderRadius: 2, boxShadow: "0px 4px 20px rgba(0,0,0,0.1)", maxWidth: 400, mx: "auto" }}
+                    sx={{ mt: 1, p: 4, backgroundColor: "var(--card-bg)", borderRadius: 2, boxShadow: "var(--card-shadow)", maxWidth: 400, mx: "auto" }}
                 >
                     <TextField fullWidth label="Email" type="email" margin="normal" name="email" value={email} onChange={onChange}
                         error={!!err.mail} helperText={err.mail} />
@@ -89,8 +89,8 @@ export default function LoginModal({ open, onClose }) {
                     <Button type="submit" fullWidth variant="contained"
                         sx={{
                             mt: 3, width: 140, mx: "auto", display: "block", borderRadius: "30px",
-                            fontWeight: "bold", textTransform: "none", backgroundColor: "#fbc02d", color: "#000",
-                            "&:hover": { backgroundColor: "#f9a825" }
+                            fontWeight: "bold", textTransform: "none", backgroundColor: "var(--primary-btn-bg)", color: "var(--primary-btn-color)",
+                            "&:hover": { backgroundColor: "var(--primary-btn-hover)" }
                         }}>
                         Login
                     </Button>

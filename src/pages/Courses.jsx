@@ -1,4 +1,3 @@
-
 import React, { useMemo, useState, useEffect } from "react";
 import {
   Box,
@@ -7,11 +6,14 @@ import {
   Chip,
   Grid,
 } from "@mui/material";
+import { useTheme, alpha } from "@mui/material/styles";
 import CustomPagination from "../components/common/customPagination";
 import CourseCard from "../components/course/CourseCard";
 import useCourses from "../hooks/useCourses";
 
 export default function Courses() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
@@ -19,7 +21,6 @@ export default function Courses() {
 
   const perPage = 8;
 
-  // Seed courses on component mount
   useEffect(() => {
     seed();
   }, [seed]);
@@ -29,32 +30,38 @@ export default function Courses() {
     return cats;
   }, [courses]);
 
-  const filteredCourses = useMemo(() => {
-    return courses.filter((c) => {
+  const filteredCourses = useMemo(() =>
+    courses.filter((c) => {
       const matchesSearch = c.title.toLowerCase().includes(search.toLowerCase());
       const matchesCategory = category === "All" || c.category === category;
       return matchesSearch && matchesCategory;
-    });
-  }, [courses, search, category]);
+    }),
+  [courses, search, category]);
 
   const pageCount = Math.max(1, Math.ceil(filteredCourses.length / perPage));
   const paginated = filteredCourses.slice((page - 1) * perPage, page * perPage);
 
+  const filterSurface = alpha(theme.palette.background.paper, isDark ? 0.2 : 0.8);
+
   return (
     <Box
       sx={{
-        backgroundColor: "#fdf7ff",
         minHeight: "100vh",
-        py: 8,
+        pt: { xs: 6, md: 10 },
+        pb: 8,
         px: { xs: 2, sm: 4, md: 6 },
+        backgroundImage: isDark
+          ? `linear-gradient(180deg, ${alpha(theme.palette.secondary.dark, 0.3)} 0%, ${theme.palette.background.default} 55%)`
+          : `linear-gradient(180deg, ${alpha(theme.palette.secondary.light, 0.35)} 0%, ${theme.palette.background.default} 60%)`,
+        backgroundColor: theme.palette.background.default,
       }}
     >
-
       <Typography
         variant="h5"
         fontWeight="bold"
         textAlign="center"
-        sx={{ mb: 2, color: "#5e3b76" }}
+        color="text.primary"
+        sx={{ mb: 2 }}
       >
         Explore Our Courses
       </Typography>
@@ -67,19 +74,22 @@ export default function Courses() {
         Fun and engaging courses designed for kids and teens to learn and grow!
       </Typography>
 
-
       <Box
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           alignItems: { xs: "stretch", md: "center" },
           justifyContent: "center",
-          gap: 2,
+          gap: 2.5,
           mb: 5,
           flexWrap: "wrap",
+          borderRadius: 3,
+          backgroundColor: filterSurface,
+          border: `1px solid ${alpha(theme.palette.secondary.main, isDark ? 0.25 : 0.18)}`,
+          boxShadow: theme.customShadows?.card,
+          p: { xs: 2.5, md: 3 },
         }}
       >
-
         <TextField
           label="Search courses"
           variant="outlined"
@@ -91,13 +101,11 @@ export default function Courses() {
           }}
           sx={{
             width: { xs: "100%", md: "320px" },
-            bgcolor: "#fff",
-            "& .MuiOutlinedInput-root": {
-              borderRadius: 3,
-            },
+            backgroundColor: theme.palette.background.paper,
+            borderRadius: 2,
+            '& .MuiOutlinedInput-root': { borderRadius: 2 },
           }}
         />
-
 
         <Box
           sx={{
@@ -108,34 +116,40 @@ export default function Courses() {
             flex: 1,
           }}
         >
-          {categories.map((cat) => (
-            <Chip
-              key={cat}
-              label={cat}
-              onClick={() => {
-                setCategory(cat);
-                setPage(1);
-              }}
-              color={category === cat ? "secondary" : "default"}
-              sx={{
-                borderRadius: "16px",
-                bgcolor: category === cat ? "#ba68c8" : "#f1f1f1",
-                color: category === cat ? "#fff" : "black",
-                "&:hover": {
-                  bgcolor: category === cat ? "#ab47bc" : "#e0e0e0",
-                },
-              }}
-            />
-          ))}
+          {categories.map((cat) => {
+            const active = category === cat;
+            return (
+              <Chip
+                key={cat}
+                label={cat}
+                onClick={() => {
+                  setCategory(cat);
+                  setPage(1);
+                }}
+                sx={{
+                  borderRadius: "16px",
+                  bgcolor: active
+                    ? theme.palette.secondary.main
+                    : alpha(theme.palette.text.primary, 0.08),
+                  color: active
+                    ? theme.palette.secondary.contrastText
+                    : theme.palette.text.primary,
+                  fontWeight: active ? 600 : 500,
+                  px: 1.5,
+                  '&:hover': {
+                    bgcolor: active
+                      ? theme.palette.secondary.dark
+                      : alpha(theme.palette.text.primary, 0.16),
+                  },
+                  transition: "background-color 0.2s ease, color 0.2s ease",
+                }}
+              />
+            );
+          })}
         </Box>
       </Box>
 
-
-      <Grid
-        container
-        spacing={3}
-        justifyContent="center"
-      >
+      <Grid container spacing={3} justifyContent="center">
         {paginated.map((course) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={course.id}>
             <CourseCard {...course} />
@@ -143,14 +157,13 @@ export default function Courses() {
         ))}
       </Grid>
 
-
       <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
         <CustomPagination
           count={pageCount}
           page={page}
           onChange={(_, p) => setPage(p)}
-          colorHex="#ba68c8"
-          hoverHex="#ab47bc"
+          colorHex={theme.palette.secondary.main}
+          hoverHex={theme.palette.secondary.dark}
         />
       </Box>
     </Box>

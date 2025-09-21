@@ -1,4 +1,3 @@
-
 import React, { useMemo, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
@@ -13,6 +12,7 @@ import {
   Divider,
   Chip,
 } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import useCourses from "../hooks/useCourses";
 
 export default function CourseDetail() {
@@ -40,7 +40,7 @@ export default function CourseDetail() {
   return (
     <Box
       sx={{
-        backgroundColor: "#fdf7ff",
+        backgroundColor: "var(--brand-soft)",
         minHeight: "100vh",
         py: 8,
         px: { xs: 2, sm: 4, md: 6 },
@@ -52,7 +52,7 @@ export default function CourseDetail() {
           borderRadius: 4,
           overflow: "hidden",
           mb: 4,
-          boxShadow: "0px 6px 15px rgba(0,0,0,0.1)",
+          boxShadow: (theme) => theme.shadows[6],
         }}
       >
         <CardMedia
@@ -72,7 +72,7 @@ export default function CourseDetail() {
       <Typography
         variant="h4"
         fontWeight="bold"
-        sx={{ color: "#7b1fa2", mb: 1 }}
+        sx={{ color: "secondary.main", mb: 1 }}
       >
         {course.title}
       </Typography>
@@ -86,7 +86,7 @@ export default function CourseDetail() {
       <Typography
         variant="h5"
         fontWeight="bold"
-        sx={{ color: "#f57c00", mb: 4 }}
+        sx={{ color: "warning.main", mb: 4 }}
       >
         ${course.price}
       </Typography>
@@ -97,13 +97,13 @@ export default function CourseDetail() {
           borderRadius: 3,
           boxShadow: 2,
           mb: 4,
-          backgroundColor: "#fff9f0",
+          backgroundColor: "var(--brand-soft)",
           p: 2,
         }}
       >
         <CardContent>
           <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-            🌟 About this course
+            About this course
           </Typography>
           <Typography variant="body1" color="text.secondary">
             {course.description}
@@ -117,13 +117,13 @@ export default function CourseDetail() {
           borderRadius: 3,
           boxShadow: 2,
           mb: 4,
-          backgroundColor: "#f0f4ff",
+          backgroundColor: "var(--brand-soft)",
           p: 2,
         }}
       >
         <CardContent>
           <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-            🎯 What you'll learn
+            What you'll learn
           </Typography>
           <List>
             {course.whatYoullLearn?.map((item, idx) => (
@@ -131,10 +131,10 @@ export default function CourseDetail() {
                 key={idx}
                 sx={{
                   pl: 0,
-                  "&:hover": { bgcolor: "#ede7f6", borderRadius: 2 },
+                  "&:hover": { bgcolor: (theme) => alpha(theme.palette.secondary.main, 0.12), borderRadius: 2 },
                 }}
               >
-                <ListItemText primary={`✨ ${item}`} />
+                <ListItemText primary={"- " + item} />
               </ListItem>
             ))}
           </List>
@@ -145,21 +145,21 @@ export default function CourseDetail() {
         sx={{
           borderRadius: 3,
           boxShadow: 2,
-          backgroundColor: "#fff",
+          backgroundColor: "var(--card-bg)",
           p: 2,
         }}
       >
         <CardContent>
           <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-            📘 Course Outline
+            Course Outline
           </Typography>
           {course.courseOutline?.map((module, idx) => (
             <Box key={idx} sx={{ mb: 3 }}>
               <Chip
                 label={module.title}
                 sx={{
-                  bgcolor: "#ba68c8",
-                  color: "#fff",
+                  bgcolor: "var(--primary-btn-bg)",
+                  color: (theme) => theme.palette.primary.contrastText,
                   fontWeight: "bold",
                   mb: 1,
                 }}
@@ -170,10 +170,10 @@ export default function CourseDetail() {
                     key={i}
                     sx={{
                       pl: 2,
-                      "&:hover": { bgcolor: "#f3e5f5", borderRadius: 2 },
+                      "&:hover": { bgcolor: (theme) => alpha(theme.palette.secondary.main, 0.18), borderRadius: 2 },
                     }}
                   >
-                    <ListItemText primary={`- ${lesson}`} />
+                    <ListItemText primary={"- " + lesson} />
                   </ListItem>
                 ))}
               </List>

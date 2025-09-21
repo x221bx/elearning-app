@@ -5,9 +5,7 @@ import useCourses from "../hooks/useCourses";
 import useTeachers from "../hooks/useTeachers";
 
 /**
- * - Admin: يعرض الكورسات والمدرسين اللي أضافهم بنفسه (createdBy=email)
- * - Student: Placeholder للكورسات المسجل فيها (تتفعّل لاحقاً عبر enrolledIds)
- */
+  */
 export default function UserDashboard() {
     const { auth } = useAuth();
     const { courses, seed } = useCourses();
@@ -33,7 +31,7 @@ export default function UserDashboard() {
     const enrolled = useMemo(() => (!isAdmin ? [] : []), [isAdmin]);
 
     return (
-        <Box sx={{ backgroundColor: "#fafafa", minHeight: "100vh" }}>
+        <Box sx={{ backgroundColor: "var(--card-bg)", minHeight: "100vh" }}>
             <Box sx={{ height: { xs: 56, md: 72 } }} />
             <Box sx={{ maxWidth: 1200, mx: "auto", px: { xs: 2, md: 4 }, py: 4 }}>
                 {/* Header */}
@@ -92,7 +90,7 @@ export default function UserDashboard() {
                                             <Typography fontWeight={900}>{c.title}</Typography>
                                             <Stack direction="row" spacing={1} sx={{ mt: .5 }} flexWrap="wrap">
                                                 {c.category && <Chip size="small" label={c.category} />}
-                                                {c.price != null && <Chip size="small" label={`$${c.price}`} sx={{ bgcolor: "#FFF7DB" }} />}
+                                                {c.price != null && <Chip size="small" label={`$${c.price}`} sx={{ bgcolor: (theme) => theme.palette.warning.light }} />}
                                             </Stack>
                                         </CardContent>
                                     </Card>

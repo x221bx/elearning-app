@@ -5,8 +5,17 @@ import useTeachers from "../../hooks/useTeachers";
 import useAuth from "../../hooks/useAuth";
 import YellowButton from "../common/button";
 import FormField from "../common/FormField";
+import { formPanelSx, formFieldSx } from "./tableUI";
 
-const isValidUrl = (s) => { try { if (!s) return true; new URL(s); return true; } catch { return false; } };
+const isValidUrl = (s) => {
+    try {
+        if (!s) return true;
+        new URL(s);
+        return true;
+    } catch {
+        return false;
+    }
+};
 
 export default function CourseForm() {
     const { addCourse } = useCourses();
@@ -25,7 +34,6 @@ export default function CourseForm() {
     const [errors, setErrors] = useState({});
 
     const onChange = (e) => setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
-
 
     const validate = () => {
         const e = {};
@@ -61,7 +69,7 @@ export default function CourseForm() {
     };
 
     return (
-        <Card variant="outlined" sx={{ borderRadius: 3, backgroundColor: "#FFF9F0" }}>
+        <Card variant="outlined" sx={formPanelSx}>
             <CardContent component="form" noValidate onSubmit={onSubmit}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
@@ -75,6 +83,7 @@ export default function CourseForm() {
                             autoGrow
                             minRows={1}
                             maxRows={2}
+                            sx={formFieldSx}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -88,6 +97,7 @@ export default function CourseForm() {
                             autoGrow
                             minRows={1}
                             maxRows={2}
+                            sx={formFieldSx}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -99,6 +109,7 @@ export default function CourseForm() {
                             onChange={onChange}
                             error={!!errors.price}
                             helperText={errors.price}
+                            sx={formFieldSx}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -111,6 +122,7 @@ export default function CourseForm() {
                             onChange={onChange}
                             error={!!errors.rating}
                             helperText={errors.rating}
+                            sx={formFieldSx}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -124,6 +136,7 @@ export default function CourseForm() {
                             autoGrow
                             minRows={1}
                             maxRows={3}
+                            sx={formFieldSx}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -133,15 +146,17 @@ export default function CourseForm() {
                             name="teacherId"
                             value={form.teacherId}
                             onChange={onChange}
+                            sx={formFieldSx}
                         >
                             <MenuItem value="">(None)</MenuItem>
                             {teachers.map((t) => (
-                                <MenuItem key={t.id} value={t.id}>{t.name}</MenuItem>
+                                <MenuItem key={t.id} value={t.id}>
+                                    {t.name}
+                                </MenuItem>
                             ))}
                         </FormField>
                         <FormHelperText>Select a teacher (optional).</FormHelperText>
                     </Grid>
-
                     <Grid item xs={12}>
                         <Stack direction={{ xs: "column", sm: "row" }} spacing={1.2} justifyContent="flex-end">
                             <YellowButton type="submit">Add Course</YellowButton>

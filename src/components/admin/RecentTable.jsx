@@ -97,7 +97,7 @@ export default function TeacherTable({ onEdit }) {
 
                 {rows.length > 0 && (
                     <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-                        <CustomPagination count={pageCount} page={page} onChange={(_, p) => setPage(p)} colorHex="#FBC02D" hoverHex="#F9A825" />
+                        <CustomPagination count={pageCount} page={page} onChange={(_, p) => setPage(p)} colorHex="var(--primary-btn-bg)" hoverHex="var(--primary-btn-hover)" />
                     </Box>
                 )}
             </CardContent>

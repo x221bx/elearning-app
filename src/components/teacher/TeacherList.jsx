@@ -1,16 +1,18 @@
 import * as React from "react";
-import Grid from "@mui/material/Grid";
 import { Box, TextField } from "@mui/material";
+import { useTheme, alpha } from "@mui/material/styles";
 import CustomPagination from "../common/customPagination";
 import useTeachers from "../../hooks/useTeachers";
 import useSearchPagination from "../../hooks/useSearchPagination";
 import TeacherCard from "./TeacherCard";
 
-const Y = { pageBg: "#FFF9F0", cardBg: "#FFFFFF", focus: "#FBC02D", focusDark: "#F9A825" };
-
 export default function TeacherList() {
+  const theme = useTheme();
   const { teachers } = useTeachers();
   const [q, setQ] = React.useState("");
+  const surface = theme.palette.mode === "dark"
+    ? alpha(theme.palette.secondary.dark, 0.24)
+    : alpha(theme.palette.secondary.light, 0.28);
 
   const { page, setPage, pageCount, paginated, total } = useSearchPagination(teachers, {
     perPage: 8,
@@ -19,8 +21,15 @@ export default function TeacherList() {
   });
 
   return (
-    <Box sx={{ backgroundColor: Y.pageBg, borderRadius: 3, p: { xs: 2, md: 3 } }}>
-      {/* Search Box */}
+    <Box
+      sx={{
+        backgroundColor: surface,
+        borderRadius: 3,
+        p: { xs: 2.5, md: 3.5 },
+        border: `1px solid ${alpha(theme.palette.secondary.main, 0.18)}`,
+        boxShadow: theme.customShadows?.card,
+      }}
+    >
       <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
         <TextField
           label="Search teachers"
@@ -30,16 +39,15 @@ export default function TeacherList() {
           placeholder="Type a name or subject…"
           sx={{
             width: { xs: "100%", sm: 420 },
-            bgcolor: Y.cardBg,
-            "& .MuiOutlinedInput-root": {
+            bgcolor: theme.palette.background.paper,
+            '& .MuiOutlinedInput-root': {
               borderRadius: 3,
-              "&.Mui-focused fieldset": { borderColor: Y.focus },
+              '&.Mui-focused fieldset': { borderColor: theme.palette.primary.main },
             },
           }}
         />
       </Box>
 
-      {/* Grid for Teacher Cards */}
       <Box
         sx={{
           display: "grid",
@@ -60,22 +68,20 @@ export default function TeacherList() {
         ))}
       </Box>
 
-      {/* Empty State */}
       {!total && (
         <Box sx={{ textAlign: "center", color: "text.secondary", mt: 4 }}>
           No teachers found.
         </Box>
       )}
 
-      {/* Pagination */}
       {total > 0 && (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <CustomPagination
             count={pageCount}
             page={page}
             onChange={(_, p) => setPage(p)}
-            colorHex={Y.focus}
-            hoverHex={Y.focusDark}
+            colorHex={theme.palette.secondary.main}
+            hoverHex={theme.palette.secondary.dark}
           />
         </Box>
       )}

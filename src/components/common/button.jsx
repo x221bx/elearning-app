@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, useMediaQuery } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 
 export default function YellowButton({
                                          children,
@@ -14,7 +15,7 @@ export default function YellowButton({
             variant={variant}
             fullWidth={fullWidth}
             size={isXs ? "small" : "medium"}
-            sx={{
+            sx={(theme) => ({
                 minHeight: 40,
                 px: 2.5,
                 borderRadius: 2.5,
@@ -22,20 +23,21 @@ export default function YellowButton({
                 textTransform: "none",
                 ...(variant === "contained"
                     ? {
-                        backgroundColor: "#fbc02d",
-                        color: "#000",
-                        "&:hover": { backgroundColor: "#f9a825" },
+                        backgroundColor: theme.palette.primary.main,
+                        color: theme.palette.primary.contrastText,
+                        "&:hover": { backgroundColor: theme.palette.primary.dark },
                     }
                     : {
-                        border: "1px solid #f3cd46",
-                        color: "#000",
-                        backgroundColor: "#fffde7",
-                        "&:hover": { backgroundColor: "#fff8c5" },
+                        border: `1px solid ${alpha(theme.palette.primary.main, 0.4)}`,
+                        color: theme.palette.primary.main,
+                        backgroundColor: alpha(theme.palette.primary.main, 0.08),
+                        "&:hover": { backgroundColor: alpha(theme.palette.primary.main, 0.12) },
                     }),
-            }}
+            })}
             {...props}
         >
             {children}
         </Button>
     );
 }
+

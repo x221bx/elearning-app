@@ -17,6 +17,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import useShoppingActions from '../../hooks/useShoppingActions';
+import { useTheme, alpha } from '@mui/material/styles';
 import { useNotification } from '../../contexts/NotificationContext';
 
 export default function CourseCard({
@@ -28,6 +29,7 @@ export default function CourseCard({
     rating,
     category
 }) {
+    const theme = useTheme();
     const {
         isInCart,
         isFavorite,
@@ -67,13 +69,13 @@ export default function CourseCard({
             sx={{
                 position: 'relative',
                 borderRadius: 3,
-                boxShadow: 3,
+                boxShadow: theme.shadows[4],
                 transition: "transform 0.2s, box-shadow 0.2s",
                 "&:hover": {
                     transform: "scale(1.03)",
-                    boxShadow: 6,
+                    boxShadow: theme.shadows[8],
                 },
-                backgroundColor: "#fff9f0",
+                backgroundColor: theme.palette.brand.soft,
                 textDecoration: "none",
                 color: "inherit",
                 display: "block",
@@ -100,9 +102,9 @@ export default function CourseCard({
                     <IconButton
                         onClick={handleCartClick}
                         sx={{
-                            bgcolor: 'rgba(255,255,255,0.9)',
+                            bgcolor: alpha(theme.palette.background.paper, 0.85),
                             '&:hover': {
-                                bgcolor: 'rgba(255,255,255,1)',
+                                bgcolor: alpha(theme.palette.background.paper, 0.98),
                             },
                         }}
                         disabled={enrolled || inCart}
@@ -122,9 +124,9 @@ export default function CourseCard({
                     <IconButton
                         onClick={handleFavoriteClick}
                         sx={{
-                            bgcolor: 'rgba(255,255,255,0.9)',
+                            bgcolor: alpha(theme.palette.background.paper, 0.85),
                             '&:hover': {
-                                bgcolor: 'rgba(255,255,255,1)',
+                                bgcolor: alpha(theme.palette.background.paper, 0.98),
                             },
                         }}
                     >
@@ -143,8 +145,8 @@ export default function CourseCard({
                         label={category}
                         size="small"
                         sx={{
-                            bgcolor: '#ba68c8',
-                            color: 'white',
+                            bgcolor: theme.palette.secondary.main,
+                            color: theme.palette.secondary.contrastText,
                             fontWeight: 'bold',
                         }}
                     />
@@ -206,7 +208,7 @@ export default function CourseCard({
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
-                            color: '#f4b400'
+                            color: theme.palette.warning.main
                         }}
                     >
                         ⭐ {rating.toFixed(1)}
@@ -216,3 +218,7 @@ export default function CourseCard({
         </Card>
     );
 }
+
+
+
+

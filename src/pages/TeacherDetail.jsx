@@ -1,4 +1,3 @@
-// src/pages/TeacherDetail.jsx
 import React, { useMemo, useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
@@ -6,6 +5,7 @@ import {
   Typography, Divider, Stack, IconButton, Chip
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import { useTheme, alpha } from "@mui/material/styles";
 import { Facebook, YouTube, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
 import useTeachers from "../hooks/useTeachers";
 import useCourses from "../hooks/useCourses";
@@ -25,7 +25,7 @@ function Row({ label, value }) {
 function Section({ title, children, sx }) {
   return (
     <Box sx={sx}>
-      <Typography variant="h6" fontWeight={900} sx={{ mb: 1, color: "#5e3b76" }}>
+      <Typography variant="h6" fontWeight={900} color="text.primary" sx={{ mb: 1 }}>
         {title}
       </Typography>
       <Typography variant="body2" color="text.secondary">{children}</Typography>
@@ -34,11 +34,12 @@ function Section({ title, children, sx }) {
 }
 
 export default function TeacherDetail() {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === "dark";
   const { id } = useParams();
   const { teachers } = useTeachers();
   const { courses, seed } = useCourses();
 
-  // Seed courses on component mount
   useEffect(() => {
     seed();
   }, [seed]);
@@ -49,12 +50,11 @@ export default function TeacherDetail() {
   );
 
   const teacherId = teacher?.id;
-
-  const allCourses = useMemo(
-    () =>
-      teacherId ? courses.filter((c) => String(c.teacherId) === String(teacherId)) : [],
-    [courses, teacherId]
-  );
+  const allCourses = useMemo(() =>
+    teacherId
+      ? courses.filter((c) => String(c.teacherId) === String(teacherId))
+      : [],
+  [courses, teacherId]);
 
   const [page, setPage] = useState(1);
 
@@ -76,26 +76,47 @@ export default function TeacherDetail() {
   const pageCount = Math.max(1, Math.ceil(allCourses.length / perPage));
   const paginated = allCourses.slice((page - 1) * perPage, page * perPage);
 
+  const heroGradient = isDark
+    ? alpha(theme.palette.secondary.dark, 0.3)
+    : alpha(theme.palette.secondary.light, 0.32);
+  const accentBorder = theme.palette.secondary.main;
+  const chipBg = alpha(theme.palette.secondary.main, 0.12);
+  const chipBorder = alpha(theme.palette.secondary.main, 0.24);
+
   return (
-    <Box sx={{ backgroundColor: "#FFFDF2", minHeight: "100vh", py: 4 }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        py: 6,
+        backgroundImage: `linear-gradient(180deg, ${heroGradient} 0%, ${theme.palette.background.default} 70%)`,
+        backgroundColor: theme.palette.background.default,
+      }}
+    >
       <Box sx={{ maxWidth: 1200, mx: "auto", px: { xs: 2, md: 4 } }}>
         <Grid container spacing={3}>
-          {/* Sidebar */}
-          <Grid size={{ xs: 12, md: 4 }}>
-            <Card sx={{ borderRadius: 3, borderTop: "4px solid #FBC02D", position: { md: "sticky" }, top: { md: 96 } }}>
+          <Grid item xs={12} md={4}>
+            <Card
+              sx={{
+                borderRadius: 3,
+                borderTop: `4px solid ${accentBorder}`,
+                position: { md: "sticky" },
+                top: { md: 96 },
+                boxShadow: theme.customShadows?.card,
+              }}
+            >
               <CardContent>
                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
                   <Avatar
                     src={teacher.image || teacherPlaceholder}
                     alt={teacher.name}
                     onError={(e) => { e.currentTarget.src = teacherPlaceholder; }}
-                    sx={{ width: 120, height: 120, border: "3px solid #FFEEAD" }}
+                    sx={{ width: 120, height: 120, border: `3px solid ${alpha(accentBorder, 0.35)}` }}
                   />
                   <Typography variant="h6" fontWeight={900}>{teacher.name}</Typography>
 
-                  <Divider sx={{ width: "100%", my: 1 }} />
+                  <Divider sx={{ width: "100%", my: 1.5 }} />
 
-                  <Stack spacing={1} sx={{ width: "100%" }}>
+                  <Stack spacing={1.25} sx={{ width: "100%" }}>
                     <Row label="Total Courses" value={allCourses.length} />
                     <Row label="Rating" value={`${rating.toFixed(1)}${teacher.ratingsCount ? ` (${teacher.ratingsCount})` : ""}`} />
                     <Row label="Experience" value={`${teacher.experience || teacher.experienceYears || 0} Years`} />
@@ -105,70 +126,112 @@ export default function TeacherDetail() {
                   <Divider sx={{ width: "100%", my: 2 }} />
 
                   <Stack direction="row" spacing={1}>
-                    <IconButton component="a" href={teacher.socials?.facebook || "#"} target="_blank" rel="noopener" sx={{ color: "#F9A825" }}><Facebook /></IconButton>
-                    <IconButton component="a" href={teacher.socials?.instagram || "#"} target="_blank" rel="noopener" sx={{ color: "#F9A825" }}><Instagram /></IconButton>
-                    <IconButton component="a" href={teacher.socials?.twitter || "#"} target="_blank" rel="noopener" sx={{ color: "#F9A825" }}><Twitter /></IconButton>
-                    <IconButton component="a" href={teacher.socials?.linkedin || "#"} target="_blank" rel="noopener" sx={{ color: "#F9A825" }}><LinkedIn /></IconButton>
-                    <IconButton component="a" href={teacher.socials?.youtube || "#"} target="_blank" rel="noopener" sx={{ color: "#F9A825" }}><YouTube /></IconButton>
+                    {[teacher.socials?.facebook, teacher.socials?.instagram, teacher.socials?.twitter, teacher.socials?.linkedin, teacher.socials?.youtube]
+                      .map((href, idx) => {
+                        const Icon = [Facebook, Instagram, Twitter, LinkedIn, YouTube][idx];
+                        return (
+                          <IconButton
+                            key={Icon.displayName || idx}
+                            component="a"
+                            href={href || "#"}
+                            target="_blank"
+                            rel="noopener"
+                            sx={{
+                              color: theme.palette.secondary.main,
+                              border: `1px solid ${alpha(theme.palette.secondary.main, 0.25)}`,
+                              '&:hover': {
+                                backgroundColor: alpha(theme.palette.secondary.main, 0.1),
+                              },
+                            }}
+                          >
+                            <Icon fontSize="small" />
+                          </IconButton>
+                        );
+                      })}
                   </Stack>
                 </Box>
               </CardContent>
             </Card>
           </Grid>
 
-          {/* Main Content */}
-          <Grid size={{ xs: 12, md: 8 }}>
-            <Card sx={{ borderRadius: 3, borderTop: "4px solid #FBC02D", mb: 3 }}>
+          <Grid item xs={12} md={8}>
+            <Card sx={{ borderRadius: 3, borderTop: `4px solid ${accentBorder}`, mb: 3 }}>
               <CardContent>
                 <Section title={`About ${teacher.name.split(" ")[0]}`}>{aboutText}</Section>
-                <Box sx={{ mt: 1.5, display: "flex", gap: 1, flexWrap: "wrap" }}>
+                <Box sx={{ mt: 1.5, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                   {teacher.subject && (
-                    <Chip size="small" label={teacher.subject} sx={{ bgcolor: "#FFF3CD", border: "1px solid #F9E0A7" }} />
+                    <Chip
+                      size="small"
+                      label={teacher.subject}
+                      sx={{
+                        bgcolor: chipBg,
+                        border: `1px solid ${chipBorder}`,
+                        color: theme.palette.text.primary,
+                      }}
+                    />
                   )}
                   {languages.map((lng) => (
-                    <Chip key={lng} size="small" label={lng} sx={{ bgcolor: "#FFF9F0", border: "1px solid #FFE7AA" }} />
+                    <Chip
+                      key={lng}
+                      size="small"
+                      label={lng}
+                      sx={{ bgcolor: chipBg, border: `1px solid ${chipBorder}`, color: theme.palette.text.primary }}
+                    />
                   ))}
                 </Box>
                 <Section title="Certification" sx={{ mt: 3 }}>{certText}</Section>
               </CardContent>
             </Card>
 
-            <Card sx={{ borderRadius: 3 }}>
+            <Card sx={{ borderRadius: 3, boxShadow: theme.customShadows?.card }}>
               <CardContent>
-                <Typography variant="h6" fontWeight={900} sx={{ mb: 2, color: "#5e3b76" }}>
+                <Typography variant="h6" fontWeight={900} color="text.primary" sx={{ mb: 2 }}>
                   Courses ({allCourses.length})
                 </Typography>
 
-                <Box sx={{ display: "grid", gap: 2 }}>
+                <Box sx={{ display: 'grid', gap: 2 }}>
                   {paginated.map((c) => (
                     <Card
                       key={c.id}
                       variant="outlined"
                       component={Link}
                       to={`/courses/${c.id}`}
-                      sx={{ borderRadius: 2, borderLeft: "4px solid #FBC02D" }}
+                      sx={{
+                        borderRadius: 2,
+                        borderLeft: `4px solid ${accentBorder}`,
+                        color: 'inherit',
+                        textDecoration: 'none',
+                        '&:hover': {
+                          borderColor: accentBorder,
+                          backgroundColor: alpha(theme.palette.secondary.main, 0.08),
+                        },
+                      }}
                     >
-                      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "220px 1fr" } }}>
+                      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '220px 1fr' } }}>
                         <CardMedia
                           component="img"
                           image={c.image}
                           alt={c.title}
-                          sx={{ height: { xs: 140, sm: "100%" }, objectFit: "cover" }}
-                          onError={(e) => { e.currentTarget.src = "https://picsum.photos/seed/course/600/400"; }}
+                          sx={{ height: { xs: 140, sm: '100%' }, objectFit: 'cover' }}
+                          onError={(e) => { e.currentTarget.src = 'https://picsum.photos/seed/course/600/400'; }}
                         />
                         <CardContent sx={{ py: 2 }}>
                           <Typography variant="subtitle1" fontWeight={900}>{c.title}</Typography>
                           {!!c.category && (
-                            <Chip size="small" label={c.category} sx={{ bgcolor: "#FFF3CD", border: "1px solid #F9E0A7", mr: 1, mt: .5 }} />
+                            <Chip
+                              size="small"
+                              label={c.category}
+                              sx={{ bgcolor: chipBg, border: `1px solid ${chipBorder}`, mt: 0.5 }}
+                            />
                           )}
                           {!!c.description && (
                             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
                               {c.description}
                             </Typography>
                           )}
-                          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}>
-                            {typeof c.price === "number" && (
-                              <Typography variant="subtitle1" fontWeight={900} sx={{ color: "#F57C00" }}>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
+                            {typeof c.price === 'number' && (
+                              <Typography variant="subtitle1" fontWeight={900} color="warning.main">
                                 ${c.price}
                               </Typography>
                             )}
@@ -176,7 +239,7 @@ export default function TeacherDetail() {
                               <Typography
                                 variant="body2"
                                 color="text.secondary"
-                                sx={{ textDecoration: "line-through" }}
+                                sx={{ textDecoration: 'line-through' }}
                               >
                                 ${c.oldPrice}
                               </Typography>
@@ -192,13 +255,13 @@ export default function TeacherDetail() {
                 </Box>
 
                 {pageCount > 1 && (
-                  <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
                     <CustomPagination
                       count={pageCount}
                       page={page}
                       onChange={(_, p) => setPage(p)}
-                      colorHex="#FBC02D"
-                      hoverHex="#F9A825"
+                      colorHex={theme.palette.secondary.main}
+                      hoverHex={theme.palette.secondary.dark}
                     />
                   </Box>
                 )}

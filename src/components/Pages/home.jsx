@@ -9,22 +9,20 @@ import pic6 from "../assets/pic6.png";
 import pic7 from "../assets/pic7.png";
 import pic9 from "../assets/pic9.png";
 import pic10 from "../assets/pic10.png";
-import pic11 from "../assets/pic11.png"
+import pic11 from "../assets/pic11.png";
 import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
 import MediaCard from "../Components/Card";
-
 
 function Home() {
   return (
     <>
-      {/* Section 1 */}
       <Box
         sx={{
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          bgcolor: "#fdfdfd",
+          bgcolor: "var(--bg-color)",
           px: { xs: 3, md: 10 },
         }}
       >
@@ -40,11 +38,10 @@ function Home() {
             py: { xs: 8, md: 12 },
             px: { xs: 3, md: 6 },
             borderRadius: "20px",
-            boxShadow: "0px 8px 30px rgba(0,0,0,0.05)",
-            bgcolor: "#ffffff",
+            boxShadow: "var(--card-shadow)",
+            bgcolor: "var(--card-bg)",
           }}
         >
-          {/* Text */}
           <Box
             sx={{
               flex: 1,
@@ -62,6 +59,7 @@ function Home() {
                 mb: 1,
                 fontSize: { xs: "1.6rem", md: "2.8rem" },
                 lineHeight: 1.3,
+                color: "var(--text-color)",
               }}
             >
               Knowledge connection
@@ -75,6 +73,7 @@ function Home() {
                 fontSize: { xs: "1.6rem", md: "2.8rem" },
                 lineHeight: 1.2,
                 whiteSpace: { xs: "normal", md: "nowrap" },
+                color: "var(--text-color)",
               }}
             >
               Open the door to the future
@@ -82,12 +81,12 @@ function Home() {
 
             <Typography
               variant="h6"
-              color="text.primary"
               sx={{
                 fontSize: { xs: "0.85rem", md: "1rem" },
                 mb: 4,
                 lineHeight: 1.6,
                 maxWidth: { xs: "100%", md: "90%" },
+                color: "var(--text-color)",
               }}
             >
               Giving every student the opportunity to access the best education
@@ -99,8 +98,8 @@ function Home() {
             <Button
               variant="contained"
               sx={{
-                backgroundColor: "#FFD700",
-                color: "#000",
+                backgroundColor: "var(--primary-btn-bg)",
+                color: "var(--primary-btn-color)",
                 fontWeight: "bold",
                 borderRadius: "25px",
                 px: 4,
@@ -114,7 +113,6 @@ function Home() {
             </Button>
           </Box>
 
-          {/* Image */}
           <Box
             sx={{
               flex: 1,
@@ -137,14 +135,13 @@ function Home() {
         </Box>
       </Box>
 
-      {/* Section 2 */}
       <Box
         sx={{
           minHeight: "60vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          bgcolor: "#f9f9f9",
+          bgcolor: "var(--bg-color)",
           px: { xs: 3, md: 10 },
           mt: 6,
         }}
@@ -162,6 +159,7 @@ function Home() {
               fontWeight: 700,
               mb: 3,
               fontSize: { xs: "1.4rem", md: "2rem" },
+              color: "var(--text-color)",
             }}
           >
             Lessons revolve around 4 areas
@@ -173,7 +171,7 @@ function Home() {
               fontSize: { xs: "0.85rem", md: "1rem" },
               mb: 4,
               lineHeight: 1.6,
-              color: grey[800],
+              color: "var(--text-color)",
             }}
           >
             Diverse lessons around 4 subjects: Math, literature, English, drawing help
@@ -199,9 +197,9 @@ function Home() {
                 variant="outlined"
                 sx={{
                   height: 55,
-                  borderColor: "#d8d8afff",
-                  bgcolor: "#f2f2cfff",
-                  color: "#000",
+                  borderColor: "var(--input-border)",
+                  bgcolor: "var(--secondary-btn-bg)",
+                  color: "var(--text-color)",
                   fontWeight: "bold",
                   borderRadius: "25px",
                   width: { xs: "45%", sm: btn.width, md: btn.width },
@@ -218,15 +216,13 @@ function Home() {
         </Box>
       </Box>
 
-
-
       <Box
         sx={{
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          bgcolor: "#fdfdfd",
+          bgcolor: "var(--bg-color)",
           px: { xs: 3, md: 10 },
         }}
       >
@@ -242,11 +238,10 @@ function Home() {
             py: { xs: 8, md: 12 },
             px: { xs: 3, md: 6 },
             borderRadius: "20px",
-            boxShadow: "0px 8px 30px rgba(0,0,0,0.05)",
-            bgcolor: "#ffffff",
+            boxShadow: "var(--card-shadow)",
+            bgcolor: "var(--card-bg)",
           }}
         >
-        
           <Box
             sx={{
               flex: 1,
@@ -267,7 +262,6 @@ function Home() {
             />
           </Box>
 
-          {/* Text Content */}
           <Box
             sx={{
               flex: 1,
@@ -285,6 +279,7 @@ function Home() {
                 mb: 3,
                 fontSize: { xs: "1.6rem", md: "2.8rem" },
                 lineHeight: 1.2,
+                color: "var(--text-color)",
               }}
             >
               What will your child <br /> get after studying at <br /> Edudu?
@@ -295,15 +290,15 @@ function Home() {
               "Respond confidently when encountering difficult situations"
             ].map((text, index) => (
               <Box key={index} sx={{ display: "flex", alignItems: "center", mb: 2, flexWrap: "wrap", justifyContent: { xs: "center", md: "flex-start" } }}>
-                <DomainVerificationIcon sx={{ width: 24, height: 24, mr: 1 }} />
+                <DomainVerificationIcon sx={{ width: 24, height: 24, mr: 1, color: "var(--text-color)" }} />
                 <Typography
                   variant="h6"
-                  color="text.primary"
                   sx={{
                     fontSize: { xs: "0.85rem", md: "1rem" },
                     mb: 0,
                     lineHeight: 1.6,
                     maxWidth: { xs: "100%", md: "90%" },
+                    color: "var(--text-color)",
                   }}
                 >
                   {text}
@@ -314,14 +309,6 @@ function Home() {
         </Box>
       </Box>
 
-
-
-
-
-
-      {/* section 4 */}
-
-
       <Box
         sx={{
           minHeight: "100vh",
@@ -329,12 +316,11 @@ function Home() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          bgcolor: "#fdfdfd",
+          bgcolor: "var(--bg-color)",
           px: { xs: 3, md: 10 },
           pt: { xs: 3, md: 6 },
         }}
       >
-        {/* العنوان */}
         <Typography
           variant="h3"
           sx={{
@@ -342,22 +328,21 @@ function Home() {
             fontSize: { xs: "1.6rem", md: "2.8rem" },
             lineHeight: 1.2,
             mb: 6,
+            color: "var(--text-color)",
           }}
         >
           Why should you choose Edudu?
         </Typography>
 
-        {/* الكاردات */}
         <Box
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            gap: 4, // مسافة بين الكاردات
+            gap: 4,
             justifyContent: "center",
             width: "100%",
           }}
         >
-          {/* كارد 1 */}
           <Box sx={{ flex: "1 1 300px", maxWidth: "350px" }}>
             <MediaCard
               image={pic9}
@@ -366,7 +351,6 @@ function Home() {
             />
           </Box>
 
-          {/* كارد 2 */}
           <Box sx={{ flex: "1 1 300px", maxWidth: "350px" }}>
             <MediaCard
               image={pic10}
@@ -375,27 +359,22 @@ function Home() {
             />
           </Box>
 
-          {/* كارد 3 */}
           <Box sx={{ flex: "1 1 300px", maxWidth: "350px" }}>
             <MediaCard
               sx={{
-                height: 100,       // صغرنا الطول من 140 لـ 100
-                objectFit: "contain", // تخلي الصورة كاملة بدون قص
-                // ارتفاع أصغر
-                width: 120,          // عرض أصغر
-                mx: "auto",           // تخلي الصورة في وسط الكارد
-                mt: 2,                // مسافة من فوق لو حابة
+                height: 100,
+                objectFit: "contain",
+                width: 120,
+                mx: "auto",
+                mt: 2,
               }}
-            image={pic11}
-            title="Appropriate cost"
-            description="Thiết kế giáo trình dựa trên năng lực và nhu cầu từng học viên, hoạt động học tập hấp dẫn, tương tác 2 chiều liên tục."
+              image={pic11}
+              title="Appropriate cost"
+              description="Thiết kế giáo trình dựa trên năng lực và nhu cầu từng học viên, hoạt động học tập hấp dẫn, tương tác 2 chiều liên tục."
             />
           </Box>
         </Box>
       </Box>
-
-
-
     </>
   );
 }
