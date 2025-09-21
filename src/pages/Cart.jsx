@@ -15,10 +15,12 @@ import useCart from '../hooks/useCart';
 import useCourses from '../hooks/useCourses';
 import { useNotification } from '../contexts/NotificationContext';
 import ConfirmDialog from '../components/common/confirmDialog';
+import { useTheme, alpha } from '@mui/material/styles';
 
 export default function CartPage() {
     const navigate = useNavigate();
-    const { cartItems, cartTotal, removeItemFromCart, handlePayment, isProcessing } = useCart();
+    const theme = useTheme();
+    const { cartItems, cartTotal, removeItemFromCart, handlePayment, isProcessing, clearAll } = useCart();
     const { courses, seed } = useCourses();
     const { showNotification } = useNotification();
 
@@ -31,6 +33,7 @@ export default function CartPage() {
         open: false,
         courseId: null
     });
+    const [clearDialogOpen, setClearDialogOpen] = React.useState(false);
 
     // Get full course objects for items in cart
     const cartCourses = cartItems.map(item => ({
@@ -38,32 +41,43 @@ export default function CartPage() {
         cartPrice: item.price
     })).filter(Boolean);
 
+    const isDark = theme.palette.mode === 'dark';
+    const gradientStart = isDark
+        ? alpha(theme.palette.secondary.dark, 0.28)
+        : alpha(theme.palette.secondary.light, 0.36);
+
     if (cartCourses.length === 0) {
         return (
-            <Box sx={{
-                minHeight: '80vh',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'column',
-                gap: 2,
-                py: 8,
-            }}>
-                <Typography variant="h5" fontWeight="bold" textAlign="center">
-                    Your cart is empty
-                </Typography>
-                <Typography color="text.secondary" textAlign="center">
-                    Browse our courses and add some to your cart!
-                </Typography>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    component={Link}
-                    to="/courses"
-                    sx={{ mt: 2 }}
-                >
-                    Browse Courses
-                </Button>
+            <Box
+                sx={{
+                    minHeight: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    backgroundImage: `linear-gradient(180deg, ${gradientStart} 0%, ${theme.palette.background.default} 65%)`,
+                    backgroundColor: theme.palette.background.default,
+                }}
+            >
+                <Box sx={{ flex: 1, px: { xs: 2, sm: 4, md: 8 }, py: { xs: 5, md: 8 }, textAlign: 'center' }}>
+                    <Typography variant="h4" fontWeight="bold" sx={{ mb: 2 }}>
+                        Shopping Cart (0)
+                    </Typography>
+                    <Box sx={{
+                        maxWidth: 640,
+                        mx: 'auto',
+                        backgroundColor: alpha(theme.palette.secondary.light, isDark ? 0.18 : 0.28),
+                        borderRadius: 3,
+                        p: { xs: 3, md: 4 },
+                        border: `1px solid ${alpha(theme.palette.secondary.main, 0.18)}`,
+                        color: 'text.secondary',
+                    }}>
+                        Your cart is empty. Browse our courses and add some to your cart!
+                        <Box sx={{ mt: 2 }}>
+                            <Button variant="contained" color="primary" component={Link} to="/courses">
+                                Browse Courses
+                            </Button>
+                        </Box>
+                    </Box>
+                </Box>
             </Box>
         );
     }
@@ -99,16 +113,16 @@ export default function CartPage() {
     };
 
     return (
-        <Box sx={{
-            backgroundColor: "var(--brand-soft)",
-            minHeight: "100vh",
-            py: 8,
-        }}>
-            <Box sx={{
-                maxWidth: 1200,
-                mx: 'auto',
-                px: { xs: 2, sm: 4 }
-            }}>
+        <Box
+            sx={{
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundImage: `linear-gradient(180deg, ${gradientStart} 0%, ${theme.palette.background.default} 65%)`,
+                backgroundColor: theme.palette.background.default,
+            }}
+        >
+            <Box sx={{ maxWidth: 1200, mx: 'auto', px: { xs: 2, sm: 4, md: 8 }, py: { xs: 5, md: 8 } }}>
                 <Typography
                     variant="h4"
                     fontWeight="bold"
@@ -126,7 +140,8 @@ export default function CartPage() {
                                 sx={{
                                     mb: 2,
                                     borderRadius: 3,
-                                    backgroundColor: 'var(--brand-soft)',
+                                    backgroundColor: alpha(theme.palette.secondary.light, isDark ? 0.16 : 0.24),
+                                    border: `1px solid ${alpha(theme.palette.secondary.main, 0.18)}`,
                                 }}
                             >
                                 <CardContent sx={{
@@ -136,8 +151,9 @@ export default function CartPage() {
                                 }}>
                                     <Box
                                         component="img"
-                                        src={course.image}
-                                        alt={course.title}
+                                        src={course.image || `https://picsum.photos/seed/course-${course.id}/600/400`}
+                                        alt={course.title || 'Course'}
+                                        onError={(e) => { e.currentTarget.src = `https://picsum.photos/seed/course-${course.id}/600/400`; }}
                                         sx={{
                                             width: 120,
                                             height: 80,
@@ -148,10 +164,10 @@ export default function CartPage() {
 
                                     <Box sx={{ flex: 1 }}>
                                         <Typography variant="h6" fontWeight="bold">
-                                            {course.title}
+                                            {course.title || 'Untitled Course'}
                                         </Typography>
                                         <Typography color="text.secondary" variant="body2">
-                                            {course.category}
+                                            {course.category || 'General'}
                                         </Typography>
                                     </Box>
 
@@ -160,7 +176,7 @@ export default function CartPage() {
                                         color="primary.main"
                                         sx={{ mx: 2 }}
                                     >
-                                        ${course.cartPrice}
+                                        ${`$${Number(course.cartPrice || 0)}`}
                                     </Typography>
 
                                     <IconButton
@@ -173,13 +189,22 @@ export default function CartPage() {
                                 </CardContent>
                             </Card>
                         ))}
+                        <Box sx={{ mt: 2 }}>
+                            <Button variant="outlined" color="error" onClick={() => setClearDialogOpen(true)}>
+                                Clear Cart
+                            </Button>
+                            <Button sx={{ ml: 1 }} variant="text" component={Link} to="/courses">
+                                Continue Shopping
+                            </Button>
+                        </Box>
                     </Box>
 
                     {/* Order Summary */}
                     <Box sx={{ width: { xs: '100%', md: 300 } }}>
                         <Card sx={{
                             borderRadius: 3,
-                            backgroundColor: 'var(--brand-soft)',
+                            backgroundColor: alpha(theme.palette.secondary.light, isDark ? 0.16 : 0.24),
+                            border: `1px solid ${alpha(theme.palette.secondary.main, 0.18)}`,
                             position: 'sticky',
                             top: 100,
                         }}>
@@ -212,7 +237,7 @@ export default function CartPage() {
                                     color="primary"
                                     size="large"
                                     onClick={onPaymentClick}
-                                    disabled={isProcessing}
+                                    disabled={isProcessing || cartCourses.length === 0}
                                     sx={{
                                         py: 1.5,
                                         '&.Mui-disabled': {
@@ -240,6 +265,18 @@ export default function CartPage() {
                 message="Are you sure you want to remove this course from your cart?"
                 confirmText="Remove"
                 severity="warning"
+            />
+            <ConfirmDialog
+                open={clearDialogOpen}
+                onClose={() => setClearDialogOpen(false)}
+                onConfirm={() => {
+                    clearAll();
+                    showNotification('Cart cleared', 'info');
+                }}
+                title="Clear Cart"
+                message="This will remove all items from your cart. Continue?"
+                confirmText="Clear All"
+                severity="error"
             />
         </Box>
     );
