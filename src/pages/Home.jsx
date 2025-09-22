@@ -716,7 +716,7 @@ function Home() {
                   </Link>
                 </Box>
                 <Typography variant="body2" color="inherit">
-                  ©2020 Edudu.co
+                  ©2025 Edudu.com
                 </Typography>
 
                 <Typography variant="body2" color="inherit">

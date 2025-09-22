@@ -128,7 +128,7 @@ export default function Navbar() {
                     >
                         <Avatar sx={{ width: 44, height: 44, mr: 1 }} src={pic1} />
                         <Typography variant="h6" fontWeight={700}>
-                            Edudu For Kids
+                            Edudu
                         </Typography>
                     </Box>
 
