@@ -33,7 +33,7 @@ import useAuth, { isAdmin } from "../../hooks/useAuth";
 import useWishlist from "../../hooks/useWishlist";
 import useCart from "../../hooks/useCart";
 import useEnrollment from "../../hooks/useEnrollment";
-import {useThemeMode} from "../../theme/ThemeProvider";
+import { useThemeMode } from "../../theme/ThemeProvider";
 import { getLang, setLang, applyDir } from "../../utils/lang";
 
 export default function Navbar() {
@@ -59,7 +59,6 @@ export default function Navbar() {
     const [openLogin, setOpenLogin] = useState(false);
     const [openRegister, setOpenRegister] = useState(false);
 
-    // ✅ state خفيف لإجبار إعادة الرسم بعد تغيير اللغة بدون تأثير خارجي
     const [langState, setLangState] = useState(getLang() || "en");
 
     const handleOpenMobile = (e) => setAnchorElMobile(e.currentTarget);
@@ -76,7 +75,6 @@ export default function Navbar() {
         navigate("/");
     };
 
-
     const applyLanguage = (lng) => {
         const v = lng === "ar" ? "ar" : "en";
         setLang(v);
@@ -84,9 +82,8 @@ export default function Navbar() {
         setLangState(v);
     };
 
-     useEffect(() => {
+    useEffect(() => {
         applyLanguage(getLang() || "en");
-
     }, []);
 
     const navButtonSx = {
@@ -103,9 +100,16 @@ export default function Navbar() {
                 position="fixed"
                 elevation={0}
                 sx={{
+                    transition: "background-color 120ms ease, color 120ms ease, border-color 120ms ease",
                     borderBottom: `1px solid ${theme.palette.divider}`,
-                    backgroundColor: alpha(theme.palette.background.paper, theme.palette.mode === 'dark' ? 0.85 : 0.96),
-                    backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.secondary.light, theme.palette.mode === 'dark' ? 0.14 : 0.18)} 0%, transparent 100%)`,
+                    backgroundColor: alpha(
+                        theme.palette.background.paper,
+                        theme.palette.mode === "dark" ? 0.85 : 0.96
+                    ),
+                    backgroundImage: `linear-gradient(180deg, ${alpha(
+                        theme.palette.secondary.light,
+                        theme.palette.mode === "dark" ? 0.14 : 0.18
+                    )} 0%, transparent 100%)`,
                     color: theme.palette.text.primary,
                     boxShadow: theme.customShadows?.card,
                 }}
@@ -128,6 +132,7 @@ export default function Navbar() {
                         </Typography>
                     </Box>
 
+                    {/* Center nav (Desktop) */}
                     <Box
                         sx={{
                             flexGrow: 2,
@@ -137,13 +142,13 @@ export default function Navbar() {
                             gap: 2,
                         }}
                     >
-                        <Button component={NavLink} to="/" end className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>Home</Button>
-                        <Button component={NavLink} to="/courses" className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>Courses</Button>
-                        <Button component={NavLink} to="/teachers" className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>Teachers</Button>
-                        <Button component={NavLink} to="/how-to-use" className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>How to use</Button>
-                        <Button component={NavLink} to="/about" className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>About us</Button>
+                        <Button component={NavLink} to="/" end className={({ isActive }) => (isActive ? "active" : undefined)} sx={navButtonSx}>Home</Button>
+                        <Button component={NavLink} to="/courses" className={({ isActive }) => (isActive ? "active" : undefined)} sx={navButtonSx}>Courses</Button>
+                        <Button component={NavLink} to="/teachers" className={({ isActive }) => (isActive ? "active" : undefined)} sx={navButtonSx}>Teachers</Button>
+                        <Button component={NavLink} to="/how-to-use" className={({ isActive }) => (isActive ? "active" : undefined)} sx={navButtonSx}>How to use</Button>
+                        <Button component={NavLink} to="/about" className={({ isActive }) => (isActive ? "active" : undefined)} sx={navButtonSx}>About us</Button>
                         {isAdmin() && (
-                            <Button component={NavLink} to="/admin" className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>Dashboard</Button>
+                            <Button component={NavLink} to="/admin" className={({ isActive }) => (isActive ? "active" : undefined)} sx={navButtonSx}>Dashboard</Button>
                         )}
 
                         <Tooltip title={mode === "light" ? "Switch to dark mode" : "Switch to light mode"}>
@@ -155,7 +160,7 @@ export default function Navbar() {
 
                     {/* Desktop actions */}
                     <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 1.25 }}>
-                        {/* Language switcher - always visible */}
+                        {/* Language switcher */}
                         <Tooltip title="Change language">
                             <IconButton
                                 aria-label="Change language"
@@ -173,17 +178,12 @@ export default function Navbar() {
                             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                             transformOrigin={{ vertical: "top", horizontal: "right" }}
                             keepMounted
+                            slotProps={{ paper: { sx: { bgcolor: "background.paper", color: "text.primary" } } }}
                         >
-                            <MenuItem
-                                onClick={() => { applyLanguage("en"); handleCloseLanguage(); }}
-                                selected={langState === "en"}
-                            >
+                            <MenuItem onClick={() => { applyLanguage("en"); handleCloseLanguage(); }} selected={langState === "en"}>
                                 English (EN)
                             </MenuItem>
-                            <MenuItem
-                                onClick={() => { applyLanguage("ar"); handleCloseLanguage(); }}
-                                selected={langState === "ar"}
-                            >
+                            <MenuItem onClick={() => { applyLanguage("ar"); handleCloseLanguage(); }} selected={langState === "ar"}>
                                 العربية (AR)
                             </MenuItem>
                         </Menu>
@@ -216,7 +216,6 @@ export default function Navbar() {
                                     </Badge>
                                 </IconButton>
 
-
                                 <Tooltip title={user.name || user.email}>
                                     <IconButton onClick={handleOpenUser} size="small">
                                         <Avatar sx={{ width: 36, height: 36 }}>
@@ -230,53 +229,34 @@ export default function Navbar() {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    sx={{
-                                        boxShadow: "none",
-                                        color: theme.palette.primary.contrastText,
-                                    }}
+                                    sx={{ boxShadow: "none", color: theme.palette.primary.contrastText }}
                                     onClick={() => setOpenRegister(true)}
                                 >
                                     Sign Up
                                 </Button>
-                                <Button
-                                    variant="outlined"
-                                    sx={{ ml: 1 }}
-                                    onClick={() => setOpenLogin(true)}
-                                >
+                                <Button variant="outlined" sx={{ ml: 1 }} onClick={() => setOpenLogin(true)}>
                                     Login
                                 </Button>
                             </>
                         )}
                     </Box>
 
-                    {/* Mobile menu */}
-                    <Box sx={{ display: { xs: "flex", md: "none" } }}>
-                        <IconButton color="inherit" onClick={handleOpenMobile}><MenuIcon /></IconButton>
-                        <Menu anchorEl={anchorElMobile} open={Boolean(anchorElMobile)} onClose={handleCloseMobile} keepMounted>
-                            <MenuItem component={Link} to="/" onClick={handleCloseMobile}>Home</MenuItem>
-                            <MenuItem component={Link} to="/courses" onClick={handleCloseMobile}>Courses</MenuItem>
-                            <MenuItem component={Link} to="/teachers" onClick={handleCloseMobile}>Teachers</MenuItem>
-                            <MenuItem component={Link} to="/how-to-use" onClick={handleCloseMobile}>How to use</MenuItem>
-                            <MenuItem component={Link} to="/about" onClick={handleCloseMobile}>About us</MenuItem>
-                            {isAdmin() && <MenuItem component={Link} to="/admin" onClick={handleCloseMobile}>Dashboard</MenuItem>}
-                            <Divider />
-                            <MenuItem onClick={() => { applyLanguage("en"); handleCloseMobile(); }}>
-                                English (EN)
-                            </MenuItem>
-                            <MenuItem onClick={() => { applyLanguage("ar"); handleCloseMobile(); }}>
-                                العربية (AR)
-                            </MenuItem>
-                            <Divider />
-                            {!user && <MenuItem onClick={() => { setOpenLogin(true); handleCloseMobile(); }}>Login</MenuItem>}
-                            {!user && <MenuItem onClick={() => { setOpenRegister(true); handleCloseMobile(); }}>Sign Up</MenuItem>}
-                            {user && <MenuItem onClick={() => { handleCloseMobile(); navigate("/profile"); }}>Profile</MenuItem>}
-                            {user && <MenuItem onClick={() => { handleCloseMobile(); onLogout(); }}>Logout</MenuItem>}
-                        </Menu>
+                    {/* Mobile actions (theme toggle + menu) */}
+                    <Box sx={{ display: { xs: "flex", md: "none" }, alignItems: "center", gap: 0.5 }}>
+                        <Tooltip title={mode === "light" ? "Switch to dark mode" : "Switch to light mode"}>
+                            <IconButton aria-label="Toggle theme" onClick={toggleMode} size="small" color="inherit">
+                                {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+                            </IconButton>
+                        </Tooltip>
+
+                        <IconButton color="inherit" onClick={handleOpenMobile}>
+                            <MenuIcon />
+                        </IconButton>
                     </Box>
                 </Toolbar>
             </AppBar>
 
-            {/*   User menu   */}
+            {/* User menu */}
             <Menu
                 anchorEl={anchorElUser}
                 open={Boolean(anchorElUser)}
@@ -284,6 +264,7 @@ export default function Navbar() {
                 anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                 transformOrigin={{ vertical: "top", horizontal: "right" }}
                 keepMounted
+                slotProps={{ paper: { sx: { bgcolor: "background.paper", color: "text.primary" } } }}
             >
                 <MenuItem onClick={() => { handleCloseUser(); navigate("/profile"); }}>
                     <ListItemIcon><AccountCircle fontSize="small" /></ListItemIcon>
@@ -303,6 +284,51 @@ export default function Navbar() {
                     <ListItemIcon><Logout fontSize="small" /></ListItemIcon>
                     Logout
                 </MenuItem>
+            </Menu>
+
+            {/* Mobile menu */}
+            <Menu
+                anchorEl={anchorElMobile}
+                open={Boolean(anchorElMobile)}
+                onClose={handleCloseMobile}
+                keepMounted
+                slotProps={{ paper: { sx: { bgcolor: "background.paper", color: "text.primary" } } }}
+            >
+                <MenuItem component={Link} to="/" onClick={handleCloseMobile}>Home</MenuItem>
+                <MenuItem component={Link} to="/courses" onClick={handleCloseMobile}>Courses</MenuItem>
+                <MenuItem component={Link} to="/teachers" onClick={handleCloseMobile}>Teachers</MenuItem>
+                <MenuItem component={Link} to="/how-to-use" onClick={handleCloseMobile}>How to use</MenuItem>
+                <MenuItem component={Link} to="/about" onClick={handleCloseMobile}>About us</MenuItem>
+                {isAdmin() && <MenuItem component={Link} to="/admin" onClick={handleCloseMobile}>Dashboard</MenuItem>}
+
+                <Divider />
+
+                {/* Theme toggle inside mobile menu */}
+                <MenuItem
+                    onClick={() => { toggleMode(); handleCloseMobile(); }}
+                >
+                    <ListItemIcon>
+                        {mode === "light" ? <DarkModeIcon fontSize="small" /> : <LightModeIcon fontSize="small" />}
+                    </ListItemIcon>
+                    {mode === "light" ? "Dark mode" : "Light mode"}
+                </MenuItem>
+
+                <Divider />
+
+                {/* Language */}
+                <MenuItem onClick={() => { applyLanguage("en"); handleCloseMobile(); }}>
+                    English (EN)
+                </MenuItem>
+                <MenuItem onClick={() => { applyLanguage("ar"); handleCloseMobile(); }}>
+                    العربية (AR)
+                </MenuItem>
+
+                <Divider />
+
+                {!user && <MenuItem onClick={() => { setOpenLogin(true); handleCloseMobile(); }}>Login</MenuItem>}
+                {!user && <MenuItem onClick={() => { setOpenRegister(true); handleCloseMobile(); }}>Sign Up</MenuItem>}
+                {user && <MenuItem onClick={() => { handleCloseMobile(); navigate("/profile"); }}>Profile</MenuItem>}
+                {user && <MenuItem onClick={() => { handleCloseMobile(); onLogout(); }}>Logout</MenuItem>}
             </Menu>
 
             <LoginModal open={openLogin} onClose={() => setOpenLogin(false)} />
