@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Card, CardContent, MenuItem, FormHelperText, Stack, Grid } from "@mui/material";
+import { Card, CardContent, MenuItem, FormHelperText, Stack, Grid, Box, Typography, Chip, Switch, FormControlLabel, Button, Autocomplete, TextField as MuiTextField } from "@mui/material";
 import YellowButton from "../common/button";
 import useTeachers from "../../hooks/useTeachers";
 import useAuth from "../../hooks/useAuth";
@@ -33,6 +33,11 @@ export default function TeacherForm({ editing, onSaved, onCancel }) {
             experienceYears: "",
             certification: "",
             bio: "",
+            email: "",
+            phone: "",
+            status: "active",
+            tags: [],
+            languages: [],
         }),
         []
     );
@@ -48,13 +53,15 @@ export default function TeacherForm({ editing, onSaved, onCancel }) {
                 subject: editing.subject || "",
                 rating: editing.rating ?? "",
                 image: editing.image || "",
-                language:
-                    Array.isArray(editing.languages) && editing.languages.length
-                        ? editing.languages[0]
-                        : "Arabic",
+                language: "Arabic",
+                languages: Array.isArray(editing.languages) ? editing.languages : [],
                 experienceYears: editing.experienceYears ?? "",
                 certification: editing.certification || "",
                 bio: editing.bio || editing.description || "",
+                email: editing.email || "",
+                phone: editing.phone || "",
+                status: editing.status || "active",
+                tags: Array.isArray(editing.tags) ? editing.tags : [],
             });
             setErrors({});
         } else {
@@ -151,26 +158,39 @@ export default function TeacherForm({ editing, onSaved, onCancel }) {
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <FormField select label="Language" name="language" value={form.language} onChange={onChange} sx={formFieldSx}>
-                            <MenuItem value="Arabic">Arabic</MenuItem>
-                            <MenuItem value="English">English</MenuItem>
-                        </FormField>
-                        <FormHelperText>Select the main spoken language.</FormHelperText>
+                        <Autocomplete
+                            multiple
+                            options={["Arabic", "English"]}
+                            value={form.languages}
+                            onChange={(_, v) => setForm((s) => ({ ...s, languages: v }))}
+                            renderInput={(params) => (
+                                <MuiTextField {...params} label="Languages" placeholder="Select languages" />
+                            )}
+                        />
+                        <FormHelperText>Select one or more languages.</FormHelperText>
                     </Grid>
 
                     <Grid item xs={12} md={6}>
-                        <FormField
-                            label="Image URL"
-                            name="image"
-                            value={form.image}
-                            onChange={onChange}
-                            error={!!errors.image}
-                            helperText={errors.image}
-                            autoGrow
-                            minRows={1}
-                            maxRows={3}
-                            sx={formFieldSx}
-                        />
+                        <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.5 }}>Photo</Typography>
+                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} alignItems="center">
+                            <Button component="label" variant="outlined">Upload<input hidden type="file" accept="image/*" onChange={(e) => {
+                                const f = e.target.files?.[0];
+                                if (!f) return;
+                                if (f.size > 2 * 1024 * 1024) { setErrors((s) => ({ ...s, image: 'Max size 2MB' })); return; }
+                                const url = URL.createObjectURL(f);
+                                setForm((s) => ({ ...s, image: url }));
+                                setErrors((s) => ({ ...s, image: undefined }));
+                            }} /></Button>
+                            <Typography variant="body2" color="text.secondary">or paste URL</Typography>
+                            <FormField name="image" value={form.image} onChange={onChange} placeholder="https://..." sx={{ flex: 1, ...formFieldSx }} />
+                        </Stack>
+                        {form.image && (
+                            <Box sx={{ mt: 1.25, display: 'flex', alignItems: 'center', gap: 1.25 }}>
+                                <Box component="img" src={form.image} alt="Preview" sx={{ width: 120, height: 80, objectFit: 'cover', borderRadius: 1.5, border: '1px solid rgba(0,0,0,0.1)' }} />
+                                <Typography variant="caption" color="text.secondary">Preview</Typography>
+                            </Box>
+                        )}
+                        {errors.image && <FormHelperText error>{errors.image}</FormHelperText>}
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <FormField
@@ -212,6 +232,23 @@ export default function TeacherForm({ editing, onSaved, onCancel }) {
                             helperText={errors.bio}
                             sx={formFieldSx}
                         />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <FormField label="Email (optional)" name="email" value={form.email} onChange={onChange} sx={formFieldSx} />
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                        <FormField label="Phone (optional)" name="phone" value={form.phone} onChange={onChange} sx={formFieldSx} />
+                    </Grid>
+                    <Grid item xs={12} md={3}>
+                        <FormField select label="Status" name="status" value={form.status} onChange={onChange} sx={formFieldSx}>
+                            <MenuItem value="active">Active</MenuItem>
+                            <MenuItem value="inactive">Inactive</MenuItem>
+                            <MenuItem value="pending">Pending</MenuItem>
+                        </FormField>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormField label="Tags (press Enter to add)" name="tags" value="" onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); const v = e.currentTarget.value.trim(); if (v && !(form.tags||[]).includes(v)) setForm((s) => ({ ...s, tags: [...(s.tags||[]), v] })); e.currentTarget.value=''; } }} sx={formFieldSx} />
+                        <Box sx={{ mt: 1, display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>{(form.tags||[]).map((t) => (<Chip key={t} label={t} onDelete={() => setForm((s) => ({ ...s, tags: s.tags.filter((x)=>x!==t) }))} />))}</Box>
                     </Grid>
 
                     <Grid item xs={12}>

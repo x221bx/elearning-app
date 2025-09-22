@@ -16,26 +16,25 @@ const NavItem = ({ to, label, end }) => (
         to={to}
         end={end}
         sx={(theme) => ({
-            borderRadius: 1.5,
+            borderRadius: 3,
             px: 2,
             py: 1,
             color: theme.palette.text.primary,
             "&:hover": {
                 backgroundColor: alpha(
-                    theme.palette.primary.main,
-                    theme.palette.mode === "dark" ? 0.12 : 0.08
+                    theme.palette.secondary.main,
+                    theme.palette.mode === "dark" ? 0.18 : 0.1
                 ),
             },
-             "&.active": {
+            "&.active": {
                 backgroundColor: alpha(
-                    theme.palette.primary.main,
-                    theme.palette.mode === "dark" ? 0.22 : 0.16
+                    theme.palette.secondary.main,
+                    theme.palette.mode === "dark" ? 0.28 : 0.18
                 ),
-                color:
-                    theme.palette.mode === "dark"
-                        ? theme.palette.primary.light
-                        : theme.palette.primary.dark,
-                "& .MuiListItemText-primary": { fontWeight: 700 },
+                border: `1px solid ${alpha(theme.palette.secondary.main, 0.3)}`,
+                color: theme.palette.text.primary,
+                boxShadow: theme.customShadows?.card,
+                "& .MuiListItemText-primary": { fontWeight: 800 },
             },
         })}
     >
@@ -49,8 +48,8 @@ export default function AdminSidebar() {
             sx={(theme) => ({
                 width: "100%",
                 height: "100%",
-                backgroundColor: theme.palette.background.paper,
-                borderRight: `1px solid ${theme.palette.divider}`,
+                backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.secondary.dark, theme.palette.mode === 'dark' ? 0.4 : 0.18)} 0%, ${alpha(theme.palette.secondary.dark, theme.palette.mode === 'dark' ? 0.7 : 0.28)} 100%)`,
+                borderRight: `1px solid ${alpha(theme.palette.secondary.main, 0.25)}`,
                 display: "flex",
                 flexDirection: "column",
             })}
@@ -58,7 +57,7 @@ export default function AdminSidebar() {
             <Box
                 sx={(theme) => ({
                     p: 2,
-                    borderBottom: `1px solid ${theme.palette.divider}`,
+                    borderBottom: `1px solid ${alpha(theme.palette.secondary.main, 0.25)}`,
                 })}
             >
                 <Typography variant="h6" fontWeight={700}>

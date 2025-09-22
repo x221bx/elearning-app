@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, Stack, Grid, Card, CardContent, Button, Avatar, List, ListItem, ListItemIcon, ListItemText, Fab } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, alpha } from '@mui/material/styles';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LoginIcon from '@mui/icons-material/Login';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -112,8 +112,12 @@ const HowToUse = () => {
     { bottom: 20, right: 30, size: 32, color: theme.palette.info.light, rotate: -6 },
   ];
 
+  const isDark = theme.palette.mode === 'dark';
+  const pageBg = theme.palette.background.default;
+  const surface = theme.palette.background.paper;
+
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: theme.palette.warning[50] || '#FFFDE7', pb: 6 }}>
+    <Box sx={{ minHeight: '100vh', bgcolor: pageBg, pb: 6 }}>
    
       <Box data-testid="howto-hero" sx={{ position: 'relative', py: { xs: 5, md: 8 }, textAlign: 'center', overflow: 'hidden' }}>
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={sectionVariant}>
@@ -237,12 +241,12 @@ const HowToUse = () => {
                   whileTap="hover"
                   style={{ height: '100%' }}
                 >
-                  <Card sx={{ bgcolor: idx % 2 === 0 ? theme.palette.warning.light : theme.palette.primary.light, borderRadius: 4, boxShadow: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', transition: 'box-shadow 0.2s' }}>
+                  <Card sx={{ bgcolor: surface, border: `1px solid ${alpha(theme.palette.divider, 0.6)}`, borderRadius: 4, boxShadow: 2, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', transition: 'box-shadow 0.2s' }}>
                     <CardContent sx={{ textAlign: 'center', flexGrow: 1 }}>
                       <Avatar sx={{ bgcolor: theme.palette.primary.main, width: 48, height: 48, mb: 1, mx: 'auto' }} aria-label={feature.title}>
                         {feature.icon}
                       </Avatar>
-                      <Typography variant="h6" sx={{ fontWeight: 600, color: theme.palette.primary.dark }}>{feature.title}</Typography>
+                      <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary' }}>{feature.title}</Typography>
                       <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>{feature.desc}</Typography>
                     </CardContent>
                   </Card>
@@ -287,7 +291,7 @@ const HowToUse = () => {
       </Box>
 
 
-      <Box data-testid="howto-cta" sx={{ textAlign: 'center', py: 4, bgcolor: theme.palette.primary[50], borderRadius: 4, maxWidth: 700, mx: 'auto', boxShadow: 1 }}>
+      <Box data-testid="howto-cta" sx={{ textAlign: 'center', py: 4, bgcolor: alpha(theme.palette.primary.main, isDark ? 0.12 : 0.1), borderRadius: 4, maxWidth: 700, mx: 'auto', boxShadow: 1, border: `1px solid ${alpha(theme.palette.primary.main, 0.25)}` }}>
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={sectionVariant}>
           <Typography variant="h5" sx={{ fontWeight: 700, color: theme.palette.primary.main, mb: 2 }}>{STRINGS.ctaTitle}</Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">

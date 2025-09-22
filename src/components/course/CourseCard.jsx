@@ -70,6 +70,24 @@ export default function CourseCard({
     const courseTitle = title?.trim() || 'Untitled Course';
     const courseDesc = (description || '').toString();
     const courseCategory = category?.toString() || 'General';
+    const colorForCategory = (name) => {
+        const p = theme.palette;
+        const map = {
+            Programming: p.secondary.main,
+            Science: p.success.main,
+            Health: p.error.main,
+            Languages: (p.info && p.info.main) || p.secondary.light,
+            History: p.warning.main,
+            Music: p.primary.dark,
+            Art: p.secondary.dark,
+            Writing: p.primary.main,
+            Math: p.success.dark,
+            Culinary: p.error.dark,
+            Photography: (p.info && p.info.dark) || p.secondary.main,
+            General: p.primary.light,
+        };
+        return map[name] || p.primary.main;
+    };
     const coverFallback = `https://picsum.photos/seed/course-${id || 'fallback'}/600/400`;
     const cover = image || coverFallback;
     const r = Math.max(0, Math.min(5, Number(isNaN(Number(rating)) ? 0 : Number(rating))));
@@ -182,11 +200,14 @@ export default function CourseCard({
                     <Chip
                         label={courseCategory}
                         size="small"
-                        sx={{
-                            bgcolor: alpha(theme.palette.primary.main, 0.12),
-                            border: `1px solid ${alpha(theme.palette.primary.main, 0.3)}`,
-                            color: 'text.primary',
-                            width: 'max-content',
+                        sx={() => {
+                            const c = colorForCategory(courseCategory);
+                            return {
+                                bgcolor: alpha(c, 0.14),
+                                border: `1px solid ${alpha(c, 0.35)}`,
+                                color: 'text.primary',
+                                width: 'max-content',
+                            };
                         }}
                     />
                 </Box>

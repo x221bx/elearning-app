@@ -2,12 +2,12 @@ import React, { useMemo, useState } from "react";
 import {
     Typography,
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-    IconButton, Box, Dialog, DialogTitle, DialogContent, DialogActions,
-    TextField, MenuItem, Button, Chip, Tooltip, useMediaQuery, Paper
+    IconButton, Box, Chip, Tooltip, useMediaQuery, Paper
 } from "@mui/material";
 import DeleteOutline from "@mui/icons-material/DeleteOutline";
 import EditOutlined from "@mui/icons-material/EditOutlined";
 import { useTheme } from "@mui/material/styles";
+// inline edit is handled at the page level (AdminCourses) similar to TeacherTable
 
 import useCourses from "../../hooks/useCourses";
 import useTeachers from "../../hooks/useTeachers";
@@ -25,7 +25,7 @@ export default function CourseTable({ onCreate }) {
     const isMobile = useMediaQuery("(max-width:600px)");
     const isTablet = useMediaQuery("(max-width:900px)");
 
-    const { courses, removeCourse, updateCourse } = useCourses();
+    const { courses, removeCourse } = useCourses();
     const { teachers } = useTeachers();
 
     const [confirmDelete, setConfirmDelete] = useState({ open: false, courseId: null });
@@ -37,37 +37,9 @@ export default function CourseTable({ onCreate }) {
         [courses, page, perPage]
     );
 
-    const [editing, setEditing] = useState(null);
-    const [form, setForm] = useState({
-        id: "", title: "", category: "", price: "", rating: "", image: "", teacherId: ""
-    });
+    const onEdit = (c) => onCreate?.(c); // delegate to parent to open edit form
 
-    const onEdit = (c) => {
-        setEditing(c.id);
-        setForm({
-            id: c.id,
-            title: c.title || "",
-            category: c.category || "",
-            price: String(c.price ?? ""),
-            rating: String(c.rating ?? ""),
-            image: c.image || "",
-            teacherId: c.teacherId || "",
-        });
-    };
-
-    const onChange = (e) => setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
-    const onSave = () => {
-        updateCourse({
-            id: form.id,
-            title: form.title.trim(),
-            category: form.category.trim(),
-            price: Number(form.price || 0),
-            rating: Math.max(0, Math.min(5, Number(form.rating || 0))),
-            image: form.image.trim(),
-            teacherId: form.teacherId || "",
-        });
-        setEditing(null);
-    };
+    // Scroll remains enabled because editing happens inline on the page
 
     return (
         <Box>
@@ -190,36 +162,7 @@ export default function CourseTable({ onCreate }) {
                 )}
             </TableContainer>
 
-            <Dialog open={!!editing} onClose={() => setEditing(null)} fullWidth maxWidth="sm">
-                <DialogTitle>Edit course</DialogTitle>
-                <DialogContent sx={{ pt: 2 }}>
-                    <Box sx={{ display: "grid", gap: 2 }}>
-                        <TextField label="Title" name="title" value={form.title} onChange={onChange} fullWidth />
-                        <TextField label="Category" name="category" value={form.category} onChange={onChange} fullWidth />
-                        <TextField label="Price" name="price" type="number" value={form.price} onChange={onChange} fullWidth />
-                        <TextField
-                            label="Rating (0–5)"
-                            name="rating"
-                            type="number"
-                            inputProps={{ step: "0.1", min: 0, max: 5 }}
-                            value={form.rating}
-                            onChange={onChange}
-                            fullWidth
-                        />
-                        <TextField label="Image URL" name="image" value={form.image} onChange={onChange} fullWidth />
-                        <TextField select label="Teacher" name="teacherId" value={form.teacherId} onChange={onChange} fullWidth>
-                            <MenuItem value="">(None)</MenuItem>
-                            {teachers.map((t) => (
-                                <MenuItem key={t.id} value={t.id}>{t.name}</MenuItem>
-                            ))}
-                        </TextField>
-                    </Box>
-                </DialogContent>
-                <DialogActions sx={{ p: 2 }}>
-                    <Button onClick={() => setEditing(null)}>Cancel</Button>
-                    <Button variant="contained" onClick={onSave}>Save</Button>
-                </DialogActions>
-            </Dialog>
+            {/* Editing is handled by parent page via onCreate callback (used as onEdit) */}
 
             <ConfirmDialog
                 open={confirmDelete.open}

@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link as RouterLink, useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -11,13 +11,20 @@ import {
   ListItemText,
   Divider,
   Chip,
+  Breadcrumbs,
+  Link as MuiLink,
 } from "@mui/material";
-import { alpha } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import useCourses from "../hooks/useCourses";
 
 export default function CourseDetail() {
   const { id } = useParams();
   const { courses, seed } = useCourses();
+  const theme = useTheme();
+  const navigate = useNavigate();
 
   // Seed courses on component mount
   useEffect(() => {
@@ -37,24 +44,24 @@ export default function CourseDetail() {
     );
   }
 
-  return (
-    <Box
-      sx={{
-        backgroundColor: "var(--brand-soft)",
-        minHeight: "100vh",
-        py: 8,
-        px: { xs: 2, sm: 4, md: 6 },
-      }}
-    >
+  // Tiny i18n helper based on saved lang
+  const lang = (localStorage.getItem('lang') || 'en').toLowerCase();
+  const t = (key) => {
+    const map = {
+      about: { en: "About this course", ar: "حول هذا الكورس" },
+      learn: { en: "What you'll learn", ar: "ماذا ستتعلم" },
+      outline: { en: "Course Outline", ar: "مخطط الدورة" },
+      courses: { en: "Courses", ar: "الدورات" },
+    };
+    return (map[key] && (map[key][lang] || map[key].en)) || key;
+  };
 
-      <Card
-        sx={{
-          borderRadius: 4,
-          overflow: "hidden",
-          mb: 4,
-          boxShadow: (theme) => theme.shadows[6],
-        }}
-      >
+  return (
+    <Box sx={{ backgroundColor: theme.palette.background.default, minHeight: "100vh", pb: 8 }}>
+      <Box sx={(t) => t.mixins.toolbar} />
+      <Box sx={{ px: { xs: 2, sm: 4, md: 6 }, pt: 3 }}>
+
+      <Card sx={{ borderRadius: 3, overflow: "hidden", mb: 3, boxShadow: theme.shadows[6] }}>
         <CardMedia
           component="img"
           height="300"
@@ -68,122 +75,79 @@ export default function CourseDetail() {
         />
       </Card>
 
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+        <MuiLink component={RouterLink} to="/courses" underline="hover" color="text.secondary" sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}>
+          <ArrowBackIcon fontSize="small" /> {t('courses')}
+        </MuiLink>
+      </Box>
+      <Breadcrumbs aria-label="breadcrumb" sx={{ mb: 2, color: 'text.secondary' }}>
+        <MuiLink component={RouterLink} underline="hover" color="text.secondary" to="/courses">
+          {t('courses')}
+        </MuiLink>
+        <Typography color="text.primary">{course.title}</Typography>
+      </Breadcrumbs>
 
-      <Typography
-        variant="h4"
-        fontWeight="bold"
-        sx={{ color: "secondary.main", mb: 1 }}
-      >
-        {course.title}
-      </Typography>
-      <Typography
-        variant="subtitle1"
-        color="text.secondary"
-        sx={{ mb: 2 }}
-      >
+
+      <Typography variant="h4" fontWeight={800} sx={{ color: 'text.primary', mb: 0.5 }}>{course.title}</Typography>
+      <Typography variant="subtitle1" color="text.secondary" sx={{ mb: 2, lineHeight: 1.6 }}>
         Lessons: {course.lessonsCount || 0} | Rating: ⭐ {course.rating}
       </Typography>
-      <Typography
-        variant="h5"
-        fontWeight="bold"
-        sx={{ color: "warning.main", mb: 4 }}
-      >
-        ${course.price}
-      </Typography>
+      <Typography variant="h5" fontWeight={900} sx={{ color: 'primary.main', mb: 3 }}>${course.price}</Typography>
 
 
-      <Card
-        sx={{
-          borderRadius: 3,
-          boxShadow: 2,
-          mb: 4,
-          backgroundColor: "var(--brand-soft)",
-          p: 2,
-        }}
-      >
+      <Card sx={{ borderRadius: 3, boxShadow: 2, mb: 3, backgroundColor: theme.palette.background.paper }}>
         <CardContent>
-          <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-            About this course
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="h6" fontWeight={800} sx={{ mb: 1.25 }}>{t('about')}</Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.9 }}>
             {course.description}
           </Typography>
         </CardContent>
       </Card>
 
 
-      <Card
-        sx={{
-          borderRadius: 3,
-          boxShadow: 2,
-          mb: 4,
-          backgroundColor: "var(--brand-soft)",
-          p: 2,
-        }}
-      >
+      <Card sx={{ borderRadius: 3, boxShadow: 2, mb: 3, backgroundColor: theme.palette.background.paper }}>
         <CardContent>
-          <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-            What you'll learn
-          </Typography>
-          <List>
+          <Typography variant="h6" fontWeight={800} sx={{ mb: 1.25 }}>{t('learn')}</Typography>
+          <List sx={{ pl: 1 }}>
             {course.whatYoullLearn?.map((item, idx) => (
               <ListItem
                 key={idx}
                 sx={{
-                  pl: 0,
-                  "&:hover": { bgcolor: (theme) => alpha(theme.palette.secondary.main, 0.12), borderRadius: 2 },
+                  pl: 0.5,
+                  "&:hover": { bgcolor: (theme) => alpha(theme.palette.secondary.main, 0.08), borderRadius: 2 },
                 }}
               >
-                <ListItemText primary={"- " + item} />
+                <MenuBookIcon fontSize="small" style={{ marginRight: 8 }} />
+                <ListItemText primary={item} primaryTypographyProps={{ sx: { lineHeight: 1.8 } }} />
               </ListItem>
             ))}
           </List>
         </CardContent>
       </Card>
 
-      <Card
-        sx={{
-          borderRadius: 3,
-          boxShadow: 2,
-          backgroundColor: "var(--card-bg)",
-          p: 2,
-        }}
-      >
+      <Card sx={{ borderRadius: 3, boxShadow: 2, backgroundColor: theme.palette.background.paper }}>
         <CardContent>
-          <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-            Course Outline
-          </Typography>
+          <Typography variant="h6" fontWeight={800} sx={{ mb: 1.25 }}>{t('outline')}</Typography>
           {course.courseOutline?.map((module, idx) => (
-            <Box key={idx} sx={{ mb: 3 }}>
-              <Chip
-                label={module.title}
-                sx={{
-                  bgcolor: "var(--primary-btn-bg)",
-                  color: (theme) => theme.palette.primary.contrastText,
-                  fontWeight: "bold",
-                  mb: 1,
-                }}
-              />
-              <List dense>
-                {module.lessons.map((lesson, i) => (
-                  <ListItem
-                    key={i}
-                    sx={{
-                      pl: 2,
-                      "&:hover": { bgcolor: (theme) => alpha(theme.palette.secondary.main, 0.18), borderRadius: 2 },
-                    }}
-                  >
-                    <ListItemText primary={"- " + lesson} />
-                  </ListItem>
-                ))}
-              </List>
-              {idx < course.courseOutline.length - 1 && (
-                <Divider sx={{ my: 2 }} />
-              )}
-            </Box>
+            <Card key={idx} variant="outlined" sx={{ mb: 1.5, borderRadius: 2 }}>
+              <CardContent sx={{ py: 1.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                  <Chip label={module.title} color="primary" size="small" sx={{ fontWeight: 700 }} />
+                </Box>
+                <List dense>
+                  {module.lessons.map((lesson, i) => (
+                    <ListItem key={i} sx={{ pl: 0.5, '&:hover': { bgcolor: (theme) => alpha(theme.palette.secondary.main, 0.08), borderRadius: 2 } }}>
+                      <PlayArrowIcon fontSize="small" style={{ marginRight: 6 }} />
+                      <ListItemText primary={lesson} primaryTypographyProps={{ sx: { lineHeight: 1.8 } }} />
+                    </ListItem>
+                  ))}
+                </List>
+              </CardContent>
+            </Card>
           ))}
         </CardContent>
       </Card>
+      </Box>
     </Box>
   );
 }

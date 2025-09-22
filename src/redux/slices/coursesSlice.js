@@ -7,6 +7,15 @@ const initial = {
     seeded: false,
 };
 
+const slugify = (s = "") =>
+  s
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+
 const coursesSlice = createSlice({
     name: "courses",
     initialState: initial,
@@ -26,13 +35,26 @@ const coursesSlice = createSlice({
                     payload: {
                         id: data.id || `c_${nanoid(6)}`,
                         title: data.title?.trim(),
+                        slug: data.slug?.trim?.() || slugify(data.title || ""),
                         category: data.category?.trim() || "General",
                         image: data.image?.trim() || "https://picsum.photos/seed/new/600/400",
                         price: Number(data.price || 0),
+                        currency: data.currency || "USD",
+                        discountPrice: Number(data.discountPrice || 0),
+                        free: Boolean(data.free),
                         rating: Number(data.rating || 0),
                         teacherId: data.teacherId || "",
                         lessonsCount: Number(data.lessonsCount || 0),
+                        durationHours: Number(data.durationHours || 0),
+                        shortDescription: data.shortDescription || "",
                         description: data.description || "",
+                        language: data.language || "English",
+                        level: data.level || "Beginner",
+                        ageGroup: data.ageGroup || "9-12",
+                        tags: Array.isArray(data.tags) ? data.tags : [],
+                        enrollmentLimit: Number(data.enrollmentLimit || 0),
+                        featured: Boolean(data.featured),
+                        status: data.status || "published",
                         createdBy: currentUserEmail || null,
                         createdAt: Date.now(),
                     },

@@ -23,8 +23,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import PublicIcon from "@mui/icons-material/Public";
-import { useTheme } from "@mui/material/styles";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useTheme, alpha } from "@mui/material/styles";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 
 import pic1 from "../../assets/images/pic1.jpg";
 import LoginModal from "../Pages/login";
@@ -104,7 +104,8 @@ export default function Navbar() {
                 elevation={0}
                 sx={{
                     borderBottom: `1px solid ${theme.palette.divider}`,
-                    backgroundColor: theme.palette.background.paper,
+                    backgroundColor: alpha(theme.palette.background.paper, theme.palette.mode === 'dark' ? 0.85 : 0.96),
+                    backgroundImage: `linear-gradient(180deg, ${alpha(theme.palette.secondary.light, theme.palette.mode === 'dark' ? 0.14 : 0.18)} 0%, transparent 100%)`,
                     color: theme.palette.text.primary,
                     boxShadow: theme.customShadows?.card,
                 }}
@@ -136,13 +137,13 @@ export default function Navbar() {
                             gap: 2,
                         }}
                     >
-                        <Button component={Link} to="/" sx={navButtonSx}>Home</Button>
-                        <Button component={Link} to="/courses" sx={navButtonSx}>Courses</Button>
-                        <Button component={Link} to="/teachers" sx={navButtonSx}>Teachers</Button>
-                        <Button component={Link} to="/how-to-use" sx={navButtonSx}>How to use</Button>
-                        <Button component={Link} to="/about" sx={navButtonSx}>About us</Button>
+                        <Button component={NavLink} to="/" end className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>Home</Button>
+                        <Button component={NavLink} to="/courses" className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>Courses</Button>
+                        <Button component={NavLink} to="/teachers" className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>Teachers</Button>
+                        <Button component={NavLink} to="/how-to-use" className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>How to use</Button>
+                        <Button component={NavLink} to="/about" className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>About us</Button>
                         {isAdmin() && (
-                            <Button component={Link} to="/admin" sx={navButtonSx}>Dashboard</Button>
+                            <Button component={NavLink} to="/admin" className={({isActive}) => isActive ? 'active' : undefined} sx={navButtonSx}>Dashboard</Button>
                         )}
 
                         <Tooltip title={mode === "light" ? "Switch to dark mode" : "Switch to light mode"}>
@@ -207,10 +208,10 @@ export default function Navbar() {
                                     to="/cart"
                                     aria-label="Cart"
                                     size="small"
-                                    color={location.pathname === "/cart" ? "primary" : "default"}
-                                    sx={{ "&:hover": { color: "primary.main" } }}
+                                    color={location.pathname === "/cart" ? "secondary" : "default"}
+                                    sx={{ "&:hover": { color: "secondary.main" } }}
                                 >
-                                    <Badge badgeContent={safeCartItems.length} color="primary" max={99}>
+                                    <Badge badgeContent={safeCartItems.length} color="secondary" max={99}>
                                         <ShoppingCartIcon />
                                     </Badge>
                                 </IconButton>

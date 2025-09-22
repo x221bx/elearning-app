@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import {
     Typography,
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-    IconButton, Box, Avatar, Chip, Tooltip, useMediaQuery, Paper
+    IconButton, Box, Avatar, Chip, Tooltip, useMediaQuery, Paper, TextField, MenuItem
 } from "@mui/material";
 import DeleteOutline from "@mui/icons-material/DeleteOutline";
 import EditOutlined from "@mui/icons-material/EditOutlined";
@@ -40,26 +40,56 @@ export default function TeacherTable({ onEdit }) {
         }));
     }, [teachers, courses]);
 
+    const [q, setQ] = useState("");
+    const [fSubject, setFSubject] = useState("All");
+    const [fLang, setFLang] = useState("All");
+    const [fStatus, setFStatus] = useState("All");
+
+    const subjects = useMemo(() => ["All", ...Array.from(new Set(teachers.map(t => t.subject).filter(Boolean)))], [teachers]);
+    const languages = useMemo(() => ["All", ...["Arabic","English"]], []);
+
+    const filtered = useMemo(() => rows.filter((t) => {
+        const matchesQ = q ? (t.name?.toLowerCase().includes(q.toLowerCase()) || (t.tags||[]).some(tag => tag.toLowerCase().includes(q.toLowerCase()))) : true;
+        const matchesSub = fSubject === 'All' || t.subject === fSubject;
+        const matchesLang = fLang === 'All' || (t.languages||[]).includes(fLang);
+        const matchesStatus = fStatus === 'All' || t.status === fStatus;
+        return matchesQ && matchesSub && matchesLang && matchesStatus;
+    }), [rows, q, fSubject, fLang, fStatus]);
+
     const [page, setPage] = useState(1);
     const perPage = isMobile ? 6 : 10;
-    const pageCount = Math.max(1, Math.ceil(rows.length / perPage));
-    const paginated = rows.slice((page - 1) * perPage, page * perPage);
+    const pageCount = Math.max(1, Math.ceil(filtered.length / perPage));
+    const paginated = filtered.slice((page - 1) * perPage, page * perPage);
     useEffect(() => { if (page > pageCount) setPage(pageCount); }, [page, pageCount]);
 
     return (
         <Box>
             <Typography variant="h5" fontWeight={800} sx={{ mb: 2 }}>Teachers</Typography>
 
+            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 1.5 }}>
+                <TextField size="small" label="Search" value={q} onChange={(e)=>{ setQ(e.target.value); setPage(1); }} sx={{ minWidth: 220 }} />
+                <TextField size="small" select label="Subject" value={fSubject} onChange={(e)=>{ setFSubject(e.target.value); setPage(1); }}>
+                    {subjects.map(s => (<MenuItem key={s} value={s}>{s}</MenuItem>))}
+                </TextField>
+                <TextField size="small" select label="Language" value={fLang} onChange={(e)=>{ setFLang(e.target.value); setPage(1); }}>
+                    {languages.map(s => (<MenuItem key={s} value={s}>{s}</MenuItem>))}
+                </TextField>
+                <TextField size="small" select label="Status" value={fStatus} onChange={(e)=>{ setFStatus(e.target.value); setPage(1); }}>
+                    {['All','active','inactive','pending'].map(s => (<MenuItem key={s} value={s}>{s}</MenuItem>))}
+                </TextField>
+            </Box>
+
             <TableContainer
                 component={Paper}
                 sx={{
                     borderRadius: 0,
-                    overflow: "visible",
+                    overflow: 'auto',
+                    maxHeight: 560,
                     border: `1px solid ${theme.palette.divider}`,
                     backgroundColor: theme.palette.background.paper,
                 }}
             >
-                <Table size={isMobile ? "small" : "medium"}>
+                <Table stickyHeader size={isMobile ? "small" : "medium"}>
                     <TableHead>
                         <TableRow
                             sx={{
