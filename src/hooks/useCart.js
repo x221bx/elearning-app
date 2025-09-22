@@ -82,6 +82,11 @@ export default function useCart() {
         }
     };
 
+    const clearAll = () => {
+        dispatch(clearCart());
+        localStorage.setItem(`cart:${userId}`, JSON.stringify([]));
+    };
+
     return {
         cartItems,
         cartTotal,
@@ -90,5 +95,6 @@ export default function useCart() {
         addItemToCart,
         removeItemFromCart,
         handlePayment,
+        clearAll,
     };
 }

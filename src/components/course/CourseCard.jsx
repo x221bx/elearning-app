@@ -9,6 +9,7 @@ import {
     Chip,
     Button,
     Tooltip,
+    Rating,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -30,6 +31,9 @@ export default function CourseCard({
     category
 }) {
     const theme = useTheme();
+    const soft = theme.palette.brand?.soft || (theme.palette.mode === 'dark' ? alpha(theme.palette.primary.main, 0.15) : alpha(theme.palette.primary.main, 0.1));
+    const border = alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.4 : 0.25);
+    const hoverBg = theme.palette.mode === 'dark' ? alpha(theme.palette.primary.main, 0.12) : alpha(theme.palette.primary.main, 0.18);
     const {
         isInCart,
         isFavorite,
@@ -62,31 +66,65 @@ export default function CourseCard({
         }
     };
 
+    // Safe fallbacks to keep card rendering consistent
+    const courseTitle = title?.trim() || 'Untitled Course';
+    const courseDesc = (description || '').toString();
+    const courseCategory = category?.toString() || 'General';
+    const colorForCategory = (name) => {
+        const p = theme.palette;
+        const map = {
+            Programming: p.secondary.main,
+            Science: p.success.main,
+            Health: p.error.main,
+            Languages: (p.info && p.info.main) || p.secondary.light,
+            History: p.warning.main,
+            Music: p.primary.dark,
+            Art: p.secondary.dark,
+            Writing: p.primary.main,
+            Math: p.success.dark,
+            Culinary: p.error.dark,
+            Photography: (p.info && p.info.dark) || p.secondary.main,
+            General: p.primary.light,
+        };
+        return map[name] || p.primary.main;
+    };
+    const coverFallback = `https://picsum.photos/seed/course-${id || 'fallback'}/600/400`;
+    const cover = image || coverFallback;
+    const r = Math.max(0, Math.min(5, Number(isNaN(Number(rating)) ? 0 : Number(rating))));
+
     return (
         <Card
             component={Link}
             to={`/courses/${id}`}
             sx={{
                 position: 'relative',
-                borderRadius: 3,
-                boxShadow: theme.shadows[4],
-                transition: "transform 0.2s, box-shadow 0.2s",
-                "&:hover": {
-                    transform: "scale(1.03)",
-                    boxShadow: theme.shadows[8],
-                },
-                backgroundColor: theme.palette.brand.soft,
-                textDecoration: "none",
-                color: "inherit",
-                display: "block",
                 height: '100%',
+                minHeight: 300,
+                display: 'flex',
+                flexDirection: 'column',
+                textDecoration: 'none',
+                color: 'inherit',
+                borderRadius: 3,
+                border: `1px solid ${border}`,
+                background: theme.palette.mode === 'dark'
+                    ? theme.palette.background.paper
+                    : `linear-gradient(180deg, #FFFFFF 0%, ${soft} 100%)`,
+                boxShadow: theme.customShadows?.card || '0 12px 32px rgba(15,23,42,0.12)',
+                transition: 'transform .2s, box-shadow .2s, border-color .2s, background-color .2s',
+                '&:hover': {
+                    transform: 'translateY(-3px)',
+                    boxShadow: '0 18px 38px rgba(15,23,42,0.18)',
+                    borderColor: theme.palette.primary.main,
+                    backgroundColor: hoverBg,
+                },
             }}
         >
             <CardMedia
                 component="img"
-                height="160"
-                image={image}
-                alt={title}
+                image={cover}
+                alt={courseTitle}
+                onError={(e) => { e.currentTarget.src = coverFallback; }}
+                sx={{ height: 160, objectFit: 'cover', borderRadius: '12px 12px 0 0' }}
             />
 
             {/* Action Icons */}
@@ -95,16 +133,25 @@ export default function CourseCard({
                 top: 8,
                 right: 8,
                 display: 'flex',
-                gap: 1
+                gap: 1,
+                zIndex: 2,
             }}>
                 {/* Cart Icon */}
-                <Tooltip title={inCart ? "Remove from Cart" : "Add to Cart"}>
+                <Tooltip title={inCart ? "In Cart" : "Add to Cart"}>
                     <IconButton
                         onClick={handleCartClick}
+                        aria-label={inCart ? 'in cart' : 'add to cart'}
                         sx={{
-                            bgcolor: alpha(theme.palette.background.paper, 0.85),
+                            width: 38,
+                            height: 38,
+                            borderRadius: 2,
+                            bgcolor: alpha(theme.palette.background.paper, 0.8),
+                            border: `1px solid ${alpha(theme.palette.primary.main, 0.25)}`,
+                            backdropFilter: 'blur(4px)',
+                            boxShadow: '0 6px 16px rgba(15,23,42,0.12)',
                             '&:hover': {
-                                bgcolor: alpha(theme.palette.background.paper, 0.98),
+                                bgcolor: alpha(theme.palette.background.paper, 0.95),
+                                borderColor: theme.palette.primary.main,
                             },
                         }}
                         disabled={enrolled || inCart}
@@ -123,10 +170,19 @@ export default function CourseCard({
                 <Tooltip title={favorite ? "Remove from Favorites" : "Add to Favorites"}>
                     <IconButton
                         onClick={handleFavoriteClick}
+                        aria-pressed={favorite}
+                        aria-label={favorite ? 'remove from favorites' : 'add to favorites'}
                         sx={{
-                            bgcolor: alpha(theme.palette.background.paper, 0.85),
+                            width: 38,
+                            height: 38,
+                            borderRadius: 2,
+                            bgcolor: alpha(theme.palette.background.paper, 0.8),
+                            border: `1px solid ${alpha(theme.palette.primary.main, 0.25)}`,
+                            backdropFilter: 'blur(4px)',
+                            boxShadow: '0 6px 16px rgba(15,23,42,0.12)',
                             '&:hover': {
-                                bgcolor: alpha(theme.palette.background.paper, 0.98),
+                                bgcolor: alpha(theme.palette.background.paper, 0.95),
+                                borderColor: theme.palette.primary.main,
                             },
                         }}
                     >
@@ -139,24 +195,28 @@ export default function CourseCard({
                 </Tooltip>
             </Box>
 
-            <CardContent>
+            <CardContent sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1, flexGrow: 1 }}>
                 <Box sx={{ mb: 1 }}>
                     <Chip
-                        label={category}
+                        label={courseCategory}
                         size="small"
-                        sx={{
-                            bgcolor: theme.palette.secondary.main,
-                            color: theme.palette.secondary.contrastText,
-                            fontWeight: 'bold',
+                        sx={() => {
+                            const c = colorForCategory(courseCategory);
+                            return {
+                                bgcolor: alpha(c, 0.14),
+                                border: `1px solid ${alpha(c, 0.35)}`,
+                                color: 'text.primary',
+                                width: 'max-content',
+                            };
                         }}
                     />
                 </Box>
 
                 <Typography
-                    variant="h6"
+                    variant="subtitle1"
                     component="div"
                     sx={{
-                        fontWeight: 'bold',
+                        fontWeight: 900,
                         mb: 1,
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
@@ -165,7 +225,7 @@ export default function CourseCard({
                         WebkitBoxOrient: 'vertical',
                     }}
                 >
-                    {title}
+                    {courseTitle}
                 </Typography>
 
                 <Typography
@@ -179,17 +239,10 @@ export default function CourseCard({
                         WebkitBoxOrient: 'vertical',
                     }}
                 >
-                    {description}
+                    {courseDesc}
                 </Typography>
 
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        mt: 'auto'
-                    }}
-                >
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 'auto' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <Typography variant="h6" color="primary.main">
                             ${price}
@@ -203,16 +256,10 @@ export default function CourseCard({
                             />
                         )}
                     </Box>
-                    <Typography
-                        variant="body2"
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            color: theme.palette.warning.main
-                        }}
-                    >
-                        ⭐ {rating.toFixed(1)}
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+                        <Rating value={r} readOnly precision={0.5} max={5} sx={{ '& .MuiRating-iconFilled': { color: theme.palette.primary.main } }} />
+                        <Typography variant="body2" sx={{ fontWeight: 600 }}>{r.toFixed(1)}</Typography>
+                    </Box>
                 </Box>
             </CardContent>
         </Card>
