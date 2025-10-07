@@ -1,5 +1,6 @@
 // src/hooks/useTeachers.js
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import {
     selectTeachers,
     addTeacher,
@@ -13,6 +14,11 @@ export default function useTeachers() {
     const dispatch = useDispatch();
     const teachers = useSelector(selectTeachers);
     const courses = useSelector(selectCourses);
+    
+    // Ensure seed data is available when hook is first used
+    useEffect(() => {
+        dispatch(seedTeachersIfEmpty());
+    }, [dispatch]);
 
     const teachersWithCounts = teachers.map((t) => ({
         ...t,
