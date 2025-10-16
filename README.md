@@ -61,8 +61,8 @@ Default teacher languages: Arabic, English when missing.
 
 Card background uses a light tone (#fafafa) for hierarchy against white content areas.
 
-License
-Add your preferred license (e.g., MIT) if you plan to distribute.
+you can see live web site from here 
+https://elearning-app-xi.vercel.app/
 
 makefile
 Copy code
